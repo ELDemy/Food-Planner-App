@@ -1,6 +1,7 @@
 package com.dmy.foodplannerapp;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,12 +9,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.dmy.foodplannerapp.remote_data_source.RemoteDataSourceImpl;
-import com.google.firebase.auth.FirebaseAuth;
+import com.dmy.foodplannerapp.data.failure.Failure;
+import com.dmy.foodplannerapp.data.model.User;
+import com.dmy.foodplannerapp.presentation.auth.presenter.AuthPresenter;
+import com.dmy.foodplannerapp.presentation.auth.presenter.AuthPresenterImp;
+import com.dmy.foodplannerapp.presentation.auth.view.OnAuthCall;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnAuthCall {
     final String TAG = "MainActivity";
-    FirebaseAuth mAuth;
+
+    AuthPresenter authPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +31,31 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        authPresenter = new AuthPresenterImp(this);
+    }
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
         login();
     }
 
     private void login() {
-
+        authPresenter.signInWithGoogle(this);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        RemoteDataSourceImpl remoteDataSource = new RemoteDataSourceImpl();
-        remoteDataSource.startGoogleSignIn(this);
+    public void onAuthSuccess(User user) {
+        Toast.makeText(MainActivity.this, "Welcome " + user.getEmail(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAuthFailure(Failure failure) {
+        Toast.makeText(MainActivity.this, failure.getMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onAuthLoading(boolean isLoading) {
 
     }
 }
