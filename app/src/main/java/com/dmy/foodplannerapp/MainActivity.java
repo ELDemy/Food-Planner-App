@@ -8,7 +8,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.dmy.foodplannerapp.remote_data_source.RemoteDataSourceImpl;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
+    final String TAG = "MainActivity";
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +25,19 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        login();
+    }
+
+    private void login() {
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        RemoteDataSourceImpl remoteDataSource = new RemoteDataSourceImpl();
+        remoteDataSource.startGoogleSignIn(this);
+
     }
 }
