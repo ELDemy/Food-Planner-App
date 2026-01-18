@@ -10,6 +10,5 @@ public interface AuthPresenter {
     void signInWithEmailAndPassword(CustomAuthCredentials customAuthCredentials);
 
     void signInWithGoogle(Activity activity);
-
-
+    
 }

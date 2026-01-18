@@ -8,15 +8,15 @@ import com.dmy.foodplannerapp.data.auth.repo.AuthRepoImp;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.model.CustomAuthCredentials;
 import com.dmy.foodplannerapp.data.model.User;
-import com.dmy.foodplannerapp.presentation.auth.view.OnAuthCall;
+import com.dmy.foodplannerapp.presentation.auth.view.AuthView;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AuthPresenterImp implements AuthPresenter {
-    OnAuthCall onAuthCall;
+    AuthView authView;
     AuthRepo authRepo;
 
-    public AuthPresenterImp(OnAuthCall onAuthCall) {
-        this.onAuthCall = onAuthCall;
+    public AuthPresenterImp(AuthView authView) {
+        this.authView = authView;
         initRemote();
     }
 
@@ -26,17 +26,17 @@ public class AuthPresenterImp implements AuthPresenter {
                 new OnAuthCallBack() {
                     @Override
                     public void onAuthSuccess(FirebaseUser user) {
-                        onAuthCall.onAuthLoading(false);
+                        authView.onAuthLoading(false);
 
                         User newUser = new User(user.getDisplayName(), user.getEmail());
-                        onAuthCall.onAuthSuccess(newUser);
+                        authView.onAuthSuccess(newUser);
                     }
 
                     @Override
                     public void onAuthFailure(Failure failure) {
-                        onAuthCall.onAuthLoading(false);
+                        authView.onAuthLoading(false);
 
-                        onAuthCall.onAuthFailure(failure);
+                        authView.onAuthFailure(failure);
                     }
                 }
         );
@@ -44,19 +44,19 @@ public class AuthPresenterImp implements AuthPresenter {
 
     @Override
     public void signUpWithEmailAndPassword(CustomAuthCredentials customAuthCredentials) {
-        onAuthCall.onAuthLoading(true);
+        authView.onAuthLoading(true);
         authRepo.signUpWithEmailAndPassword(customAuthCredentials);
     }
 
     @Override
     public void signInWithEmailAndPassword(CustomAuthCredentials customAuthCredentials) {
-        onAuthCall.onAuthLoading(true);
+        authView.onAuthLoading(true);
         authRepo.signInWithEmailAndPassword(customAuthCredentials);
     }
 
     @Override
     public void signInWithGoogle(Activity activity) {
-        onAuthCall.onAuthLoading(true);
+        authView.onAuthLoading(true);
         authRepo.signInWithGoogle(activity);
     }
 }
