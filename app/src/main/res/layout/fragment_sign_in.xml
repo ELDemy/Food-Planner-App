@@ -8,7 +8,6 @@
     android:layout_marginHorizontal="24dp"
     tools:context=".presentation.auth.view.SignInFragment">
 
-
     <RelativeLayout
         android:id="@+id/container"
         android:layout_width="80dp"
@@ -84,7 +83,7 @@
         android:lineSpacingExtra="4sp"
         android:text="@string/forgot_pass"
         android:textAppearance="@style/forgot_pass"
-        android:translationY="-1.95sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/password_field"
         app:layout_constraintTop_toBottomOf="@+id/password_field" />
 
@@ -148,7 +147,7 @@
         app:srcCompat="@drawable/divider" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/btn_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -179,7 +178,7 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/btn_guest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -195,7 +194,6 @@
         android:id="@+id/layout_donthave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

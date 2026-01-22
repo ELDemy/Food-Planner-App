@@ -13,7 +13,7 @@ public class AuthRepoImp implements AuthRepo {
     public AuthRepoImp(OnAuthCallBack onAuthCallBack) {
         remoteDataSource = new AuthRemoteDataSourceImp(onAuthCallBack);
     }
-    
+
     @Override
     public void signUpWithEmailAndPassword(CustomAuthCredentials customAuthCredentials) {
         remoteDataSource.signUpWithEmailAndPassword(customAuthCredentials);
@@ -27,5 +27,10 @@ public class AuthRepoImp implements AuthRepo {
     @Override
     public void signInWithGoogle(Activity activity) {
         remoteDataSource.signInWithGoogle(activity);
+    }
+
+    @Override
+    public void continueAsGuest() {
+        remoteDataSource.continueAsGuest();
     }
 }

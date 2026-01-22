@@ -21,7 +21,6 @@ public class AuthPresenterImp implements AuthPresenter {
     }
 
     private void initRemote() {
-
         authRepo = new AuthRepoImp(
                 new OnAuthCallBack() {
                     @Override
@@ -58,5 +57,11 @@ public class AuthPresenterImp implements AuthPresenter {
     public void signInWithGoogle(Activity activity) {
         authView.onAuthLoading(true);
         authRepo.signInWithGoogle(activity);
+    }
+
+    @Override
+    public void continueAsGuest() {
+        authView.onAuthLoading(true);
+        authRepo.continueAsGuest();
     }
 }

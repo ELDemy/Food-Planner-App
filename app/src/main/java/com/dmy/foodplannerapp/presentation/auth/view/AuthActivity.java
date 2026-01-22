@@ -1,53 +1,50 @@
 package com.dmy.foodplannerapp.presentation.auth.view;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.failure.Failure;
-import com.dmy.foodplannerapp.data.model.User;
-import com.dmy.foodplannerapp.presentation.auth.presenter.AuthPresenter;
-import com.dmy.foodplannerapp.presentation.auth.presenter.AuthPresenterImp;
+import com.dmy.foodplannerapp.presentation.home.view.HomeActivity;
 
-public class AuthActivity extends AppCompatActivity implements AuthView {
-    final String TAG = "AuthActivity";
-
-    AuthPresenter authPresenter;
-
+public class AuthActivity extends AppCompatActivity implements AuthCommunicator {
+    ProgressBar progressBar;
+    View blockingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_auth);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        authPresenter = new AuthPresenterImp(this);
+        progressBar = findViewById(R.id.authProgressBar);
+        blockingView = findViewById(R.id.blockingView);
     }
 
 
     @Override
-    public void onAuthSuccess(User user) {
-        Toast.makeText(AuthActivity.this, "Welcome " + user.getEmail(), Toast.LENGTH_LONG).show();
+    public void showLoading() {
+        blockingView.setVisibility(VISIBLE);
+        progressBar.setVisibility(VISIBLE);
     }
 
     @Override
-    public void onAuthFailure(Failure failure) {
-        Toast.makeText(AuthActivity.this, failure.getMessage(), Toast.LENGTH_LONG).show();
+    public void hideLoading() {
+        blockingView.setVisibility(GONE);
+        progressBar.setVisibility(GONE);
     }
 
     @Override
-    public void onAuthLoading(boolean isLoading) {
-
+    public void goToHomeScreen() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

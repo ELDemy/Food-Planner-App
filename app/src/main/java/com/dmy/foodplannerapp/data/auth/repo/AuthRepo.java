@@ -10,4 +10,6 @@ public interface AuthRepo {
     void signInWithEmailAndPassword(CustomAuthCredentials customAuthCredentials);
 
     void signInWithGoogle(Activity activity);
+
+    void continueAsGuest();
 }

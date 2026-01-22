@@ -52,4 +52,22 @@ public class TextFormField extends LinearLayout {
             a.recycle();
         }
     }
+
+    public String getText() {
+        clearError();
+        TextInputEditText editText = findViewById(R.id.editText);
+        return editText.getText().toString();
+    }
+
+    public void setError(String err) {
+        TextInputLayout editText = findViewById(R.id.textInputLayout);
+        editText.setError(err);
+    }
+
+    private void clearError() {
+        TextInputLayout editText = findViewById(R.id.textInputLayout);
+        editText.setError(null);
+    }
+
+
 }
