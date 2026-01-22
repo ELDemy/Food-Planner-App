@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
     <color name="grey">#FF99A1AF</color>
     <color name="green">#FF00A63E</color>
+    <color name="faded_text">#FF4A5565</color>
+
+    <!-- Base -->
+    <color name="black">#FF000000</color>
+    <color name="black_50">#800A0A0A</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_90">#E5FFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Backgrounds -->
+    <color name="bg_light">#F9FAFB</color>
+    <color name="bg_gray">#F3F4F6</color>
+    <color name="bg_border">#E5E7EB</color>
+
+    <!-- Text -->
+    <color name="text_primary">#1E2939</color>
+    <color name="text_secondary">#4A5565</color>
+    <color name="text_hint">#6A7282</color>
+    <color name="text_disabled">#99A1AF</color>
+
+    <!-- Primary (Blue) -->
+    <color name="primary">#155DFC</color>
+    <color name="primary_light">#DBEAFE</color>
+    <color name="primary_alt">#4285F4</color>
+
+    <!-- Success (Green) -->
+    <color name="success">#00A63E</color>
+    <color name="success_light">#DCFCE7</color>
+    <color name="success_dark">#008236</color>
+
+    <!-- Warning (Orange / Yellow) -->
+    <color name="warning">#FF6900</color>
+    <color name="warning_dark">#E17100</color>
+    <color name="warning_light">#FFEDD4</color>
+    <color name="warning_yellow">#FBBC05</color>
+
+    <!-- Error (Red) -->
+    <color name="error">#E7000B</color>
+    <color name="error_alt">#EA4335</color>
+    <color name="error_light">#FFE2E2</color>
+    <color name="error_soft">#FFC9C9</color>
+
+    <!-- Accent / Purple / Pink -->
+    <color name="purple">#9810FA</color>
+    <color name="purple_light">#F3E8FF</color>
+    <color name="pink_light">#FCE7F3</color>
+
 </resources>
