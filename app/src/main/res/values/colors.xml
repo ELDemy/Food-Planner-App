@@ -2,6 +2,7 @@
 <resources>
     <color name="grey">#FF99A1AF</color>
     <color name="green">#FF00A63E</color>
+    <color name="orange">#FFFF6900</color>
     <color name="faded_text">#FF4A5565</color>
 
     <color name="green_dark">#FF008F35</color>
