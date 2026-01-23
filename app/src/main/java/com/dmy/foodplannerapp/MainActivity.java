@@ -25,7 +25,10 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        setUpNavHost();
+    }
 
+    private void setUpNavHost() {
         BottomNavigationView bottomNav = findViewById(R.id.navBar);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
