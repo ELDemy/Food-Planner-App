@@ -14,4 +14,10 @@
     <string name="hello">Hello</string>
     <string name="home_screen">Home Screen</string>
     <string name="search_recipes_ingredients">Search recipes, ingredients...</string>
+    <string name="suggested_meals">Suggested Meals</string>
+    <string name="meal_of_the_day">Meal of the Day</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="categories">Categories</string>
+    <string name="see_all">See All</string>
+    <string name="featured_today">Featured Today</string>
 </resources>

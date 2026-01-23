@@ -76,24 +76,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Meal of the Day"
+                android:text="@string/meal_of_the_day"
                 android:textColor="@color/text_primary"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_container"
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_featuredContainer"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="16dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:cardCornerRadius="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tools_tv_mealOfTheDay">
+                app:layout_constraintTop_toBottomOf="@+id/tools_tv_mealOfTheDay"
+                app:strokeWidth="0dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_card"
@@ -104,113 +107,166 @@
                         android:id="@+id/img_mealOfTheDay"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:contentDescription="meal_image_description"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/feature_image"
+                        android:src="@drawable/feature_image_placeholder"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/gradient_overlay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/gradient_overlay"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/badge_featured"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        app:cardBackgroundColor="#404CAF50"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:strokeWidth="0dp">
 
-                    <TextView
-                        android:id="@+id/txt_dayMealTitle"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:paddingHorizontal="14dp"
+                            android:paddingVertical="6dp"
+                            android:text="@string/featured_today"
+                            android:textColor="@color/green"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Favorite Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_favorite"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="16dp"
+                        app:cardBackgroundColor="#80FFFFFF"
+                        app:cardCornerRadius="20dp"
+                        app:cardElevation="2dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeWidth="0dp">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="add to favorites"
+                            android:src="@drawable/heart"
+                            app:tint="@color/text_primary" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:id="@+id/content_container"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:text="Creamy Tuscan Pasta"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/tv_dayMealCountry"
-                        app:layout_constraintStart_toStartOf="@+id/tv_dayMealtCategory" />
-
-                    <TextView
-                        android:id="@+id/tv_dayMealCountry"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Italian"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-
-                        app:layout_constraintBottom_toTopOf="@+id/tv_dayMealtCategory"
-                        app:layout_constraintStart_toStartOf="@+id/tv_dayMealtCategory" />
-
-                    <TextView
-                        android:id="@+id/tv_dayMealtCategory"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginBottom="6dp"
-                        android:text="Cuisine"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
+                        android:orientation="vertical"
+                        android:padding="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent">
 
-                    <TextView
-                        android:id="@+id/textView7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/rounded_text_shape"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="4dp"
-                        android:text="Featured Today"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toTopOf="@+id/txt_dayMealTitle"
+                        <TextView
+                            android:id="@+id/txt_dayMealTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif-medium"
+                            android:maxLines="2"
+                            android:shadowColor="#80000000"
+                            android:shadowDx="0"
+                            android:shadowDy="2"
+                            android:shadowRadius="4"
+                            android:text="Creamy Tuscan Pasta"
+                            android:textColor="@color/white"
+                            android:textSize="26sp"
+                            android:textStyle="bold" />
 
-                        app:layout_constraintStart_toStartOf="@+id/txt_dayMealTitle" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:cardBackgroundColor="#40FFFFFF"
+                                app:cardCornerRadius="8dp"
+                                app:cardElevation="0dp"
+                                app:strokeWidth="0dp">
+
+                                <TextView
+                                    android:id="@+id/tv_dayMealCategory"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:paddingHorizontal="10dp"
+                                    android:paddingVertical="4dp"
+                                    android:text="Italian"
+                                    android:textColor="@color/white"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="4dp"
+                                android:layout_marginHorizontal="10dp"
+                                android:background="@drawable/dot_seperator" />
+
+                            <TextView
+                                android:id="@+id/tv_dayMealCountry"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif"
+                                android:text="Cuisine"
+                                android:textColor="@color/white"
+                                android:textSize="13sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Categories"
-                android:textColor="@color/text_primary"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/card_container" />
-
-            <LinearLayout
-                android:id="@+id/btn_seeAllCategories"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView4">
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="See All"
-                    android:textColor="@color/green"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/arrow_simple" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_categories"
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_suggestedMeals"
+                android:name="com.dmy.foodplannerapp.presentation.home.view.SuggestedMealsFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
-                tools:listitem="@layout/category_card" />
+                app:layout_constraintTop_toBottomOf="@+id/card_featuredContainer"
+                tools:layout="@layout/fragment_suggested_meals" />
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_categoriesList"
+                android:name="com.dmy.foodplannerapp.presentation.home.view.CategoriesListFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_suggestedMeals"
+                tools:layout="@layout/fragment_categories_list" />
+
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView4"
@@ -219,7 +275,7 @@
                 android:layout_height="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_categories"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_categoriesList"
                 tools:layout="@layout/fragment_explore" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
