@@ -3,13 +3,14 @@
     <color name="grey">#FF99A1AF</color>
     <color name="green">#FF00A63E</color>
     <color name="orange">#FFFF6900</color>
+
     <color name="faded_text">#FF4A5565</color>
 
     <color name="green_dark">#FF008F35</color>
     <color name="green_light">#FF00C74D</color>
     <color name="green_pale">#FF99E6B8</color>
     <color name="nav_ripple">#40FFFFFF</color>
-
+    <color name="light_yellow">#FFFFEDD4</color>
     <!-- Active Indicator Colors -->
     <color name="indicator_active">#FFFFFFFF</color>
     <color name="indicator_bg">#30FFFFFF</color>
@@ -59,5 +60,8 @@
     <color name="purple">#9810FA</color>
     <color name="purple_light">#F3E8FF</color>
     <color name="pink_light">#FCE7F3</color>
+
+    <color name="card_surface">#FFFFFF</color>
+    <color name="card_surface_dark">#1C1C1E</color>
 
 </resources>
