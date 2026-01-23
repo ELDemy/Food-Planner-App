@@ -82,6 +82,8 @@ public class FirebaseAuthDataSource implements AuthRemoteDataSource {
     public void signInWithGoogle(Activity activity) {
         GetGoogleIdOption googleIdOption = new GetGoogleIdOption.Builder()
                 .setServerClientId(activity.getString(R.string.default_web_client_id))
+                .setFilterByAuthorizedAccounts(false) // دي أهم واحدة: خلها false عشان تظهر كل الايميلات
+                .setAutoSelectEnabled(false) // عشان اليوزر يختار بنفسه ومتحصلش لخبطة
                 .build();
 
         GetCredentialRequest request = new GetCredentialRequest.Builder()
