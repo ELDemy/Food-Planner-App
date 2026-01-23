@@ -11,8 +11,8 @@ import android.widget.ProgressBar;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dmy.foodplannerapp.MainActivity;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.presentation.home.view.HomeActivity;
 
 public class AuthActivity extends AppCompatActivity implements AuthCommunicator {
     ProgressBar progressBar;
@@ -43,7 +43,7 @@ public class AuthActivity extends AppCompatActivity implements AuthCommunicator 
 
     @Override
     public void goToHomeScreen() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }

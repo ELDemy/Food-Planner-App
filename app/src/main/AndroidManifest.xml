@@ -22,9 +22,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.home.view.HomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.auth.view.AuthActivity"
             android:exported="true" />
         <activity

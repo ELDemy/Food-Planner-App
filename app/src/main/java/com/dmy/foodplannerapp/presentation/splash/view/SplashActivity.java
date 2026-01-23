@@ -9,9 +9,9 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dmy.foodplannerapp.MainActivity;
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.presentation.auth.view.AuthActivity;
-import com.dmy.foodplannerapp.presentation.home.view.HomeActivity;
 import com.dmy.foodplannerapp.presentation.splash.presenter.SplashPresenter;
 
 public class SplashActivity extends AppCompatActivity implements SplashView {
@@ -62,7 +62,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     @Override
     public void navigateToHomeScreen() {
         appName.postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }, 3000);
