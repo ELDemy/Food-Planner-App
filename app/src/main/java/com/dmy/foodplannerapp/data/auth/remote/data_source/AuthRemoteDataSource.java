@@ -2,7 +2,7 @@ package com.dmy.foodplannerapp.data.auth.remote.data_source;
 
 import android.app.Activity;
 
-import com.dmy.foodplannerapp.data.model.CustomAuthCredentials;
+import com.dmy.foodplannerapp.data.auth.remote.model.CustomAuthCredentials;
 
 public interface AuthRemoteDataSource {
     void signUpWithEmailAndPassword(CustomAuthCredentials customAuthCredentials);
@@ -12,4 +12,6 @@ public interface AuthRemoteDataSource {
     void signInWithGoogle(Activity activity);
 
     void continueAsGuest();
+
+    boolean checkIfUserIsLoggedIn();
 }

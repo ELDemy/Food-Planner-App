@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.data.model;
+package com.dmy.foodplannerapp.data.auth.remote.model;
 
 public class CustomAuthCredentials {
     private final String email;

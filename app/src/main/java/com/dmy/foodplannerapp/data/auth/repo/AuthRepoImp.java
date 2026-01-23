@@ -3,15 +3,15 @@ package com.dmy.foodplannerapp.data.auth.repo;
 import android.app.Activity;
 
 import com.dmy.foodplannerapp.data.auth.remote.data_source.AuthRemoteDataSource;
-import com.dmy.foodplannerapp.data.auth.remote.data_source.AuthRemoteDataSourceImp;
-import com.dmy.foodplannerapp.data.auth.remote.data_source.OnAuthCallBack;
-import com.dmy.foodplannerapp.data.model.CustomAuthCredentials;
+import com.dmy.foodplannerapp.data.auth.remote.data_source.FirebaseAuthDataSource;
+import com.dmy.foodplannerapp.data.auth.remote.model.CustomAuthCredentials;
+import com.google.firebase.auth.FirebaseUser;
 
 public class AuthRepoImp implements AuthRepo {
     AuthRemoteDataSource remoteDataSource;
 
-    public AuthRepoImp(OnAuthCallBack onAuthCallBack) {
-        remoteDataSource = new AuthRemoteDataSourceImp(onAuthCallBack);
+    public AuthRepoImp(MyCallBack<FirebaseUser> myCallBack) {
+        remoteDataSource = new FirebaseAuthDataSource(myCallBack);
     }
 
     @Override
@@ -32,5 +32,10 @@ public class AuthRepoImp implements AuthRepo {
     @Override
     public void continueAsGuest() {
         remoteDataSource.continueAsGuest();
+    }
+
+    @Override
+    public boolean checkIfUserIsLoggedIn() {
+        return remoteDataSource.checkIfUserIsLoggedIn();
     }
 }

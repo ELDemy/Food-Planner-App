@@ -2,7 +2,7 @@ package com.dmy.foodplannerapp.data.auth.repo;
 
 import android.app.Activity;
 
-import com.dmy.foodplannerapp.data.model.CustomAuthCredentials;
+import com.dmy.foodplannerapp.data.auth.remote.model.CustomAuthCredentials;
 
 public interface AuthRepo {
     void signUpWithEmailAndPassword(CustomAuthCredentials customAuthCredentials);
@@ -12,4 +12,6 @@ public interface AuthRepo {
     void signInWithGoogle(Activity activity);
 
     void continueAsGuest();
+
+    boolean checkIfUserIsLoggedIn();
 }
