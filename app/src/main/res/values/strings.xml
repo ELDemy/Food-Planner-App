@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FoodPlannerApp</string>
+    <string name="app_name">Mealify</string>
     <string name="sign_in_to_">Sign in to continue planning meals</string>
     <string name="sign_up_to_">Sign up to start planning meals</string>
     <string name="welcome_bac">Welcome Back</string>
@@ -10,7 +10,6 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_up">  Sign Up</string>
     <string name="continue_as_guest">Continue as Guest</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello">Hello</string>
 </resources>

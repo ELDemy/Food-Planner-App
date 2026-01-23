@@ -2,11 +2,11 @@ package com.dmy.foodplannerapp.presentation.auth.presenter;
 
 import android.app.Activity;
 
-import com.dmy.foodplannerapp.data.auth.remote.data_source.OnAuthCallBack;
+import com.dmy.foodplannerapp.data.auth.remote.model.CustomAuthCredentials;
 import com.dmy.foodplannerapp.data.auth.repo.AuthRepo;
 import com.dmy.foodplannerapp.data.auth.repo.AuthRepoImp;
+import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
-import com.dmy.foodplannerapp.data.model.CustomAuthCredentials;
 import com.dmy.foodplannerapp.data.model.User;
 import com.dmy.foodplannerapp.presentation.auth.view.AuthView;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,9 +22,9 @@ public class AuthPresenterImp implements AuthPresenter {
 
     private void initRemote() {
         authRepo = new AuthRepoImp(
-                new OnAuthCallBack() {
+                new MyCallBack<FirebaseUser>() {
                     @Override
-                    public void onAuthSuccess(FirebaseUser user) {
+                    public void onSuccess(FirebaseUser user) {
                         authView.onAuthLoading(false);
 
                         User newUser = new User(user.getDisplayName(), user.getEmail());
@@ -32,7 +32,7 @@ public class AuthPresenterImp implements AuthPresenter {
                     }
 
                     @Override
-                    public void onAuthFailure(Failure failure) {
+                    public void onFailure(Failure failure) {
                         authView.onAuthLoading(false);
 
                         authView.onAuthFailure(failure);
@@ -64,4 +64,5 @@ public class AuthPresenterImp implements AuthPresenter {
         authView.onAuthLoading(true);
         authRepo.continueAsGuest();
     }
+
 }

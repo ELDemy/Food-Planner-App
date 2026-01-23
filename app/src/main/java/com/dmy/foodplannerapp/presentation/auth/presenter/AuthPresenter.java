@@ -2,7 +2,7 @@ package com.dmy.foodplannerapp.presentation.auth.presenter;
 
 import android.app.Activity;
 
-import com.dmy.foodplannerapp.data.model.CustomAuthCredentials;
+import com.dmy.foodplannerapp.data.auth.remote.model.CustomAuthCredentials;
 
 public interface AuthPresenter {
     void signUpWithEmailAndPassword(CustomAuthCredentials customAuthCredentials);
