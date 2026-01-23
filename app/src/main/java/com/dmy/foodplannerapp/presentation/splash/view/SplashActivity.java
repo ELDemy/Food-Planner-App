@@ -14,9 +14,10 @@ import com.dmy.foodplannerapp.presentation.auth.view.AuthActivity;
 import com.dmy.foodplannerapp.presentation.home.view.HomeActivity;
 import com.dmy.foodplannerapp.presentation.splash.presenter.SplashPresenter;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity implements SplashView {
     TextView appName;
     SplashPresenter splashPresenter;
+    ObjectAnimator bounceAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,18 +26,12 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         appName = findViewById(R.id.tvAppName);
-        splashPresenter = new SplashPresenter();
+        splashPresenter = new SplashPresenter(this);
         checkIfUserIsLoggedIn();
     }
 
     private void checkIfUserIsLoggedIn() {
-        if (splashPresenter.checkIfUserIsLoggedIn()) {
-            startActivity(new Intent(this, HomeActivity.class));
-            finish();
-        } else {
-            startActivity(new Intent(this, AuthActivity.class));
-            finish();
-        }
+        splashPresenter.checkIfUserIsLoggedIn();
     }
 
     @Override
@@ -44,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onStart();
         appName.setAlpha(1f);
 
-        ObjectAnimator bounceAnimator = ObjectAnimator.ofFloat(
+        bounceAnimator = ObjectAnimator.ofFloat(
                 appName,
                 "translationY",
                 0f, -50f, 0f
@@ -56,5 +51,29 @@ public class SplashActivity extends AppCompatActivity {
         bounceAnimator.setRepeatMode(ValueAnimator.REVERSE);
 
         bounceAnimator.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bounceAnimator.cancel();
+    }
+
+    @Override
+    public void navigateToHomeScreen() {
+        appName.postDelayed(() -> {
+            Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }, 3000);
+    }
+
+    @Override
+    public void navigateToAuthScreen() {
+        appName.postDelayed(() -> {
+            Intent intent = new Intent(SplashActivity.this, AuthActivity.class);
+            startActivity(intent);
+            finish();
+        }, 3000);
     }
 }

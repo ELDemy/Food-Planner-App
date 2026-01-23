@@ -13,5 +13,5 @@ public interface AuthRepo {
 
     void continueAsGuest();
 
-    boolean checkIfUserIsLoggedIn();
+    void checkIfUserIsLoggedIn();
 }

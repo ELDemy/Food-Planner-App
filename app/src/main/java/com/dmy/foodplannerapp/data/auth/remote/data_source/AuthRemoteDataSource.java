@@ -13,5 +13,5 @@ public interface AuthRemoteDataSource {
 
     void continueAsGuest();
 
-    boolean checkIfUserIsLoggedIn();
+    void checkIfUserIsLoggedIn();
 }

@@ -34,9 +34,9 @@ public class FirebaseAuthDataSource implements AuthRemoteDataSource {
     private final String TAG = "FirebaseAuth";
 
     private final FirebaseAuth authInstance;
-    private final MyCallBack<FirebaseUser> myCallBack;
+    private final MyCallBack myCallBack;
 
-    public FirebaseAuthDataSource(MyCallBack<FirebaseUser> myCallBack) {
+    public FirebaseAuthDataSource(MyCallBack myCallBack) {
         this.myCallBack = myCallBack;
         authInstance = FirebaseAuth.getInstance();
     }
@@ -171,9 +171,13 @@ public class FirebaseAuthDataSource implements AuthRemoteDataSource {
     }
 
     @Override
-    public boolean checkIfUserIsLoggedIn() {
+    public void checkIfUserIsLoggedIn() {
         FirebaseUser user = authInstance.getCurrentUser();
-        return user != null;
+        if (user != null) {
+            myCallBack.onSuccess(true);
+        } else {
+            myCallBack.onFailure(null);
+        }
     }
 
 
