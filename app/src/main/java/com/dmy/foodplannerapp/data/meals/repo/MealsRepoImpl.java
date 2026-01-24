@@ -29,5 +29,15 @@ public class MealsRepoImpl implements MealsRepo {
         mealsRemoteDataSource.getRandomMeals(quantity, callBack);
     }
 
+    @Override
+    public void addToFavourite(MealEntity meal, MyCallBack<Boolean> callBack) {
+
+    }
+
+    @Override
+    public void getFavouriteMeals(MyCallBack<List<MealEntity>> callBack) {
+
+    }
+
 
 }

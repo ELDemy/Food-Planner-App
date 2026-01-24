@@ -11,4 +11,8 @@ public interface MealsRepo {
     void getMealOfTheDay(MyCallBack<MealEntity> callBack);
 
     void getRandomMeals(int quantity, MyCallBack<List<MealEntity>> callBack);
+
+    void addToFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
+
+    void getFavouriteMeals(MyCallBack<List<MealEntity>> callBack);
 }

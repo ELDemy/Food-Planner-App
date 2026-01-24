@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".presentation.home.view.MealOfTheDayFragment">
+    tools:context=".presentation.home.meal_of_the_day_fragment.view.MealOfTheDayFragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/load_mealOfTheDay"
@@ -85,7 +85,6 @@
                     android:textSize="12sp" />
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Favorite Button -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btn_favorite"
                 android:layout_width="40dp"
@@ -99,12 +98,12 @@
                 app:strokeWidth="0dp">
 
                 <ImageView
+                    android:id="@+id/iv_heart"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
                     android:contentDescription="add to favorites"
-                    android:src="@drawable/heart"
-                    app:tint="@color/text_primary" />
+                    android:src="@drawable/heart" />
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout

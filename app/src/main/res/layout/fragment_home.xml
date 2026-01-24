@@ -81,10 +81,10 @@
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-            
+
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_mealOfTheDay"
-                android:name="com.dmy.foodplannerapp.presentation.home.view.MealOfTheDayFragment"
+                android:name="com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.view.MealOfTheDayFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"

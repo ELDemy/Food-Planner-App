@@ -1,12 +1,14 @@
-package com.dmy.foodplannerapp.presentation.home.presenter;
+package com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.presenter;
 
 import com.dmy.foodplannerapp.data.model.MealEntity;
 
-public interface HomeView {
+public interface MealOfTheDayView {
     void loadMealOfTheDay(boolean isLoading);
 
     void showMealOfTheDay(MealEntity meal);
 
     void errorMealOfTheDay(String message);
+
+    void changeFavouriteState(boolean isFavourite);
 
 }
