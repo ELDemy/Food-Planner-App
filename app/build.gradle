@@ -56,4 +56,5 @@ dependencies {
     implementation libs.retrofit
     implementation libs.converter.gson
     implementation libs.room.runtime
+    implementation 'com.github.bumptech.glide:glide:5.0.5'
 }

@@ -21,6 +21,14 @@ public class MealsResponse {
         this.meals = meals;
     }
 
+    public MealEntity getMeal() {
+        if (meals.isEmpty()) {
+            return null;
+        }
+        
+        return meals.get(0);
+    }
+
     @NonNull
     @Override
     public String toString() {

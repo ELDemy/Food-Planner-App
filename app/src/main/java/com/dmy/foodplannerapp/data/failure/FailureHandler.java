@@ -11,10 +11,37 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
+import retrofit2.Response;
+
 public final class FailureHandler {
     private static final String TAG = "FailureMapper";
 
     private FailureHandler() {
+    }
+
+
+    public static Failure handle(Response response, String tag) {
+        int code = response.code();
+        Log.w(tag, "error in response with code " + code + " message " + response.message() + "\nresponse is: " + response);
+
+        String message = response.message();
+        if (!message.isEmpty()) {
+            return new Failure(message);
+        }
+
+        return new Failure("Something went wrong!!");
+    }
+
+    public static Failure handle(Throwable t, String tag) {
+        t.printStackTrace();
+        Log.w(tag, t.getMessage(), t);
+
+        String message = t.getMessage();
+        if (message != null && !message.isEmpty()) {
+            return new Failure(tag + ": " + message);
+        }
+
+        return new Failure("Unexpected Error!!");
     }
 
     public static Failure handle(Task<AuthResult> task, String tag) {

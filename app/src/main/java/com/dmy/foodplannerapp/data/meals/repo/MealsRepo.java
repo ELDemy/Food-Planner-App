@@ -1,14 +1,14 @@
-package com.dmy.foodplannerapp.data.meals.remote;
+package com.dmy.foodplannerapp.data.meals.repo;
 
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.model.MealEntity;
 
 import java.util.List;
 
-public interface MealsRemoteDataSource {
+public interface MealsRepo {
     void getMealById(int id, MyCallBack<MealEntity> callBack);
 
-    void getRandomMeal(MyCallBack<MealEntity> callBack);
+    void getMealOfTheDay(MyCallBack<MealEntity> callBack);
 
     void getRandomMeals(int quantity, MyCallBack<List<MealEntity>> callBack);
 }
