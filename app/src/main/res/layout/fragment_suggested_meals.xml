@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".presentation.home.view.SuggestedMealsFragment">
+    tools:context=".presentation.home.suggested_meals_fragment.view.SuggestedMealsFragment">
 
     <TextView
         android:id="@+id/textView4_4"

@@ -1,5 +1,7 @@
 package com.dmy.foodplannerapp.data.meals.remote;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
@@ -82,28 +84,35 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
         ArrayList<MealEntity> mealsList = new ArrayList<>();
         ArrayList<Failure> failures = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < quantity; i++) {
+            Log.i("TAG", "getRandomMeals: " + i);
+            final int finalI = i;
             getRandomMeal(new MyCallBack<>() {
                 @Override
                 public void onSuccess(MealEntity data) {
+                    Log.i("TAG", "getMeal" + finalI + ": " + data);
                     mealsList.add(data);
+
+                    if (finalI == quantity - 1) {
+                        callBack.onSuccess(mealsList);
+                    }
                 }
 
                 @Override
                 public void onFailure(Failure failure) {
                     failures.add(failure);
+                    if (finalI == quantity - 1) {
+                        if (!mealsList.isEmpty()) {
+                            callBack.onSuccess(mealsList);
+                        } else {
+                            callBack.onFailure(failures.getFirst());
+                        }
+                    }
+
                 }
             });
         }
 
-        if (!mealsList.isEmpty()) {
-            callBack.onSuccess(mealsList);
-        } else {
-            if (failures.isEmpty()) {
-                callBack.onFailure(new Failure("Something went wrong"));
-            } else {
-                callBack.onFailure(failures.getFirst());
-            }
-        }
+
     }
 }

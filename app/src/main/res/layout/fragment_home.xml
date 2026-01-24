@@ -95,7 +95,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_suggestedMeals"
-                android:name="com.dmy.foodplannerapp.presentation.home.view.SuggestedMealsFragment"
+                android:name="com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.view.SuggestedMealsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="16dp"

@@ -11,6 +11,9 @@
         android:id="@+id/cardView_meal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         app:cardCornerRadius="12dp"
         app:cardElevation="4dp">
 
@@ -31,16 +34,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/feature_image_placeholder" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tv_meal_name"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/breakfast"
+        android:textAlignment="center"
         android:textColor="@color/text_secondary"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:textStyle="bold" />
 </LinearLayout>

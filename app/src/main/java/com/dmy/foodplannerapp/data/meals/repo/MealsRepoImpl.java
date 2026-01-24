@@ -88,10 +88,14 @@ public class MealsRepoImpl implements MealsRepo {
         mealsRemoteDataSource.getRandomMeals(quantity, new MyCallBack<>() {
             @Override
             public void onSuccess(List<MealEntity> meals) {
-                for (MealEntity meal : meals) {
-                    checkIfMealIsInFavorite(meal, () -> {
-                        callBack.onSuccess(meals);
-                    });
+                for (int i = 0; i < meals.size(); i++) {
+                    final int finalI = i;
+                    checkIfMealIsInFavorite(meals.get(i),
+                            () -> {
+                                if (finalI == quantity - 1) {
+                                    callBack.onSuccess(meals);
+                                }
+                            });
                 }
             }
 
