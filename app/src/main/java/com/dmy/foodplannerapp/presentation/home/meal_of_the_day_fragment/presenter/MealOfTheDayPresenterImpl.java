@@ -1,10 +1,13 @@
 package com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.presenter;
 
+import android.content.Context;
+
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepo;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepoImpl;
 import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.view.MealOfTheDayView;
 
 public class MealOfTheDayPresenterImpl implements MealOfTheDayPresenter {
 
@@ -12,8 +15,8 @@ public class MealOfTheDayPresenterImpl implements MealOfTheDayPresenter {
     MealOfTheDayView mealOfTheDayView;
     boolean isFavourite = false;
 
-    public MealOfTheDayPresenterImpl(MealOfTheDayView mealOfTheDayView) {
-        mealsRepo = new MealsRepoImpl();
+    public MealOfTheDayPresenterImpl(Context context, MealOfTheDayView mealOfTheDayView) {
+        mealsRepo = new MealsRepoImpl(context);
         this.mealOfTheDayView = mealOfTheDayView;
     }
 
@@ -39,8 +42,6 @@ public class MealOfTheDayPresenterImpl implements MealOfTheDayPresenter {
 
     @Override
     public void addToFavourite(MealEntity meal) {
-        isFavourite = !isFavourite;
-        mealOfTheDayView.changeFavouriteState(isFavourite);
 
         mealsRepo.addToFavourite(meal, new MyCallBack<>() {
             @Override

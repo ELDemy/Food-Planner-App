@@ -18,7 +18,6 @@ import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.model.MealEntity;
 import com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.presenter.MealOfTheDayPresenter;
 import com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.presenter.MealOfTheDayPresenterImpl;
-import com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.presenter.MealOfTheDayView;
 import com.dmy.foodplannerapp.presentation.reusable_components.CustomSnackBar;
 
 public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
@@ -37,7 +36,7 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mealOfTheDayPresenter = new MealOfTheDayPresenterImpl(this);
+        mealOfTheDayPresenter = new MealOfTheDayPresenterImpl(requireContext(), this);
     }
 
     @Override
@@ -67,7 +66,6 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
 
         favBtn.setOnClickListener(btnView -> {
             mealOfTheDayPresenter.addToFavourite(meal);
-            CustomSnackBar.showInfo(getView(), "Meal added to favorites");
         });
     }
 
@@ -98,5 +96,11 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
     public void changeFavouriteState(boolean isFavourite) {
         ImageView heartImage = favBtn.findViewById(R.id.iv_heart);
         heartImage.setImageResource(isFavourite ? R.drawable.heart_filled : R.drawable.heart);
+
+        if (isFavourite) {
+            CustomSnackBar.showInfo(getView(), "Meal added to favorites");
+        } else {
+            CustomSnackBar.showInfo(getView(), "Meal removed from favorites");
+        }
     }
 }

@@ -1,6 +1,11 @@
 package com.dmy.foodplannerapp.data.meals.repo;
 
+import android.content.Context;
+
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
+import com.dmy.foodplannerapp.data.failure.Failure;
+import com.dmy.foodplannerapp.data.meals.local.MealsLocalDataSource;
+import com.dmy.foodplannerapp.data.meals.local.MealsLocalDataSourceImpl;
 import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSource;
 import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSourceImpl;
 import com.dmy.foodplannerapp.data.model.MealEntity;
@@ -9,9 +14,11 @@ import java.util.List;
 
 public class MealsRepoImpl implements MealsRepo {
     MealsRemoteDataSource mealsRemoteDataSource;
+    MealsLocalDataSource mealsLocalDataSource;
 
-    public MealsRepoImpl() {
+    public MealsRepoImpl(Context context) {
         mealsRemoteDataSource = new MealsRemoteDataSourceImpl();
+        mealsLocalDataSource = new MealsLocalDataSourceImpl(context);
     }
 
     @Override
@@ -21,7 +28,28 @@ public class MealsRepoImpl implements MealsRepo {
 
     @Override
     public void getMealOfTheDay(MyCallBack<MealEntity> callBack) {
-        mealsRemoteDataSource.getRandomMeal(callBack);
+        mealsRemoteDataSource.getRandomMeal(new MyCallBack<MealEntity>() {
+            @Override
+            public void onSuccess(MealEntity meal) {
+                mealsLocalDataSource.isFavourite(meal, new MyCallBack<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean isFavourite) {
+                        meal.setFavourite(isFavourite);
+                    }
+
+                    @Override
+                    public void onFailure(Failure failure) {
+                    }
+                });
+                callBack.onSuccess(meal);
+
+            }
+
+            @Override
+            public void onFailure(Failure failure) {
+                callBack.onFailure(failure);
+            }
+        });
     }
 
     @Override
@@ -31,7 +59,7 @@ public class MealsRepoImpl implements MealsRepo {
 
     @Override
     public void addToFavourite(MealEntity meal, MyCallBack<Boolean> callBack) {
-
+        mealsLocalDataSource.addToFavourite(meal, callBack);
     }
 
     @Override

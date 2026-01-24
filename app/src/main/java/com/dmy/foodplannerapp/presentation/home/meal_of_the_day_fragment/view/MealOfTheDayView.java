@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.presenter;
+package com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.view;
 
 import com.dmy.foodplannerapp.data.model.MealEntity;
 
