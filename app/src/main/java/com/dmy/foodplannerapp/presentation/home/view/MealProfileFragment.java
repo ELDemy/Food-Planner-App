@@ -4,17 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.dmy.foodplannerapp.R;
 
-public class HomeFragment extends Fragment {
-    CardView featuredMeal;
+public class MealProfileFragment extends Fragment {
+    CardView backButton;
+    Button addToWeeklyBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,17 +26,26 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_meal_profile, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        featuredMeal = view.findViewById(R.id.card_featuredContainer);
-        featuredMeal.setOnClickListener(new View.OnClickListener() {
+        backButton = view.findViewById(R.id.btn_back_container);
+        addToWeeklyBtn = view.findViewById(R.id.btn_addToWeekly);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_mealProfileFragment);
+                getParentFragmentManager().popBackStack();
+            }
+        });
+        
+        addToWeeklyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getParentFragmentManager().popBackStack();
             }
         });
     }

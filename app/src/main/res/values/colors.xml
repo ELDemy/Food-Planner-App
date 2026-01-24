@@ -11,6 +11,7 @@
     <color name="green_pale">#FF99E6B8</color>
     <color name="nav_ripple">#40FFFFFF</color>
     <color name="light_yellow">#FFFFEDD4</color>
+
     <!-- Active Indicator Colors -->
     <color name="indicator_active">#FFFFFFFF</color>
     <color name="indicator_bg">#30FFFFFF</color>
@@ -26,10 +27,12 @@
     <!-- Backgrounds -->
     <color name="bg_light">#F9FAFB</color>
     <color name="bg_gray">#F3F4F6</color>
+    <color name="bg_faded">#80FFFFFF</color>
     <color name="bg_border">#E5E7EB</color>
 
     <!-- Text -->
     <color name="text_primary">#1E2939</color>
+    <color name="text_content">#364153</color>
     <color name="text_secondary">#4A5565</color>
     <color name="text_hint">#6A7282</color>
     <color name="text_disabled">#99A1AF</color>

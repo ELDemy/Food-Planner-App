@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.dmy.foodplannerapp.presentation.home.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_mealProfileFragment"
+            app:destination="@id/mealProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.dmy.foodplannerapp.presentation.profile.view.ProfileFragment"
@@ -25,4 +29,9 @@
         android:name="com.dmy.foodplannerapp.presentation.plan.view.PlanFragment"
         android:label="fragment_plan"
         tools:layout="@layout/fragment_plan" />
+    <fragment
+        android:id="@+id/mealProfileFragment"
+        android:name="com.dmy.foodplannerapp.presentation.home.view.MealProfileFragment"
+        android:label="fragment_meal_profile"
+        tools:layout="@layout/fragment_meal_profile" />
 </navigation>

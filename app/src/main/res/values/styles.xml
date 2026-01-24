@@ -12,7 +12,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">16dp</item>
     </style>
-    
+
 
     <style name="sign_in_to_">
         <item name="android:textSize">16sp</item>
@@ -51,6 +51,13 @@
         <item name="cornerRadius">12dp</item>
     </style>
 
+    <style name="RoundedBottomImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">24dp</item>
+        <item name="cornerSizeBottomRight">24dp</item>
+    </style>
 
     <!-- Base App Theme -->
     <style name="Theme_MyApp" parent="Theme.Material3.DayNight.NoActionBar">

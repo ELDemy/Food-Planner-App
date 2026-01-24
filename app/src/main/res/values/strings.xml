@@ -21,4 +21,10 @@
     <string name="see_all">See All</string>
     <string name="featured_today">Featured Today</string>
     <string name="add_to_favorites">add to favorites</string>
+    <string name="servings">Servings</string>
+    <string name="_4_people">4 people</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="instructions">Instructions</string>
+    <string name="description">Description</string>
+    <string name="add_to_weekly_plan">Add to Weekly Plan</string>
 </resources>
