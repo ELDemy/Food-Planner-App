@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.dmy.foodplannerapp.R;
+import com.dmy.foodplannerapp.presentation.reusable_components.CustomSnackBar;
 
 public class HomeFragment extends Fragment {
     CardView featuredMeal;
@@ -34,7 +35,8 @@ public class HomeFragment extends Fragment {
         featuredMeal = view.findViewById(R.id.card_featuredContainer);
         featuredMeal.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View btnView) {
+                CustomSnackBar.showInfo(view, "Meal clicked");
                 Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_mealProfileFragment);
             }
         });

@@ -43,20 +43,20 @@
     <color name="primary_alt">#4285F4</color>
 
     <!-- Success (Green) -->
-    <color name="success">#00A63E</color>
-    <color name="success_light">#DCFCE7</color>
+    <color name="success">#4CAF50</color>
+    <color name="success_light">#E8F5E9</color>
     <color name="success_dark">#008236</color>
 
     <!-- Warning (Orange / Yellow) -->
-    <color name="warning">#FF6900</color>
+    <color name="warning">#FF9800</color>
     <color name="warning_dark">#E17100</color>
-    <color name="warning_light">#FFEDD4</color>
+    <color name="warning_light">#FFF3E0</color>
     <color name="warning_yellow">#FBBC05</color>
 
     <!-- Error (Red) -->
-    <color name="error">#E7000B</color>
+    <color name="error">#F44336</color>
     <color name="error_alt">#EA4335</color>
-    <color name="error_light">#FFE2E2</color>
+    <color name="error_light">#FFEBEE</color>
     <color name="error_soft">#FFC9C9</color>
 
     <!-- Accent / Purple / Pink -->

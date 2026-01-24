@@ -9,4 +9,6 @@
         <item name="colorSurface">@color/card_surface</item>
     </style>
 
+    <style name="MyTHeme" parent="Theme.FoodPlannerApp" />
+
 </resources>
