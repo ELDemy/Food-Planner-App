@@ -28,7 +28,6 @@ public class FavouriteFragment extends Fragment implements FavoritesScreenView, 
     TextView emptyText;
     TextView countText;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,5 +82,7 @@ public class FavouriteFragment extends Fragment implements FavoritesScreenView, 
 
     @Override
     public void changeFavoriteState(boolean isFavourite) {
+        //don't need to update Icon
+        // will automatically remove the Card form the screen
     }
 }

@@ -31,7 +31,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/RoundedBottomImageView" />
 
-            <!-- Gradient Overlay on Image -->
             <View
                 android:id="@+id/gradient_overlay"
                 android:layout_width="0dp"
@@ -43,7 +42,6 @@
                 app:layout_constraintStart_toStartOf="@+id/img_meal"
                 app:layout_constraintTop_toTopOf="@+id/img_meal" />
 
-            <!-- Back Button -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/btn_back_container"
                 android:layout_width="48dp"

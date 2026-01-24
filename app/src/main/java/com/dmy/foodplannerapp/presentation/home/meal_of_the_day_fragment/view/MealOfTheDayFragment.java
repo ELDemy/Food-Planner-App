@@ -86,6 +86,7 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
         title.setText(meal.getName());
         category.setText(meal.getCategory());
         country.setText(meal.getArea());
+        changeFavouriteIcon(meal.isFavourite());
 
         Glide.with(requireContext())
                 .load(meal.getThumbnail())

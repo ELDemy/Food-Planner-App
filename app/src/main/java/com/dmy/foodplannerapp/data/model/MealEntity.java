@@ -584,6 +584,7 @@ public class MealEntity implements Parcelable {
         return "MealEntity{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
+                ", isFavourite=" + isFavourite +
                 '}';
     }
 }

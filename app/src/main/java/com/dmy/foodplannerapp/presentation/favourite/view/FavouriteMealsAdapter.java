@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -87,6 +88,13 @@ public class FavouriteMealsAdapter extends RecyclerView.Adapter<FavouriteMealsAd
 
             heartBtn.setOnClickListener(v -> {
                 favoritePresenter.changeFavourite(meal);
+            });
+
+            itemView.setOnClickListener((cardView) -> {
+                FavouriteFragmentDirections.ActionFavouriteFragmentToMealProfileFragment action =
+                        FavouriteFragmentDirections.actionFavouriteFragmentToMealProfileFragment(meal);
+
+                Navigation.findNavController(itemView).navigate(action);
             });
         }
     }

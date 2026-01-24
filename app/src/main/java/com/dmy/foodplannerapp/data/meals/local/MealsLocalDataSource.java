@@ -17,4 +17,8 @@ public interface MealsLocalDataSource {
 
     void getFavouriteMeals(MyCallBack<LiveData<List<MealEntity>>> callBack);
 
+    void getMealOfTheDay(MyCallBack<MealEntity> callBack);
+
+    void addMealOfTheDay(MealEntity meal);
+
 }

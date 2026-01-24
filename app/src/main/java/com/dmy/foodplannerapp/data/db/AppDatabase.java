@@ -7,9 +7,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.dmy.foodplannerapp.data.meals.local.FavouriteMealsDao;
+import com.dmy.foodplannerapp.data.meals.local.MealOfTheDayDao;
 import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.MealOfTheDay;
 
-@Database(entities = {MealEntity.class}, version = 1)
+@Database(entities = {MealEntity.class, MealOfTheDay.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     private final static String DB_NAME = "meals_db";
@@ -24,5 +26,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public abstract FavouriteMealsDao mealsDao();
+
+    public abstract MealOfTheDayDao mealOfTheDayDao();
 }
 

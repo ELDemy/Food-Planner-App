@@ -1,6 +1,7 @@
 package com.dmy.foodplannerapp.data.meals.repo;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -25,26 +26,10 @@ public class MealsRepoImpl implements MealsRepo {
 
     @Override
     public void getMealById(int id, MyCallBack<MealEntity> callBack) {
-        mealsRemoteDataSource.getMealById(id, callBack);
-    }
-
-    @Override
-    public void getMealOfTheDay(MyCallBack<MealEntity> callBack) {
-        mealsRemoteDataSource.getRandomMeal(new MyCallBack<MealEntity>() {
+        mealsRemoteDataSource.getMealById(id, new MyCallBack<>() {
             @Override
             public void onSuccess(MealEntity meal) {
-                mealsLocalDataSource.isFavourite(meal, new MyCallBack<Boolean>() {
-                    @Override
-                    public void onSuccess(Boolean isFavourite) {
-                        meal.setFavourite(isFavourite);
-                    }
-
-                    @Override
-                    public void onFailure(Failure failure) {
-                    }
-                });
-                callBack.onSuccess(meal);
-
+                checkIfMealIsInFavorite(meal, () -> callBack.onSuccess(meal));
             }
 
             @Override
@@ -54,9 +39,67 @@ public class MealsRepoImpl implements MealsRepo {
         });
     }
 
+
+    @Override
+    public void getMealOfTheDay(MyCallBack<MealEntity> callBack) {
+        mealsLocalDataSource.getMealOfTheDay(new MyCallBack<>() {
+            @Override
+            public void onSuccess(MealEntity meal) {
+                checkIfMealIsInFavorite(meal, () -> callBack.onSuccess(meal));
+            }
+
+            @Override
+            public void onFailure(Failure failure) {
+                mealsRemoteDataSource.getRandomMeal(new MyCallBack<>() {
+                    @Override
+                    public void onSuccess(MealEntity meal) {
+                        mealsLocalDataSource.addMealOfTheDay(meal);
+                        checkIfMealIsInFavorite(meal, () -> callBack.onSuccess(meal));
+                    }
+
+                    @Override
+                    public void onFailure(Failure failure) {
+                        callBack.onFailure(failure);
+                    }
+                });
+            }
+        });
+    }
+
+    private void checkIfMealIsInFavorite(MealEntity meal, Runnable onCompleted) {
+        mealsLocalDataSource.isFavourite(meal,
+                new MyCallBack<>() {
+                    @Override
+                    public void onSuccess(Boolean isFavourite) {
+                        Log.i("TAG", "during update favorite" + isFavourite);
+                        meal.setFavourite(isFavourite);
+                        onCompleted.run();
+                    }
+
+                    @Override
+                    public void onFailure(Failure failure) {
+                        onCompleted.run();
+                    }
+                });
+    }
+
     @Override
     public void getRandomMeals(int quantity, MyCallBack<List<MealEntity>> callBack) {
-        mealsRemoteDataSource.getRandomMeals(quantity, callBack);
+        mealsRemoteDataSource.getRandomMeals(quantity, new MyCallBack<>() {
+            @Override
+            public void onSuccess(List<MealEntity> meals) {
+                for (MealEntity meal : meals) {
+                    checkIfMealIsInFavorite(meal, () -> {
+                        callBack.onSuccess(meals);
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(Failure failure) {
+                callBack.onFailure(failure);
+            }
+        });
     }
 
     @Override
@@ -73,6 +116,4 @@ public class MealsRepoImpl implements MealsRepo {
     public void removeFromFavourite(MealEntity meal, MyCallBack<Boolean> callBack) {
         mealsLocalDataSource.removeFromFavourite(meal, callBack);
     }
-
-
 }
