@@ -1,4 +1,30 @@
 package com.dmy.foodplannerapp.data.network;
 
+import com.dmy.foodplannerapp.data.meals.remote.MealsService;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+
 public class MealsNetwork {
+    private static MealsNetwork instance;
+    public MealsService mealsService;
+
+    private MealsNetwork() {
+        String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        mealsService = retrofit.create(MealsService.class);
+    }
+
+    public static MealsNetwork getInstance() {
+        if (instance == null) {
+            instance = new MealsNetwork();
+        }
+
+        return instance;
+    }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @Entity(tableName = "meals")
 public class MealEntity implements Parcelable {
 
-    public static final Creator<MealEntity> CREATOR = new Creator<MealEntity>() {
+    public static final Creator<MealEntity> CREATOR = new Creator<>() {
         @Override
         public MealEntity createFromParcel(Parcel in) {
             return new MealEntity(in);
@@ -38,33 +38,18 @@ public class MealEntity implements Parcelable {
     private final String instructions;
     @SerializedName("strMealThumb")
     private final String thumbnail;
-
-
-    @SerializedName("strIngredient1")
-    private String strIngredient1;
-    @SerializedName("strIngredient2")
-    private String strIngredient2;
-    @SerializedName("strIngredient3")
-    private String strIngredient3;
-    @SerializedName("strIngredient4")
-    private String strIngredient4;
-    @SerializedName("strIngredient5")
-    private String strIngredient5;
-    @SerializedName("strMeasure1")
-    private String strMeasure1;
-    @SerializedName("strMeasure2")
-    private String strMeasure2;
-    @SerializedName("strMeasure3")
-    private String strMeasure3;
-    @SerializedName("strMeasure4")
-    private String strMeasure4;
-    @SerializedName("strMeasure5")
-    private String strMeasure5;
-    // ---- CLEAN INGREDIENT LIST ----
-    @Ignore // Room will ignore this field
+    @Ignore
     private List<Ingredient> ingredients;
-
-    // -------- Parcelable --------
+    private String strIngredient1;
+    private String strIngredient2;
+    private String strIngredient3;
+    private String strIngredient4;
+    private String strIngredient5;
+    private String strMeasure1;
+    private String strMeasure2;
+    private String strMeasure3;
+    private String strMeasure4;
+    private String strMeasure5;
 
     protected MealEntity(Parcel in) {
         id = in.readString();
@@ -72,6 +57,19 @@ public class MealEntity implements Parcelable {
         instructions = in.readString();
         thumbnail = in.readString();
         ingredients = in.createTypedArrayList(Ingredient.CREATOR);
+    }
+
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
     }
 
     public List<Ingredient> getIngredients() {
@@ -106,18 +104,16 @@ public class MealEntity implements Parcelable {
         return 0;
     }
 
-    // ---- Getters ----
     @NonNull
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
+    @Override
+    public String toString() {
+        return "MealEntity{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", instructions='" + instructions + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", ingredients=" + getIngredients() +
+                '}';
     }
 }
 

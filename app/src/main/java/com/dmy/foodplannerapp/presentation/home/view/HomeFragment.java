@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import com.dmy.foodplannerapp.R;
+import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSourceImpl;
 import com.dmy.foodplannerapp.presentation.reusable_components.CustomSnackBar;
 
 public class HomeFragment extends Fragment {
@@ -33,12 +33,10 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         featuredMeal = view.findViewById(R.id.card_featuredContainer);
-        featuredMeal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View btnView) {
-                CustomSnackBar.showInfo(view, "Meal clicked");
-                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_mealProfileFragment);
-            }
+        featuredMeal.setOnClickListener(btnView -> {
+            CustomSnackBar.showInfo(view, "Meal clicked");
+            new MealsRemoteDataSourceImpl().getMealById(52772);
+//                Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_mealProfileFragment);
         });
     }
 }

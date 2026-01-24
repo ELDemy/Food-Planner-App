@@ -1,4 +1,7 @@
 package com.dmy.foodplannerapp.data.meals.remote;
 
-public class MealsRemoteDataSource {
+public interface MealsRemoteDataSource {
+    void getMealById(int id);
+
+    void getRandomMeal();
 }
