@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.presentation.profile.view;
+package com.dmy.foodplannerapp.presentation.user_profile.view;
 
 import android.content.Intent;
 import android.os.Bundle;

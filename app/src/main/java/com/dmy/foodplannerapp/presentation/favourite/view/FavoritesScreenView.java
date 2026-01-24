@@ -6,6 +6,7 @@ import com.dmy.foodplannerapp.data.model.MealEntity;
 
 import java.util.List;
 
-public interface FavoritesView {
+public interface FavoritesScreenView extends ChangeFavoriteView {
     void onLoadSuccess(LiveData<List<MealEntity>> meals);
 }
+

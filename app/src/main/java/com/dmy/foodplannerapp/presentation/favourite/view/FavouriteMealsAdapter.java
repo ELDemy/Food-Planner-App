@@ -86,7 +86,7 @@ public class FavouriteMealsAdapter extends RecyclerView.Adapter<FavouriteMealsAd
                     .into(mealImage);
 
             heartBtn.setOnClickListener(v -> {
-                favoritePresenter.removeFromFavorites(meal);
+                favoritePresenter.changeFavourite(meal);
             });
         }
     }

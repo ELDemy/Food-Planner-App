@@ -39,6 +39,11 @@ public class Ingredient implements Parcelable {
         return quantity;
     }
 
+    public String getThumbnail() {
+        String urlName = name.replaceAll(" ", "_");
+        return "https://www.themealdb.com/images/ingredients/" + urlName + "-Small.png";
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);

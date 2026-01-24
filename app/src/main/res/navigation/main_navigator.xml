@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.dmy.foodplannerapp.presentation.profile.view.ProfileFragment"
+        android:name="com.dmy.foodplannerapp.presentation.user_profile.view.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
@@ -31,7 +31,11 @@
         tools:layout="@layout/fragment_plan" />
     <fragment
         android:id="@+id/mealProfileFragment"
-        android:name="com.dmy.foodplannerapp.presentation.home.view.MealProfileFragment"
+        android:name="com.dmy.foodplannerapp.presentation.meal_profile.view.MealProfileFragment"
         android:label="fragment_meal_profile"
-        tools:layout="@layout/fragment_meal_profile" />
+        tools:layout="@layout/fragment_meal_profile">
+        <argument
+            android:name="meal"
+            app:argType="com.dmy.foodplannerapp.data.model.MealEntity" />
+    </fragment>
 </navigation>

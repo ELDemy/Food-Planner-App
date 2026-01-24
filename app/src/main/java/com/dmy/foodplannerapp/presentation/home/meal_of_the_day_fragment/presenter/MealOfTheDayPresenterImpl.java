@@ -4,18 +4,15 @@ import android.content.Context;
 
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
-import com.dmy.foodplannerapp.data.meals.repo.MealsRepo;
-import com.dmy.foodplannerapp.data.meals.repo.MealsRepoImpl;
 import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.presentation.favourite.presenter.ChangeFavoritePresenterImpl;
 import com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.view.MealOfTheDayView;
 
-public class MealOfTheDayPresenterImpl implements MealOfTheDayPresenter {
-
-    MealsRepo mealsRepo;
+public class MealOfTheDayPresenterImpl extends ChangeFavoritePresenterImpl implements MealOfTheDayPresenter {
     MealOfTheDayView mealOfTheDayView;
 
     public MealOfTheDayPresenterImpl(Context context, MealOfTheDayView mealOfTheDayView) {
-        mealsRepo = new MealsRepoImpl(context);
+        super(context, mealOfTheDayView);
         this.mealOfTheDayView = mealOfTheDayView;
     }
 
@@ -38,29 +35,5 @@ public class MealOfTheDayPresenterImpl implements MealOfTheDayPresenter {
                 }
         );
     }
-
-    @Override
-    public void addToFavourite(MealEntity meal) {
-        
-        MyCallBack<Boolean> callBack = new MyCallBack<>() {
-            @Override
-            public void onSuccess(Boolean isFavourite) {
-                mealOfTheDayView.changeFavouriteState(isFavourite);
-            }
-
-            @Override
-            public void onFailure(Failure failure) {
-
-            }
-        };
-
-        if (meal.isFavourite()) {
-            mealsRepo.removeFromFavourite(meal, callBack);
-        } else {
-            mealsRepo.addToFavourite(meal, callBack);
-
-        }
-    }
-
 
 }

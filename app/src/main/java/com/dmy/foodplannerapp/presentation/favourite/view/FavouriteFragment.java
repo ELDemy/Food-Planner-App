@@ -20,7 +20,7 @@ import com.dmy.foodplannerapp.presentation.favourite.presenter.FavoritePresenter
 
 import java.util.List;
 
-public class FavouriteFragment extends Fragment implements FavoritesView {
+public class FavouriteFragment extends Fragment implements FavoritesScreenView, ChangeFavoriteView {
     FavoritePresenter presenter;
 
     RecyclerView recyclerView;
@@ -81,4 +81,7 @@ public class FavouriteFragment extends Fragment implements FavoritesView {
 
     }
 
+    @Override
+    public void changeFavoriteState(boolean isFavourite) {
+    }
 }

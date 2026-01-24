@@ -1,10 +1,5 @@
 package com.dmy.foodplannerapp.presentation.favourite.presenter;
 
-import com.dmy.foodplannerapp.data.model.MealEntity;
-
-public interface FavoritePresenter {
+public interface FavoritePresenter extends ChangeFavoritePresenter {
     void loadFavourites();
-
-    void removeFromFavorites(MealEntity meal);
-
 }
