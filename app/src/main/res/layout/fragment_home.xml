@@ -40,7 +40,7 @@
         app:boxCornerRadiusBottomStart="16dp"
         app:boxCornerRadiusTopEnd="16dp"
         app:boxCornerRadiusTopStart="16dp"
-        app:boxStrokeColor="@color/green"
+        app:boxStrokeColor="@color/search_box_stroke"
         app:boxStrokeWidth="2dp"
         app:hintEnabled="true"
         app:layout_constraintStart_toStartOf="parent"

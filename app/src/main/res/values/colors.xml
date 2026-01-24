@@ -29,6 +29,8 @@
     <color name="bg_gray">#F3F4F6</color>
     <color name="bg_faded">#80FFFFFF</color>
     <color name="bg_border">#E5E7EB</color>
+    
+    <color name="bg_red">#FFE2E2</color>
 
     <!-- Text -->
     <color name="text_primary">#1E2939</color>
