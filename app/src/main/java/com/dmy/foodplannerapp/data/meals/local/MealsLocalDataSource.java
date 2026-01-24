@@ -1,5 +1,7 @@
 package com.dmy.foodplannerapp.data.meals.local;
 
+import androidx.lifecycle.LiveData;
+
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.model.MealEntity;
 
@@ -13,6 +15,6 @@ public interface MealsLocalDataSource {
 
     void isFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
 
-    void getFavouriteMeals(MyCallBack<List<MealEntity>> callBack);
+    void getFavouriteMeals(MyCallBack<LiveData<List<MealEntity>>> callBack);
 
 }

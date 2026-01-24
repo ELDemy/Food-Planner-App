@@ -1,5 +1,7 @@
 package com.dmy.foodplannerapp.data.meals.repo;
 
+import androidx.lifecycle.LiveData;
+
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.model.MealEntity;
 
@@ -14,7 +16,7 @@ public interface MealsRepo {
 
     void addToFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
 
-    void getFavouriteMeals(MyCallBack<List<MealEntity>> callBack);
+    void getFavouriteMeals(MyCallBack<LiveData<List<MealEntity>>> callBack);
 
     void removeFromFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
 }

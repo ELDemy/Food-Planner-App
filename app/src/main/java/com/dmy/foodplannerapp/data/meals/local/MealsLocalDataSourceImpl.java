@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.db.AppDatabase;
 import com.dmy.foodplannerapp.data.failure.FailureHandler;
@@ -68,14 +70,12 @@ public class MealsLocalDataSourceImpl implements MealsLocalDataSource {
     }
 
     @Override
-    public void getFavouriteMeals(MyCallBack<List<MealEntity>> callBack) {
-        new Thread(() -> {
-            try {
-                List<MealEntity> meals = favouriteMealsDao.getAll();
-                mainHandler.post(() -> callBack.onSuccess(meals));
-            } catch (Exception e) {
-                mainHandler.post(() -> callBack.onFailure(FailureHandler.handle(e, "getFavouriteMeals")));
-            }
-        }).start();
+    public void getFavouriteMeals(MyCallBack<LiveData<List<MealEntity>>> callBack) {
+        try {
+            callBack.onSuccess(favouriteMealsDao.getAll());
+        } catch (Exception e) {
+            callBack.onFailure(FailureHandler.handle(e, "getFavouriteMeals"));
+        }
+
     }
 }

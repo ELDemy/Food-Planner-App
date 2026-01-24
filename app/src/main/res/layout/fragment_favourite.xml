@@ -42,14 +42,10 @@
 
         app:layout_constraintTop_toTopOf="@+id/tv_count" />
 
-    <!-- Filter Button with Rounded Background -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/btn_filter_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?attr/selectableItemBackground"
         app:cardBackgroundColor="@color/bg_red"
         app:cardCornerRadius="50dp"
         app:cardElevation="0dp"
@@ -99,6 +95,18 @@
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/tv_emptyList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Favorites Yet"
+        android:textColor="@color/text_secondary"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtField_searchLayout" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_favMeals"
         android:layout_width="0dp"
@@ -109,5 +117,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtField_searchLayout"
         tools:listitem="@layout/meal_card" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,8 @@ package com.dmy.foodplannerapp.data.meals.repo;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.meals.local.MealsLocalDataSource;
@@ -63,8 +65,8 @@ public class MealsRepoImpl implements MealsRepo {
     }
 
     @Override
-    public void getFavouriteMeals(MyCallBack<List<MealEntity>> callBack) {
-
+    public void getFavouriteMeals(MyCallBack<LiveData<List<MealEntity>>> callBack) {
+        mealsLocalDataSource.getFavouriteMeals(callBack);
     }
 
     @Override

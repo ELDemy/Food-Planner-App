@@ -1,5 +1,6 @@
 package com.dmy.foodplannerapp.data.meals.local;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -14,7 +15,7 @@ import java.util.List;
 @Dao
 public interface FavouriteMealsDao {
     @Query("SELECT * FROM meals")
-    List<MealEntity> getAll();
+    LiveData<List<MealEntity>> getAll();
 
     @Query("SELECT * FROM meals WHERE id = :id")
     MealEntity getById(String id);
