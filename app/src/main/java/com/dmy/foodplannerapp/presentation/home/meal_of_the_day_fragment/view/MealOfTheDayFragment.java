@@ -65,6 +65,7 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
         });
 
         favBtn.setOnClickListener(btnView -> {
+            changeFavouriteIcon(!meal.isFavourite());
             mealOfTheDayPresenter.addToFavourite(meal);
         });
     }
@@ -92,15 +93,18 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
         featuredImage.setVisibility(View.GONE);
     }
 
-    @Override
-    public void changeFavouriteState(boolean isFavourite) {
+    private void changeFavouriteIcon(boolean isFavourite) {
         ImageView heartImage = favBtn.findViewById(R.id.iv_heart);
         heartImage.setImageResource(isFavourite ? R.drawable.heart_filled : R.drawable.heart);
+    }
 
+    @Override
+    public void changeFavouriteState(boolean isFavourite) {
+        changeFavouriteIcon(isFavourite);
         if (isFavourite) {
-            CustomSnackBar.showInfo(getView(), "Meal added to favorites");
+            CustomSnackBar.showInfo(getView(), meal.getName() + " added to favorites");
         } else {
-            CustomSnackBar.showInfo(getView(), "Meal removed from favorites");
+            CustomSnackBar.showInfo(getView(), meal.getName() + " removed from favorites");
         }
     }
 }

@@ -9,9 +9,10 @@ public interface MealsLocalDataSource {
 
     void addToFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
 
+    void removeFromFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
+
     void isFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
 
     void getFavouriteMeals(MyCallBack<List<MealEntity>> callBack);
-
 
 }

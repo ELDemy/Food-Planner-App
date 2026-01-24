@@ -15,4 +15,6 @@ public interface MealsRepo {
     void addToFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
 
     void getFavouriteMeals(MyCallBack<List<MealEntity>> callBack);
+
+    void removeFromFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
 }

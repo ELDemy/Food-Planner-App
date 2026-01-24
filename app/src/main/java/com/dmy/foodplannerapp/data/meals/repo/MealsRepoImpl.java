@@ -67,5 +67,10 @@ public class MealsRepoImpl implements MealsRepo {
 
     }
 
+    @Override
+    public void removeFromFavourite(MealEntity meal, MyCallBack<Boolean> callBack) {
+        mealsLocalDataSource.removeFromFavourite(meal, callBack);
+    }
+
 
 }

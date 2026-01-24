@@ -35,6 +35,19 @@ public class MealsLocalDataSourceImpl implements MealsLocalDataSource {
         }).start();
     }
 
+    @Override
+    public void removeFromFavourite(MealEntity meal, MyCallBack<Boolean> callBack) {
+        new Thread(() -> {
+            try {
+                meal.setFavourite(false);
+                favouriteMealsDao.removeFromFavourite(meal);
+                mainHandler.post(() -> callBack.onSuccess(false));
+            } catch (Exception e) {
+                mainHandler.post(() -> callBack.onFailure(FailureHandler.handle(e, "addToFavourite")));
+            }
+        }).start();
+    }
+
 
     @Override
     public void isFavourite(MealEntity meal, MyCallBack<Boolean> callBack) {

@@ -13,7 +13,6 @@ public class MealOfTheDayPresenterImpl implements MealOfTheDayPresenter {
 
     MealsRepo mealsRepo;
     MealOfTheDayView mealOfTheDayView;
-    boolean isFavourite = false;
 
     public MealOfTheDayPresenterImpl(Context context, MealOfTheDayView mealOfTheDayView) {
         mealsRepo = new MealsRepoImpl(context);
@@ -42,8 +41,8 @@ public class MealOfTheDayPresenterImpl implements MealOfTheDayPresenter {
 
     @Override
     public void addToFavourite(MealEntity meal) {
-
-        mealsRepo.addToFavourite(meal, new MyCallBack<>() {
+        
+        MyCallBack<Boolean> callBack = new MyCallBack<>() {
             @Override
             public void onSuccess(Boolean isFavourite) {
                 mealOfTheDayView.changeFavouriteState(isFavourite);
@@ -53,7 +52,14 @@ public class MealOfTheDayPresenterImpl implements MealOfTheDayPresenter {
             public void onFailure(Failure failure) {
 
             }
-        });
+        };
+
+        if (meal.isFavourite()) {
+            mealsRepo.removeFromFavourite(meal, callBack);
+        } else {
+            mealsRepo.addToFavourite(meal, callBack);
+
+        }
     }
 
 

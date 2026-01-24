@@ -22,9 +22,9 @@ public interface FavouriteMealsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addToFavourite(MealEntity meal);
 
+    @Delete
+    void removeFromFavourite(MealEntity meal);
+
     @Insert
     void insertAll(MealEntity... meals);
-
-    @Delete
-    void delete(MealEntity meals);
 }
