@@ -1,6 +1,7 @@
 package com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.model.MealEntity;
 import com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.presenter.SuggestedMealsPresenter;
@@ -21,7 +23,7 @@ import java.util.List;
 
 public class SuggestedMealsFragment extends Fragment implements SuggestedMealsView {
     SuggestedMealsPresenter suggestedMealsPresenter;
-
+    LottieAnimationView loadingAnimation;
     RecyclerView rvSuggestedMeals;
     SuggestedMealsAdapter suggestedMealsAdapter;
     HomeRefreshViewModel sharedViewModel;
@@ -43,6 +45,8 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
         super.onViewCreated(view, savedInstanceState);
         suggestedMealsPresenter = new SuggestedMealsPresenterImpl(requireContext(), this);
         rvSuggestedMeals = view.findViewById(R.id.rv_meals);
+        loadingAnimation = view.findViewById(R.id.loading);
+
         suggestedMealsAdapter = new SuggestedMealsAdapter(requireContext());
         rvSuggestedMeals.setAdapter(suggestedMealsAdapter);
         suggestedMealsPresenter.getSuggestedMeals();
@@ -65,5 +69,12 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
     @Override
     public void onFailure(String message) {
 
+    }
+
+    @Override
+    public void onLoad(boolean isLoading) {
+        Log.i("ONLOAD", "onLoad: " + isLoading);
+        loadingAnimation.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        rvSuggestedMeals.setVisibility(isLoading ? View.GONE : View.VISIBLE);
     }
 }

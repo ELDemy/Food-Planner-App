@@ -8,4 +8,6 @@ public interface SuggestedMealsView {
     void updateSuggestedMeals(List<MealEntity> meals);
 
     void onFailure(String message);
+
+    void onLoad(boolean isLoading);
 }

@@ -52,14 +52,11 @@ public class SuggestedMealsAdapter extends RecyclerView.Adapter<SuggestedMealsAd
         return mealsList.size();
     }
 
-
     class ViewHolder extends RecyclerView.ViewHolder {
         View itemView;
         TextView tvMealName;
         ImageView ivMealImage;
-
         CardView cardView;
-
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -67,7 +64,6 @@ public class SuggestedMealsAdapter extends RecyclerView.Adapter<SuggestedMealsAd
             cardView = itemView.findViewById(R.id.cardView_meal);
             tvMealName = itemView.findViewById(R.id.tv_meal_name);
             ivMealImage = itemView.findViewById(R.id.iv_meal_image);
-
         }
 
         void bind(MealEntity meal) {

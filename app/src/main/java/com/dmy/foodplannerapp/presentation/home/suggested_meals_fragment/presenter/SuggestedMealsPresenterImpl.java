@@ -22,14 +22,17 @@ public class SuggestedMealsPresenterImpl implements SuggestedMealsPresenter {
 
     @Override
     public void getSuggestedMeals() {
+        suggestedMealsView.onLoad(true);
         mealsRepo.getRandomMeals(10, new MyCallBack<>() {
             @Override
             public void onSuccess(List<MealEntity> data) {
+                suggestedMealsView.onLoad(false);
                 suggestedMealsView.updateSuggestedMeals(data);
             }
 
             @Override
             public void onFailure(Failure failure) {
+                suggestedMealsView.onLoad(false);
                 suggestedMealsView.onFailure(failure.getMessage());
             }
         });
