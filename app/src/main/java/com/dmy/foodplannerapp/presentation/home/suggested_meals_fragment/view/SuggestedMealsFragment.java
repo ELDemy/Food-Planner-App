@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +28,7 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
     RecyclerView rvSuggestedMeals;
     SuggestedMealsAdapter suggestedMealsAdapter;
     HomeRefreshViewModel sharedViewModel;
+    TextView errorText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
         suggestedMealsPresenter = new SuggestedMealsPresenterImpl(requireContext(), this);
         rvSuggestedMeals = view.findViewById(R.id.rv_meals);
         loadingAnimation = view.findViewById(R.id.loading);
+        errorText = view.findViewById(R.id.tv_error);
 
         suggestedMealsAdapter = new SuggestedMealsAdapter(requireContext());
         rvSuggestedMeals.setAdapter(suggestedMealsAdapter);
@@ -60,7 +63,6 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
         });
     }
 
-
     @Override
     public void updateSuggestedMeals(List<MealEntity> meals) {
         suggestedMealsAdapter.updateList(meals);
@@ -68,7 +70,8 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
 
     @Override
     public void onFailure(String message) {
-
+        errorText.setVisibility(View.VISIBLE);
+        errorText.setText(message);
     }
 
     @Override

@@ -11,7 +11,15 @@
     <color name="green_pale">#FF99E6B8</color>
     <color name="nav_ripple">#40FFFFFF</color>
     <color name="light_yellow">#FFFFEDD4</color>
-
+    <color name="light_orange">#FFFFE4CC</color>
+    <color name="light_peach">#FFFFD6C9</color>
+    <color name="light_pink">#FFFFD9E6</color>
+    <color name="light_red">#FFFFE0E0</color>
+    <color name="light_purple">#FFEEDCFF</color>
+    <color name="light_blue">#FFE7F1FF</color>
+    <color name="light_cyan">#FFE0F7F4</color>
+    <color name="light_green">#FFE8F5E9</color>
+    <color name="light_lime">#FFF1F8E9</color>
     <!-- Active Indicator Colors -->
     <color name="indicator_active">#FFFFFFFF</color>
     <color name="indicator_bg">#30FFFFFF</color>
@@ -29,7 +37,7 @@
     <color name="bg_gray">#F3F4F6</color>
     <color name="bg_faded">#80FFFFFF</color>
     <color name="bg_border">#E5E7EB</color>
-    
+
     <color name="bg_red">#FFE2E2</color>
 
     <!-- Text -->

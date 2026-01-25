@@ -125,7 +125,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_categoriesList"
-                android:name="com.dmy.foodplannerapp.presentation.home.view.CategoriesListFragment"
+                android:name="com.dmy.foodplannerapp.presentation.home.categories_list_fragment.view.CategoriesListFragment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
