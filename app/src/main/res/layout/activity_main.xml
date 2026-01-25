@@ -8,6 +8,7 @@
     android:fitsSystemWindows="false"
     tools:context=".MainActivity">
 
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/frag_navHost"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -39,5 +40,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/nav_menu" />
 
-
+    <View
+        android:id="@+id/statusbar_bg"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:background="@color/green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
