@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.model.MealEntity;
 import com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.presenter.SuggestedMealsPresenter;
 import com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.presenter.SuggestedMealsPresenterImpl;
+import com.dmy.foodplannerapp.presentation.home.view.HomeRefreshViewModel;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
 
     RecyclerView rvSuggestedMeals;
     SuggestedMealsAdapter suggestedMealsAdapter;
+    HomeRefreshViewModel sharedViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,14 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
         suggestedMealsAdapter = new SuggestedMealsAdapter(requireContext());
         rvSuggestedMeals.setAdapter(suggestedMealsAdapter);
         suggestedMealsPresenter.getSuggestedMeals();
+
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(HomeRefreshViewModel.class);
+
+        sharedViewModel.getRefreshTrigger().observe(getViewLifecycleOwner(), shouldRefresh -> {
+            if (shouldRefresh != null && shouldRefresh) {
+                suggestedMealsPresenter.getSuggestedMeals();
+            }
+        });
     }
 
 

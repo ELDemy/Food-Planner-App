@@ -4,6 +4,7 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
         <item name="colorSurface">@color/card_surface_dark</item>
-
+        <item name="android:statusBarColor">@color/green</item>
+        <item name="colorPrimaryDark">@color/green</item>
     </style>
 </resources>

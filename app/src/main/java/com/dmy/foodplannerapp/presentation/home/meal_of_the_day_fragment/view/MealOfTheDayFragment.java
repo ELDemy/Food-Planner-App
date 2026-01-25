@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -20,6 +21,7 @@ import com.dmy.foodplannerapp.data.model.MealEntity;
 import com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.presenter.MealOfTheDayPresenter;
 import com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.presenter.MealOfTheDayPresenterImpl;
 import com.dmy.foodplannerapp.presentation.home.view.HomeFragmentDirections;
+import com.dmy.foodplannerapp.presentation.home.view.HomeRefreshViewModel;
 import com.dmy.foodplannerapp.presentation.reusable_components.CustomSnackBar;
 
 public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
@@ -34,6 +36,7 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
     CardView favBtn;
 
     MealEntity meal;
+    private HomeRefreshViewModel sharedViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,14 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
         favBtn.setOnClickListener(btnView -> {
             changeFavouriteIcon(!meal.isFavourite());
             mealOfTheDayPresenter.changeFavourite(meal);
+        });
+
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(HomeRefreshViewModel.class);
+
+        sharedViewModel.getRefreshTrigger().observe(getViewLifecycleOwner(), shouldRefresh -> {
+            if (shouldRefresh != null && shouldRefresh) {
+                mealOfTheDayPresenter.getMealOfTheDay();
+            }
         });
     }
 

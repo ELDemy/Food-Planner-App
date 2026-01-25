@@ -5,11 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dmy.foodplannerapp.R;
 
 public class HomeFragment extends Fragment {
+
+    private HomeRefreshViewModel sharedViewModel;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,4 +30,19 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // Use requireActivity() to ensure all fragments share the SAME instance
+        sharedViewModel = new ViewModelProvider(requireActivity()).get(HomeRefreshViewModel.class);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            // Send the signal!
+            sharedViewModel.requestRefresh();
+
+            // Stop the spinning animation
+            swipeRefreshLayout.setRefreshing(false);
+        });
+    }
 }
