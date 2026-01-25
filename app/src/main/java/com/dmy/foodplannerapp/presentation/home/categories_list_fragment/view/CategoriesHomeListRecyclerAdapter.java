@@ -11,11 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dmy.foodplannerapp.R;
+import com.dmy.foodplannerapp.data.model.ArgumentSearchScreenModel;
 import com.dmy.foodplannerapp.data.model.CategoryEntity;
+import com.dmy.foodplannerapp.presentation.home.view.HomeFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +93,14 @@ public class CategoriesHomeListRecyclerAdapter extends RecyclerView.Adapter<Cate
 
             titleText.setText(category.getName());
             Glide.with(itemView).load(category.getThumbnail()).into(imageView);
+
+            ArgumentSearchScreenModel argument = new ArgumentSearchScreenModel(ArgumentSearchScreenModel.SearchType.CATEGORY, category.getName());
+            itemView.setOnClickListener(v -> {
+                HomeFragmentDirections.ActionHomeFragmentToMealsListScreenFragment action
+                        = HomeFragmentDirections.actionHomeFragmentToMealsListScreenFragment(argument);
+
+                Navigation.findNavController(v).navigate(action);
+            });
         }
     }
 }

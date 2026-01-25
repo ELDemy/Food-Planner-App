@@ -51,7 +51,7 @@
         android:label="fragment_meals_list_screen"
         tools:layout="@layout/fragment_meals_list_screen">
         <argument
-            android:name="searchType"
+            android:name="data"
             app:argType="com.dmy.foodplannerapp.data.model.ArgumentSearchScreenModel" />
     </fragment>
 </navigation>

@@ -6,6 +6,9 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="12dp"
     android:layout_marginRight="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -13,7 +16,8 @@
         android:id="@+id/cardView_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="16dp"> <!-- Add corner radius here -->
+
+        app:cardCornerRadius="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/view_categoryCardView"

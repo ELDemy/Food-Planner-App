@@ -28,11 +28,13 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardCountry"
+            android:id="@+id/card_exploreCountry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:cardCornerRadius="24dp"
             app:cardUseCompatPadding="true"
             app:layout_column="0"
@@ -85,6 +87,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
             android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
             app:cardCornerRadius="24dp"
             app:cardUseCompatPadding="true"
             app:layout_column="1"

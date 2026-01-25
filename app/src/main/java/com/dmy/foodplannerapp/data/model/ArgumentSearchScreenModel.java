@@ -1,17 +1,16 @@
 package com.dmy.foodplannerapp.data.model;
+//noinspection unused
 
 import java.io.Serializable;
 
-enum SearchType {
-    MEAL,
-    INGREDIENT,
-    CATEGORY,
-    COUNTRY
-}
-
 public class ArgumentSearchScreenModel implements Serializable {
-    private SearchType type;
-    private String name;
+    public String name;
+    public SearchType type;
+
+    public ArgumentSearchScreenModel(SearchType type, String name) {
+        this.name = name;
+        this.type = type;
+    }
 
     public SearchType getType() {
         return type;
@@ -28,5 +27,14 @@ public class ArgumentSearchScreenModel implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public enum SearchType {
+        MEAL,
+        INGREDIENT,
+        CATEGORY,
+        COUNTRY
+    }
+
+
 }
 
