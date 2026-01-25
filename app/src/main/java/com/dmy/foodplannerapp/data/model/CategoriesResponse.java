@@ -8,4 +8,11 @@ public class CategoriesResponse {
     public List<CategoryEntity> getCategories() {
         return categories;
     }
+
+    @Override
+    public String toString() {
+        return "CategoriesResponse{" +
+                "categories=" + categories +
+                '}';
+    }
 }

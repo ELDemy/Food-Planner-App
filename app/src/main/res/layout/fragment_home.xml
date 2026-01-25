@@ -125,7 +125,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_categoriesList"
-                android:name="com.dmy.foodplannerapp.presentation.home.categories_list_fragment.view.CategoriesListFragment"
+                android:name="com.dmy.foodplannerapp.presentation.home.categories_list_fragment.view.CategoriesHomeListFragment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
@@ -134,7 +134,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_suggestedMeals"
-                tools:layout="@layout/fragment_categories_list" />
+                tools:layout="@layout/fragment_home_categories_list" />
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragmentContainerView4"

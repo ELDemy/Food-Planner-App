@@ -1,9 +1,15 @@
 package com.dmy.foodplannerapp.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class CategoryEntity {
+    @SerializedName("idCategory")
     private String id;
+    @SerializedName("strCategory")
     private String name;
+    @SerializedName("strCategoryDescription")
     private String description;
+    @SerializedName("strCategoryThumb")
     private String thumbnail;
 
     public String getId() {
@@ -36,5 +42,15 @@ public class CategoryEntity {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    @Override
+    public String toString() {
+        return "CategoryEntity{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                '}';
     }
 }

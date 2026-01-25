@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_categoryCard"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="12dp"
@@ -9,22 +10,21 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/cardView_category"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="16dp"> <!-- Add corner radius here -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/view_categoryCardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rounded_category_shape"
-            android:backgroundTint="@color/light_yellow">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/iv_image"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="32dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_margin="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

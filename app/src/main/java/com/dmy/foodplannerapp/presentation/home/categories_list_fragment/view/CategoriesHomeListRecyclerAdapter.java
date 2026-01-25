@@ -1,6 +1,7 @@
 package com.dmy.foodplannerapp.presentation.home.categories_list_fragment.view;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,12 +20,12 @@ import com.dmy.foodplannerapp.data.model.CategoryEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriesListRecyclerAdapter extends RecyclerView.Adapter<CategoriesListRecyclerAdapter.ViewHolder> {
+public class CategoriesHomeListRecyclerAdapter extends RecyclerView.Adapter<CategoriesHomeListRecyclerAdapter.ViewHolder> {
+    private static final String TAG = "CategoriesHomeListRecyc";
     List<CategoryEntity> categoriesList;
     Context context;
 
-
-    public CategoriesListRecyclerAdapter(Context context) {
+    public CategoriesHomeListRecyclerAdapter(Context context) {
         this.context = context;
         categoriesList = new ArrayList<>();
     }
@@ -43,6 +44,7 @@ public class CategoriesListRecyclerAdapter extends RecyclerView.Adapter<Categori
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Log.i("TAG", "onBindViewHolder: " + position + categoriesList.get(position));
         holder.bind(categoriesList.get(position), position);
     }
 
@@ -64,23 +66,27 @@ public class CategoriesListRecyclerAdapter extends RecyclerView.Adapter<Categori
                 R.color.light_green,
                 R.color.light_lime
         };
-        View itemView;
-        ImageView imageView;
-        TextView titleText;
-        ConstraintLayout cardView;
+
+        private final View itemView;
+        private final ImageView imageView;
+        private final TextView titleText;
+        private final CardView cardView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.itemView = itemView;
-            cardView = itemView.findViewById(R.id.view_categoryCardView);
+            cardView = itemView.findViewById(R.id.cardView_category);
             imageView = itemView.findViewById(R.id.iv_image);
             titleText = itemView.findViewById(R.id.tv_name);
         }
 
         void bind(CategoryEntity category, int position) {
-            int color = ContextCompat.getColor(itemView.getContext(), CARD_COLORS[position % CARD_COLORS.length]);
+            int color = ContextCompat.getColor(itemView.getContext(),
+                    CARD_COLORS[position % CARD_COLORS.length]);
+            Log.i(TAG, "bind: " + category);
 
-            cardView.setBackgroundColor(color);
+            View innerLayout = itemView.findViewById(R.id.view_categoryCardView);
+            innerLayout.setBackgroundColor(color);
 
             titleText.setText(category.getName());
             Glide.with(itemView).load(category.getThumbnail()).into(imageView);

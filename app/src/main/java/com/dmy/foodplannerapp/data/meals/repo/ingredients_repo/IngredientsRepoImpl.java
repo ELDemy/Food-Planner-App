@@ -1,21 +1,21 @@
-package com.dmy.foodplannerapp.data.meals.repo.categories_repo;
+package com.dmy.foodplannerapp.data.meals.repo.ingredients_repo;
 
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSource;
 import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSourceImpl;
-import com.dmy.foodplannerapp.data.model.CategoryEntity;
+import com.dmy.foodplannerapp.data.model.IngredientDTO;
 
 import java.util.List;
 
-public class CategoriesRepoImpl implements CategoriesRepo {
+public class IngredientsRepoImpl implements IngredientsRepo {
     MealsRemoteDataSource mealsRemoteDataSource;
 
-    public CategoriesRepoImpl() {
+    public IngredientsRepoImpl() {
         mealsRemoteDataSource = new MealsRemoteDataSourceImpl();
     }
 
     @Override
-    public void getCategories(MyCallBack<List<CategoryEntity>> callBack) {
-        mealsRemoteDataSource.getCategories(callBack);
+    public void getIngredients(MyCallBack<List<IngredientDTO>> callBack) {
+        mealsRemoteDataSource.getIngredients(callBack);
     }
 }
