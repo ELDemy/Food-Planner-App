@@ -36,7 +36,6 @@
                         android:id="@+id/helloChef"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
                         android:text="Hello, Chef! 👋"
                         android:textColor="@color/white"
                         android:textSize="30sp"
