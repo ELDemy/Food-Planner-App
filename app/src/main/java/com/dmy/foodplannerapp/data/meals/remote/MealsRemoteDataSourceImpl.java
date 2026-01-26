@@ -132,7 +132,6 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
                 Log.i("TAG", "onResponse: " + categoriesResponse);
                 if (categoriesResponse != null) {
                     if (categoriesResponse.getCategories() != null) {
-
                         callBack.onSuccess(categoriesResponse.getCategories());
                     } else {
                         callBack.onFailure(new Failure("No Categories for today"));

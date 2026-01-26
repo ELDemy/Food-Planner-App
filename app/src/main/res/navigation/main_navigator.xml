@@ -47,11 +47,14 @@
     </fragment>
     <fragment
         android:id="@+id/mealsListScreenFragment"
-        android:name="com.dmy.foodplannerapp.presentation.home.view.MealsListScreenFragment"
+        android:name="com.dmy.foodplannerapp.presentation.home.search_screen_fragment.view.SearchFragment"
         android:label="fragment_meals_list_screen"
         tools:layout="@layout/fragment_meals_list_screen">
         <argument
             android:name="data"
             app:argType="com.dmy.foodplannerapp.data.model.ArgumentSearchScreenModel" />
+        <action
+            android:id="@+id/action_mealsListScreenFragment_to_mealProfileFragment"
+            app:destination="@id/mealProfileFragment" />
     </fragment>
 </navigation>
