@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.data.meals.local;
+package com.dmy.foodplannerapp.data.meals.local.daos;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

@@ -5,13 +5,23 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
-import com.dmy.foodplannerapp.data.meals.local.FavouriteMealsDao;
-import com.dmy.foodplannerapp.data.meals.local.MealOfTheDayDao;
+import com.dmy.foodplannerapp.data.meals.local.daos.FavouriteMealsDao;
+import com.dmy.foodplannerapp.data.meals.local.daos.MealOfTheDayDao;
+import com.dmy.foodplannerapp.data.meals.local.daos.MealsDao;
+import com.dmy.foodplannerapp.data.meals.local.daos.MealsPlanDao;
+import com.dmy.foodplannerapp.data.model.Converters;
+import com.dmy.foodplannerapp.data.model.FavoriteMeal;
 import com.dmy.foodplannerapp.data.model.MealEntity;
 import com.dmy.foodplannerapp.data.model.MealOfTheDay;
+import com.dmy.foodplannerapp.data.model.MealPlan;
 
-@Database(entities = {MealEntity.class, MealOfTheDay.class}, version = 2)
+@Database(
+        entities = {MealEntity.class, FavoriteMeal.class, MealOfTheDay.class, MealPlan.class},
+        version = 3
+)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     private final static String DB_NAME = "meals_db";
@@ -25,8 +35,12 @@ public abstract class AppDatabase extends RoomDatabase {
         return db;
     }
 
-    public abstract FavouriteMealsDao mealsDao();
+    public abstract FavouriteMealsDao favMealsDao();
 
     public abstract MealOfTheDayDao mealOfTheDayDao();
+
+    public abstract MealsPlanDao mealPlanDao();
+
+    public abstract MealsDao mealsDao();
 }
 

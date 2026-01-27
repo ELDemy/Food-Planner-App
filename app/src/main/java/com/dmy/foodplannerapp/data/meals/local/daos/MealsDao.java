@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.data.meals.local;
+package com.dmy.foodplannerapp.data.meals.local.daos;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -11,21 +11,17 @@ import com.dmy.foodplannerapp.data.model.MealEntity;
 
 import java.util.List;
 
-
 @Dao
-public interface FavouriteMealsDao {
+public interface MealsDao {
     @Query("SELECT * FROM meals")
     LiveData<List<MealEntity>> getAll();
 
-    @Query("SELECT * FROM meals WHERE id = :id")
+    @Query("SELECT * FROM meals WHERE idMeal = :id")
     MealEntity getById(String id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addToFavourite(MealEntity meal);
+    void insert(MealEntity meal);
 
     @Delete
-    void removeFromFavourite(MealEntity meal);
-
-    @Insert
-    void insertAll(MealEntity... meals);
+    void delete(MealEntity meal);
 }

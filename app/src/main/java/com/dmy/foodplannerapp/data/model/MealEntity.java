@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -22,6 +23,7 @@ public class MealEntity implements Parcelable {
             return new MealEntity(in);
         }
 
+        
         @Override
         public MealEntity[] newArray(int size) {
             return new MealEntity[size];
@@ -31,6 +33,7 @@ public class MealEntity implements Parcelable {
     @PrimaryKey
     @NonNull
     @SerializedName("idMeal")
+    @ColumnInfo(name = "idMeal")
     private String id;
     @SerializedName("strMeal")
     private String name;
