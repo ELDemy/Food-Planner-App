@@ -489,7 +489,7 @@ public class MealEntity implements Parcelable {
     }
 
     public String getYoutube() {
-        return youtube;
+        return youtube.substring(youtube.indexOf("v=") + 2);
     }
 
     public void setYoutube(String youtube) {

@@ -57,6 +57,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
         TextView title;
         TextView category;
         CardView favBtn;
+
         ImageView heartImage;
         ImageView mealImage;
 
@@ -75,7 +76,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
             title.setText(meal.getName());
             category.setText(meal.getCategory());
             Glide.with(context).load(meal.getThumbnail()).into(mealImage);
-
+            favBtn.setVisibility(View.GONE);
             heartImage.setImageResource(meal.isFavourite() ? R.drawable.heart_filled : R.drawable.heart);
 
             view.setOnClickListener((btnView) -> {

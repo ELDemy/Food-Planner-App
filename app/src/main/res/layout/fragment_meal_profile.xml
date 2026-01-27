@@ -100,7 +100,6 @@
                 android:paddingTop="24dp"
                 app:layout_constraintTop_toBottomOf="@+id/img_meal">
 
-                <!-- Meal Name -->
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="0dp"
@@ -170,6 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -190,19 +190,68 @@
                     app:layout_constraintTop_toBottomOf="@+id/recycler_ingredients" />
 
                 <TextView
-                    android:id="@+id/tv_description"
+                    android:id="@+id/tv_instructions"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:lineSpacingExtra="4dp"
-                    android:text="@string/description"
+                    android:text=""
                     android:textColor="@color/text_content"
                     android:textSize="15sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_instructions_title" />
 
+                <TextView
+                    android:id="@+id/tools_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:lineSpacingExtra="4dp"
+                    android:text="for more details: "
+                    android:textColor="@color/text_content"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_instructions" />
+
+                <TextView
+                    android:id="@+id/tv_source"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:autoLink="web"
+                    android:lineSpacingExtra="4dp"
+                    android:linksClickable="true"
+                    android:text="@string/for_more_details"
+                    android:textColor="@color/text_content"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toEndOf="@+id/tools_details"
+                    app:layout_constraintTop_toTopOf="@+id/tools_details" />
+
+                <TextView
+                    android:id="@+id/tv_Tutorials"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/tutorial"
+                    android:textColor="@color/text_primary"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tools_details" />
+
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    android:id="@+id/pv_youtubePlayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:autoPlay="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_Tutorials" />
+
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -212,7 +261,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_description"
+                    app:layout_constraintTop_toBottomOf="@+id/pv_youtubePlayer"
                     app:strokeWidth="0dp">
 
 
@@ -233,7 +282,6 @@
                         android:textStyle="bold" />
 
                 </com.google.android.material.card.MaterialCardView>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

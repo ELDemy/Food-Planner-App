@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dmy.foodplannerapp.R;
@@ -29,6 +31,7 @@ public class SearchFragment extends Fragment implements SearchView {
     FragmentMealsListScreenBinding binding;
     RecyclerView recyclerView;
     SearchListAdapter adapter;
+    CardView backBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +51,12 @@ public class SearchFragment extends Fragment implements SearchView {
         super.onViewCreated(view, savedInstanceState);
         arguments = SearchFragmentArgs.fromBundle(getArguments()).getData();
         Log.i(TAG, "onViewCreated: " + arguments.getType() + arguments.getName());
-
+        backBtn = view.findViewById(R.id.btn_back_container);
+        backBtn.setOnClickListener(v -> {
+            NavHostFragment
+                    .findNavController(SearchFragment.this)
+                    .popBackStack(R.id.homeFragment, false);
+        });
         recyclerView = view.findViewById(R.id.recycler_meals);
         adapter = new SearchListAdapter(requireContext());
         recyclerView.setAdapter(adapter);

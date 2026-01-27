@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:cardBackgroundColor="#6600A63E"
+                app:cardBackgroundColor="@color/green_faded"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp"
                 app:layout_constraintStart_toStartOf="parent"

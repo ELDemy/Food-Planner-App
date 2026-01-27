@@ -27,4 +27,6 @@
     <string name="instructions">Instructions</string>
     <string name="description">Description</string>
     <string name="add_to_weekly_plan">Add to Weekly Plan</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="for_more_details">For more details:</string>
 </resources>

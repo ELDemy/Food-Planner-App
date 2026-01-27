@@ -109,7 +109,13 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
                         if (!mealsList.isEmpty()) {
                             callBack.onSuccess(mealsList);
                         } else {
-                            callBack.onFailure(failures.getFirst());
+                            if (failures.isEmpty()) {
+                                callBack.onFailure(new Failure("No Meals for today"));
+                                return;
+                            }
+                            if (failures.get(0) != null) {
+                                callBack.onFailure(failures.get(0));
+                            }
                         }
                     }
 

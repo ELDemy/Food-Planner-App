@@ -76,5 +76,6 @@
 
     <color name="card_surface">#FFFFFF</color>
     <color name="card_surface_dark">#1C1C1E</color>
+    <color name="green_faded">#6600A63E</color>
 
 </resources>

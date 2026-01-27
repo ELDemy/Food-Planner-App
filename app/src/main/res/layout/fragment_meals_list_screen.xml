@@ -14,7 +14,7 @@
         android:background="@color/white"
         android:elevation="4dp"
         android:paddingHorizontal="24dp"
-        android:paddingTop="20dp"
+        android:paddingTop="8dp"
         android:paddingBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +51,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_back_container"
             app:layout_constraintEnd_toStartOf="@+id/btn_filter_container"
             app:layout_constraintStart_toEndOf="@+id/btn_back_container"
             app:layout_constraintTop_toTopOf="parent">
@@ -62,19 +63,11 @@
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-medium"
                 android:maxLines="1"
-                android:text="Italian"
-                android:textColor="@color/text_primary"
+                android:text="Meals"
+                android:textColor="@color/green"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_fragDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="6 recipes found"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -120,8 +113,9 @@
             app:cardBackgroundColor="@color/success_light"
             app:cardCornerRadius="50dp"
             app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/title_container"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/title_container"
             app:strokeWidth="0dp">
 
             <ImageView
