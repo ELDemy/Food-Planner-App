@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.presentation.meal_profile.presenter.MealProfilePresenter;
 import com.dmy.foodplannerapp.presentation.meal_profile.presenter.MealProfilePresenterImpl;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -70,7 +70,6 @@ public class MealProfileFragment extends Fragment implements MealProfileView {
         youtubePlayer = view.findViewById(R.id.pv_youtubePlayer);
         sourceText = view.findViewById(R.id.tv_source);
 
-
         updateData(view);
         ingredientsRecyclerView = view.findViewById(R.id.recycler_ingredients);
         ingredientsRecyclerView.setAdapter(new MealIngredientListAdapter(getActivity(), meal.getIngredients()));
@@ -102,7 +101,7 @@ public class MealProfileFragment extends Fragment implements MealProfileView {
         youtubePlayer.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                String videoId = meal.getYoutube();
+                String videoId = meal.getYoutubeVideoId();
                 youTubePlayer.loadVideo(videoId, 0);
                 youTubePlayer.pause();
             }

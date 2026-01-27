@@ -1,7 +1,7 @@
 package com.dmy.foodplannerapp.presentation.home.search_screen_fragment.view;
 
 import com.dmy.foodplannerapp.data.failure.Failure;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.util.List;
 

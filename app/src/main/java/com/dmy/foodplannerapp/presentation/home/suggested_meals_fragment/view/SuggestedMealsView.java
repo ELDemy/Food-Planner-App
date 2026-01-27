@@ -1,6 +1,6 @@
 package com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.view;
 
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.util.List;
 

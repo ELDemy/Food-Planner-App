@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.presentation.favourite.presenter.FavoritePresenter;
 import com.dmy.foodplannerapp.presentation.favourite.presenter.FavoritePresenterImpl;
 

@@ -11,7 +11,7 @@ import com.dmy.foodplannerapp.data.meals.local.MealsLocalDataSource;
 import com.dmy.foodplannerapp.data.meals.local.MealsLocalDataSourceImpl;
 import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSource;
 import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSourceImpl;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.util.List;
 

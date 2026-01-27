@@ -5,6 +5,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
+
 import io.reactivex.rxjava3.annotations.NonNull;
 
 

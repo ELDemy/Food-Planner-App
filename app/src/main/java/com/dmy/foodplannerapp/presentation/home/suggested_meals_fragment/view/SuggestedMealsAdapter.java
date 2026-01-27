@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.presentation.home.view.HomeFragmentDirections;
 
 import java.util.ArrayList;
@@ -79,12 +79,11 @@ public class SuggestedMealsAdapter extends RecyclerView.Adapter<SuggestedMealsAd
         }
 
         private void navigate(MealEntity meal) {
-            HomeFragmentDirections.ActionHomeFragmentToMealProfileFragment action =
-                    HomeFragmentDirections.actionHomeFragmentToMealProfileFragment(meal);
+            HomeFragmentDirections.ActionHomeFragmentToMealProfileFragment action = HomeFragmentDirections
+                    .actionHomeFragmentToMealProfileFragment(meal);
 
             Navigation.findNavController(itemView).navigate(action);
         }
     }
-
 
 }

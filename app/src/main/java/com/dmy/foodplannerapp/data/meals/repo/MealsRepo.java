@@ -3,7 +3,7 @@ package com.dmy.foodplannerapp.data.meals.repo;
 import androidx.lifecycle.LiveData;
 
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.util.List;
 

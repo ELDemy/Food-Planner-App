@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.presenter.SuggestedMealsPresenter;
 import com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.presenter.SuggestedMealsPresenterImpl;
 import com.dmy.foodplannerapp.presentation.home.view.HomeRefreshViewModel;

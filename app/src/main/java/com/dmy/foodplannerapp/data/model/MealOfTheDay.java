@@ -4,6 +4,8 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
+
 @Entity
 public class MealOfTheDay {
     @PrimaryKey

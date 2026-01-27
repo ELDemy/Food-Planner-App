@@ -16,8 +16,8 @@ import com.dmy.foodplannerapp.data.meals.local.daos.MealOfTheDayDao;
 import com.dmy.foodplannerapp.data.meals.local.daos.MealsDao;
 import com.dmy.foodplannerapp.data.model.FavoriteMeal;
 import com.dmy.foodplannerapp.data.model.FavoriteMealWithDetails;
-import com.dmy.foodplannerapp.data.model.MealEntity;
 import com.dmy.foodplannerapp.data.model.MealOfTheDay;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

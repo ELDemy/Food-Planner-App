@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.presentation.favourite.presenter.FavoritePresenter;
 
 import java.util.ArrayList;
@@ -58,7 +58,6 @@ public class FavouriteMealsAdapter extends RecyclerView.Adapter<FavouriteMealsAd
         return mealsList.size();
     }
 
-
     class FavouriteMealViewHolder extends RecyclerView.ViewHolder {
         View itemView;
         ImageView mealImage;
@@ -91,8 +90,8 @@ public class FavouriteMealsAdapter extends RecyclerView.Adapter<FavouriteMealsAd
             });
 
             itemView.setOnClickListener((cardView) -> {
-                FavouriteFragmentDirections.ActionFavouriteFragmentToMealProfileFragment action =
-                        FavouriteFragmentDirections.actionFavouriteFragmentToMealProfileFragment(meal);
+                FavouriteFragmentDirections.ActionFavouriteFragmentToMealProfileFragment action = FavouriteFragmentDirections
+                        .actionFavouriteFragmentToMealProfileFragment(meal);
 
                 Navigation.findNavController(itemView).navigate(action);
             });
@@ -100,5 +99,3 @@ public class FavouriteMealsAdapter extends RecyclerView.Adapter<FavouriteMealsAd
     }
 
 }
-
-

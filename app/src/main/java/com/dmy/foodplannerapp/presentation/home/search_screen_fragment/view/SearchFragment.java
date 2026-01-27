@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.model.ArgumentSearchScreenModel;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.databinding.FragmentMealsListScreenBinding;
 import com.dmy.foodplannerapp.presentation.home.search_screen_fragment.presenter.SearchPresenter;
 import com.dmy.foodplannerapp.presentation.home.search_screen_fragment.presenter.SearchPresenterImpl;

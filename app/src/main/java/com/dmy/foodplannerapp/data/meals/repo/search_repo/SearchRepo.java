@@ -2,7 +2,7 @@ package com.dmy.foodplannerapp.data.meals.repo.search_repo;
 
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.model.ArgumentSearchScreenModel;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.util.List;
 

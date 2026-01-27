@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
         this.meals = meals;
         notifyDataSetChanged();
     }
-
 
     @NonNull
     @Override
@@ -61,7 +60,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
         ImageView heartImage;
         ImageView mealImage;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             this.view = itemView;
@@ -80,8 +78,8 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
             heartImage.setImageResource(meal.isFavourite() ? R.drawable.heart_filled : R.drawable.heart);
 
             view.setOnClickListener((btnView) -> {
-                SearchFragmentDirections.ActionMealsListScreenFragmentToMealProfileFragment action =
-                        SearchFragmentDirections.actionMealsListScreenFragmentToMealProfileFragment(meal);
+                SearchFragmentDirections.ActionMealsListScreenFragmentToMealProfileFragment action = SearchFragmentDirections
+                        .actionMealsListScreenFragmentToMealProfileFragment(meal);
 
                 Navigation.findNavController(itemView).navigate(action);
             });

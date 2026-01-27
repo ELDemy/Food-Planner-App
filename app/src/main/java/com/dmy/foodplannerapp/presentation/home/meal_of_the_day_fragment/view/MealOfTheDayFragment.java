@@ -17,7 +17,7 @@ import androidx.navigation.Navigation;
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.presenter.MealOfTheDayPresenter;
 import com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.presenter.MealOfTheDayPresenterImpl;
 import com.dmy.foodplannerapp.presentation.home.view.HomeFragmentDirections;
@@ -65,8 +65,8 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
         mealOfTheDayPresenter.getMealOfTheDay();
 
         featuredMealCard.setOnClickListener(btnView -> {
-            HomeFragmentDirections.ActionHomeFragmentToMealProfileFragment action =
-                    HomeFragmentDirections.actionHomeFragmentToMealProfileFragment(meal);
+            HomeFragmentDirections.ActionHomeFragmentToMealProfileFragment action = HomeFragmentDirections
+                    .actionHomeFragmentToMealProfileFragment(meal);
 
             Navigation.findNavController(view).navigate(action);
         });

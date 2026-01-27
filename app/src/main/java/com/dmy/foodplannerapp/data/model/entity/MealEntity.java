@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.data.model;
+package com.dmy.foodplannerapp.data.model.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,7 +9,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.google.gson.annotations.SerializedName;
+import com.dmy.foodplannerapp.data.model.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,26 +32,16 @@ public class MealEntity implements Parcelable {
 
     @PrimaryKey
     @NonNull
-    @SerializedName("idMeal")
     @ColumnInfo(name = "idMeal")
     private String id;
-    @SerializedName("strMeal")
     private String name;
-    @SerializedName("strCategory")
     private String category;
-    @SerializedName("strArea")
     private String area;
-    @SerializedName("strInstructions")
     private String instructions;
-    @SerializedName("strMealThumb")
     private String thumbnail;
-    @SerializedName("strTags")
     private String tags;
-    @SerializedName("strYoutube")
     private String youtube;
-    @SerializedName("strSource")
     private String source;
-    @SerializedName("dateModified")
     private String dateModified;
     private boolean isFavourite;
     @Ignore
@@ -111,7 +101,179 @@ public class MealEntity implements Parcelable {
         youtube = in.readString();
         source = in.readString();
         dateModified = in.readString();
+        isFavourite = in.readByte() != 0;
         ingredients = in.createTypedArrayList(Ingredient.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(category);
+        dest.writeString(area);
+        dest.writeString(instructions);
+        dest.writeString(thumbnail);
+        dest.writeString(tags);
+        dest.writeString(youtube);
+        dest.writeString(source);
+        dest.writeString(dateModified);
+        dest.writeByte((byte) (isFavourite ? 1 : 0));
+        dest.writeTypedList(getIngredients());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @NonNull
+    public String getId() {
+        return id;
+    }
+
+    public void setId(@NonNull String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getYoutube() {
+        return youtube;
+    }
+
+    public void setYoutube(String youtube) {
+        this.youtube = youtube;
+    }
+
+    public String getYoutubeVideoId() {
+        if (youtube != null && youtube.contains("v=")) {
+            return youtube.substring(youtube.indexOf("v=") + 2);
+        }
+        return youtube;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getDateModified() {
+        return dateModified;
+    }
+
+    public void setDateModified(String dateModified) {
+        this.dateModified = dateModified;
+    }
+
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public void setFavourite(boolean favourite) {
+        isFavourite = favourite;
+    }
+
+    public List<Ingredient> getIngredients() {
+        if (ingredients == null) {
+            ingredients = new ArrayList<>();
+
+            addIngredient(strIngredient1, strMeasure1);
+            addIngredient(strIngredient2, strMeasure2);
+            addIngredient(strIngredient3, strMeasure3);
+            addIngredient(strIngredient4, strMeasure4);
+            addIngredient(strIngredient5, strMeasure5);
+            addIngredient(strIngredient6, strMeasure6);
+            addIngredient(strIngredient7, strMeasure7);
+            addIngredient(strIngredient8, strMeasure8);
+            addIngredient(strIngredient9, strMeasure9);
+            addIngredient(strIngredient10, strMeasure10);
+            addIngredient(strIngredient11, strMeasure11);
+            addIngredient(strIngredient12, strMeasure12);
+            addIngredient(strIngredient13, strMeasure13);
+            addIngredient(strIngredient14, strMeasure14);
+            addIngredient(strIngredient15, strMeasure15);
+            addIngredient(strIngredient16, strMeasure16);
+            addIngredient(strIngredient17, strMeasure17);
+            addIngredient(strIngredient18, strMeasure18);
+            addIngredient(strIngredient19, strMeasure19);
+            addIngredient(strIngredient20, strMeasure20);
+        }
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    private void addIngredient(String name, String quantity) {
+        if (name != null && !name.isEmpty() && quantity != null && !quantity.isEmpty()) {
+            ingredients.add(new Ingredient(name.trim(), quantity.trim()));
+        }
+    }
+
+    public String getStrIngredient1() {
+        return strIngredient1;
+    }
+
+    public void setStrIngredient1(String strIngredient1) {
+        this.strIngredient1 = strIngredient1;
+    }
+
+    public String getStrIngredient2() {
+        return strIngredient2;
+    }
+
+    public void setStrIngredient2(String strIngredient2) {
+        this.strIngredient2 = strIngredient2;
     }
 
     public String getStrIngredient3() {
@@ -418,169 +580,6 @@ public class MealEntity implements Parcelable {
         this.strMeasure20 = strMeasure20;
     }
 
-    public String getStrIngredient1() {
-        return strIngredient1;
-    }
-
-    public void setStrIngredient1(String strIngredient1) {
-        this.strIngredient1 = strIngredient1;
-    }
-
-    public String getStrIngredient2() {
-        return strIngredient2;
-    }
-
-    public void setStrIngredient2(String strIngredient2) {
-        this.strIngredient2 = strIngredient2;
-    }
-
-    public boolean isFavourite() {
-        return isFavourite;
-    }
-
-    public void setFavourite(boolean favourite) {
-        isFavourite = favourite;
-    }
-
-    @NonNull
-    public String getId() {
-        return id;
-    }
-
-    public void setId(@NonNull String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public String getInstructions() {
-        return instructions;
-    }
-
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
-    }
-
-    public String getYoutube() {
-        return youtube.substring(youtube.indexOf("v=") + 2);
-    }
-
-    public void setYoutube(String youtube) {
-        this.youtube = youtube;
-    }
-
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getDateModified() {
-        return dateModified;
-    }
-
-    public void setDateModified(String dateModified) {
-        this.dateModified = dateModified;
-    }
-
-    public List<Ingredient> getIngredients() {
-        if (ingredients == null) {
-            ingredients = new ArrayList<>();
-
-            addIngredient(strIngredient1, strMeasure1);
-            addIngredient(strIngredient2, strMeasure2);
-            addIngredient(strIngredient3, strMeasure3);
-            addIngredient(strIngredient4, strMeasure4);
-            addIngredient(strIngredient5, strMeasure5);
-            addIngredient(strIngredient6, strMeasure6);
-            addIngredient(strIngredient7, strMeasure7);
-            addIngredient(strIngredient8, strMeasure8);
-            addIngredient(strIngredient9, strMeasure9);
-            addIngredient(strIngredient10, strMeasure10);
-            addIngredient(strIngredient11, strMeasure11);
-            addIngredient(strIngredient12, strMeasure12);
-            addIngredient(strIngredient13, strMeasure13);
-            addIngredient(strIngredient14, strMeasure14);
-            addIngredient(strIngredient15, strMeasure15);
-            addIngredient(strIngredient16, strMeasure16);
-            addIngredient(strIngredient17, strMeasure17);
-            addIngredient(strIngredient18, strMeasure18);
-            addIngredient(strIngredient19, strMeasure19);
-            addIngredient(strIngredient20, strMeasure20);
-        }
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    private void addIngredient(String name, String quantity) {
-        if (name != null && !name.isEmpty() && quantity != null && !quantity.isEmpty()) {
-            ingredients.add(new Ingredient(name.trim(), quantity.trim()));
-        }
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(category);
-        dest.writeString(area);
-        dest.writeString(instructions);
-        dest.writeString(thumbnail);
-        dest.writeString(tags);
-        dest.writeString(youtube);
-        dest.writeString(source);
-        dest.writeString(dateModified);
-        dest.writeTypedList(getIngredients());
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
     @NonNull
     @Override
     public String toString() {
@@ -591,4 +590,3 @@ public class MealEntity implements Parcelable {
                 '}';
     }
 }
-

@@ -5,7 +5,7 @@ import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.meals.repo.search_repo.SearchRepo;
 import com.dmy.foodplannerapp.data.meals.repo.search_repo.SearchRepoImpl;
 import com.dmy.foodplannerapp.data.model.ArgumentSearchScreenModel;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.presentation.home.search_screen_fragment.view.SearchView;
 
 import java.util.List;

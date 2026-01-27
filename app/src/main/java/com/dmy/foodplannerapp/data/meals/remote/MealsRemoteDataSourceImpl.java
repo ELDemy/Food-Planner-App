@@ -11,8 +11,10 @@ import com.dmy.foodplannerapp.data.model.CategoriesResponse;
 import com.dmy.foodplannerapp.data.model.CategoryEntity;
 import com.dmy.foodplannerapp.data.model.IngredientDTO;
 import com.dmy.foodplannerapp.data.model.IngredientsResponse;
-import com.dmy.foodplannerapp.data.model.MealEntity;
 import com.dmy.foodplannerapp.data.model.MealsResponse;
+import com.dmy.foodplannerapp.data.model.dto.MealDto;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
+import com.dmy.foodplannerapp.data.model.mapper.MealMapper;
 import com.dmy.foodplannerapp.data.network.MealsNetwork;
 
 import java.util.ArrayList;
@@ -38,8 +40,9 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
             public void onResponse(@NonNull Call<MealsResponse> call, @NonNull Response<MealsResponse> response) {
                 MealsResponse mealsResponse = response.body();
                 if (mealsResponse != null) {
-                    if (mealsResponse.getMeal() != null) {
-                        callBack.onSuccess(mealsResponse.getMeal());
+                    MealDto mealDto = mealsResponse.getMeal();
+                    if (mealDto != null) {
+                        callBack.onSuccess(MealMapper.toEntity(mealDto));
                     } else {
                         callBack.onFailure(new Failure("No Meal found With this Id"));
                     }
@@ -56,7 +59,6 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
 
     }
 
-
     @Override
     public void getRandomMeal(MyCallBack<MealEntity> callBack) {
         Call<MealsResponse> call = mealsService.getRandomMeal();
@@ -66,8 +68,9 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
             public void onResponse(@NonNull Call<MealsResponse> call, @NonNull Response<MealsResponse> response) {
                 MealsResponse mealsResponse = response.body();
                 if (mealsResponse != null) {
-                    if (mealsResponse.getMeal() != null) {
-                        callBack.onSuccess(mealsResponse.getMeal());
+                    MealDto mealDto = mealsResponse.getMeal();
+                    if (mealDto != null) {
+                        callBack.onSuccess(MealMapper.toEntity(mealDto));
                     } else {
                         callBack.onFailure(new Failure("No Random Meals for today"));
                     }
@@ -133,7 +136,8 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
 
         call.enqueue(new Callback<>() {
             @Override
-            public void onResponse(@NonNull Call<CategoriesResponse> call, @NonNull Response<CategoriesResponse> response) {
+            public void onResponse(@NonNull Call<CategoriesResponse> call,
+                                   @NonNull Response<CategoriesResponse> response) {
                 CategoriesResponse categoriesResponse = response.body();
                 Log.i("TAG", "onResponse: " + categoriesResponse);
                 if (categoriesResponse != null) {
@@ -160,10 +164,12 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
 
         call.enqueue(new Callback<>() {
             @Override
-            public void onResponse(@NonNull Call<IngredientsResponse> call, @NonNull Response<IngredientsResponse> response) {
+            public void onResponse(@NonNull Call<IngredientsResponse> call,
+                                   @NonNull Response<IngredientsResponse> response) {
                 IngredientsResponse ingredientsResponse = response.body();
                 if (ingredientsResponse != null) {
-                    if (ingredientsResponse.getIngredients() != null && !ingredientsResponse.getIngredients().isEmpty()) {
+                    if (ingredientsResponse.getIngredients() != null
+                            && !ingredientsResponse.getIngredients().isEmpty()) {
                         callBack.onSuccess(ingredientsResponse.getIngredients());
                     } else {
                         callBack.onFailure(new Failure("No Categories for today"));

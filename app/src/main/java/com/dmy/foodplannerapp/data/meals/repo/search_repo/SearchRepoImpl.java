@@ -10,8 +10,8 @@ import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSourceImpl;
 import com.dmy.foodplannerapp.data.meals.remote.search_data_source.SearchDataSource;
 import com.dmy.foodplannerapp.data.meals.remote.search_data_source.SearchRemoteDataSourceImpl;
 import com.dmy.foodplannerapp.data.model.ArgumentSearchScreenModel;
-import com.dmy.foodplannerapp.data.model.MealEntity;
 import com.dmy.foodplannerapp.data.model.SearchedMealResponse;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.util.ArrayList;
 import java.util.List;

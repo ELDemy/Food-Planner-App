@@ -43,7 +43,7 @@
         tools:layout="@layout/fragment_meal_profile">
         <argument
             android:name="meal"
-            app:argType="com.dmy.foodplannerapp.data.model.MealEntity" />
+            app:argType="com.dmy.foodplannerapp.data.model.entity.MealEntity" />
     </fragment>
     <fragment
         android:id="@+id/mealsListScreenFragment"

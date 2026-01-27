@@ -6,7 +6,7 @@ import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepo;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepoImpl;
-import com.dmy.foodplannerapp.data.model.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.presentation.favourite.view.ChangeFavoriteView;
 
 public class ChangeFavoritePresenterImpl implements ChangeFavoritePresenter {
