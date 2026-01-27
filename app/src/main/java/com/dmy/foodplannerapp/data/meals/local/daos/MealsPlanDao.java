@@ -5,7 +5,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.dmy.foodplannerapp.data.model.MealPlan;
+import com.dmy.foodplannerapp.data.model.entity.MealPlan;
 
 @Dao
 public interface MealsPlanDao {

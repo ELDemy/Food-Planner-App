@@ -3,7 +3,7 @@ package com.dmy.foodplannerapp.data.meals.repo.ingredients_repo;
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSource;
 import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSourceImpl;
-import com.dmy.foodplannerapp.data.model.IngredientDTO;
+import com.dmy.foodplannerapp.data.model.dto.IngredientDTO;
 
 import java.util.List;
 

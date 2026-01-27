@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.data.model;
+package com.dmy.foodplannerapp.data.model.dto;
 
 import java.util.List;
 

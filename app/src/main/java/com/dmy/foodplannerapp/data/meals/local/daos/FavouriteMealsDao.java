@@ -7,8 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.dmy.foodplannerapp.data.model.FavoriteMeal;
-import com.dmy.foodplannerapp.data.model.FavoriteMealWithDetails;
+import com.dmy.foodplannerapp.data.model.entity.FavoriteMeal;
+import com.dmy.foodplannerapp.data.model.entity.FavoriteMealWithDetails;
 
 import java.util.List;
 

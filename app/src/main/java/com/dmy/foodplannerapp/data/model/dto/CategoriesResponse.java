@@ -1,4 +1,6 @@
-package com.dmy.foodplannerapp.data.model;
+package com.dmy.foodplannerapp.data.model.dto;
+
+import com.dmy.foodplannerapp.data.model.entity.CategoryEntity;
 
 import java.util.List;
 

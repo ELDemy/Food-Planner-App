@@ -1,7 +1,7 @@
 package com.dmy.foodplannerapp.data.meals.remote.search_data_source;
 
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
-import com.dmy.foodplannerapp.data.model.SearchedMealResponse;
+import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 
 import java.util.List;
 

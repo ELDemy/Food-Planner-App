@@ -6,7 +6,7 @@ import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.meals.repo.categories_repo.CategoriesRepo;
 import com.dmy.foodplannerapp.data.meals.repo.categories_repo.CategoriesRepoImpl;
-import com.dmy.foodplannerapp.data.model.CategoryEntity;
+import com.dmy.foodplannerapp.data.model.entity.CategoryEntity;
 import com.dmy.foodplannerapp.presentation.home.categories_list_fragment.view.CategoriesListView;
 
 import java.util.List;

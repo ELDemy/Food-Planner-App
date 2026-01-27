@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.data.model;
+package com.dmy.foodplannerapp.data.model.entity;
 //noinspection unused
 
 import java.io.Serializable;

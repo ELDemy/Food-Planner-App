@@ -7,7 +7,7 @@ import com.dmy.foodplannerapp.data.auth.repo.AuthRepo;
 import com.dmy.foodplannerapp.data.auth.repo.AuthRepoImp;
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
-import com.dmy.foodplannerapp.data.model.User;
+import com.dmy.foodplannerapp.data.model.entity.User;
 import com.dmy.foodplannerapp.presentation.auth.view.AuthView;
 import com.google.firebase.auth.FirebaseUser;
 

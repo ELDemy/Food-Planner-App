@@ -1,8 +1,6 @@
-package com.dmy.foodplannerapp.data.model;
+package com.dmy.foodplannerapp.data.model.dto;
 
 import androidx.annotation.NonNull;
-
-import com.dmy.foodplannerapp.data.model.dto.MealDto;
 
 import java.util.List;
 

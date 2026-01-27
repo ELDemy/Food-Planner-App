@@ -8,8 +8,8 @@ import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.failure.FailureHandler;
 import com.dmy.foodplannerapp.data.meals.remote.SearchService;
-import com.dmy.foodplannerapp.data.model.ListOfSearchMealResponse;
-import com.dmy.foodplannerapp.data.model.SearchedMealResponse;
+import com.dmy.foodplannerapp.data.model.dto.ListOfSearchMealResponse;
+import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 import com.dmy.foodplannerapp.data.network.MealsNetwork;
 
 import java.util.List;

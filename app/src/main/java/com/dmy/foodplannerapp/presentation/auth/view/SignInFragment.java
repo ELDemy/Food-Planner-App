@@ -16,7 +16,7 @@ import androidx.navigation.Navigation;
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.auth.remote.model.CustomAuthCredentials;
 import com.dmy.foodplannerapp.data.failure.Failure;
-import com.dmy.foodplannerapp.data.model.User;
+import com.dmy.foodplannerapp.data.model.entity.User;
 import com.dmy.foodplannerapp.presentation.auth.presenter.AuthPresenter;
 import com.dmy.foodplannerapp.presentation.auth.presenter.AuthPresenterImp;
 import com.dmy.foodplannerapp.presentation.reusable_components.CustomSnackBar;

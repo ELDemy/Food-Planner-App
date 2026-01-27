@@ -1,8 +1,8 @@
 package com.dmy.foodplannerapp.data.meals.remote;
 
-import com.dmy.foodplannerapp.data.model.CategoriesResponse;
-import com.dmy.foodplannerapp.data.model.IngredientsResponse;
-import com.dmy.foodplannerapp.data.model.MealsResponse;
+import com.dmy.foodplannerapp.data.model.dto.CategoriesResponse;
+import com.dmy.foodplannerapp.data.model.dto.IngredientsResponse;
+import com.dmy.foodplannerapp.data.model.dto.MealsResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -1,6 +1,6 @@
 package com.dmy.foodplannerapp.data.meals.remote;
 
-import com.dmy.foodplannerapp.data.model.ListOfSearchMealResponse;
+import com.dmy.foodplannerapp.data.model.dto.ListOfSearchMealResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -14,10 +14,10 @@ import com.dmy.foodplannerapp.data.failure.FailureHandler;
 import com.dmy.foodplannerapp.data.meals.local.daos.FavouriteMealsDao;
 import com.dmy.foodplannerapp.data.meals.local.daos.MealOfTheDayDao;
 import com.dmy.foodplannerapp.data.meals.local.daos.MealsDao;
-import com.dmy.foodplannerapp.data.model.FavoriteMeal;
-import com.dmy.foodplannerapp.data.model.FavoriteMealWithDetails;
-import com.dmy.foodplannerapp.data.model.MealOfTheDay;
+import com.dmy.foodplannerapp.data.model.entity.FavoriteMeal;
+import com.dmy.foodplannerapp.data.model.entity.FavoriteMealWithDetails;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealOfTheDay;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

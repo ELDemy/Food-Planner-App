@@ -1,10 +1,8 @@
-package com.dmy.foodplannerapp.data.model;
+package com.dmy.foodplannerapp.data.model.entity;
 
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 @Entity
 public class MealOfTheDay {

@@ -1,6 +1,6 @@
 package com.dmy.foodplannerapp.presentation.home.categories_list_fragment.view;
 
-import com.dmy.foodplannerapp.data.model.CategoryEntity;
+import com.dmy.foodplannerapp.data.model.entity.CategoryEntity;
 
 import java.util.List;
 

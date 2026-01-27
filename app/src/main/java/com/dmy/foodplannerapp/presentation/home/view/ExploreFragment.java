@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.ArgumentSearchScreenModel;
+import com.dmy.foodplannerapp.data.model.entity.ArgumentSearchScreenModel;
 
 public class ExploreFragment extends Fragment {
     CardView countryCardView;

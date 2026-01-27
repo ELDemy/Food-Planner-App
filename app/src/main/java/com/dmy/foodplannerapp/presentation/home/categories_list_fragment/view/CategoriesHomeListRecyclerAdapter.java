@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.ArgumentSearchScreenModel;
-import com.dmy.foodplannerapp.data.model.CategoryEntity;
+import com.dmy.foodplannerapp.data.model.entity.ArgumentSearchScreenModel;
+import com.dmy.foodplannerapp.data.model.entity.CategoryEntity;
 import com.dmy.foodplannerapp.presentation.home.view.HomeFragmentDirections;
 
 import java.util.ArrayList;

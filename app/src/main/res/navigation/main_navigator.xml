@@ -52,7 +52,7 @@
         tools:layout="@layout/fragment_meals_list_screen">
         <argument
             android:name="data"
-            app:argType="com.dmy.foodplannerapp.data.model.ArgumentSearchScreenModel" />
+            app:argType="com.dmy.foodplannerapp.data.model.entity.ArgumentSearchScreenModel" />
         <action
             android:id="@+id/action_mealsListScreenFragment_to_mealProfileFragment"
             app:destination="@id/mealProfileFragment" />

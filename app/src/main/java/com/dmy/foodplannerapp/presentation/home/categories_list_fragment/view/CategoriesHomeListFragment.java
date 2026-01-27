@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.CategoryEntity;
+import com.dmy.foodplannerapp.data.model.entity.CategoryEntity;
 import com.dmy.foodplannerapp.presentation.home.categories_list_fragment.presenter.CategoriesListPresenter;
 import com.dmy.foodplannerapp.presentation.home.categories_list_fragment.presenter.CategoriesListPresenterImpl;
 

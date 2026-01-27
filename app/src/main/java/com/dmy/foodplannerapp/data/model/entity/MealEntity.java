@@ -9,8 +9,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.dmy.foodplannerapp.data.model.Ingredient;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class MealEntity implements Parcelable {
             return new MealEntity(in);
         }
 
-        
+
         @Override
         public MealEntity[] newArray(int size) {
             return new MealEntity[size];

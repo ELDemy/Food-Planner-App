@@ -1,8 +1,8 @@
 package com.dmy.foodplannerapp.data.meals.remote;
 
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
-import com.dmy.foodplannerapp.data.model.CategoryEntity;
-import com.dmy.foodplannerapp.data.model.IngredientDTO;
+import com.dmy.foodplannerapp.data.model.dto.IngredientDTO;
+import com.dmy.foodplannerapp.data.model.entity.CategoryEntity;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.util.List;

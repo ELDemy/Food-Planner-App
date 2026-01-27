@@ -1,9 +1,7 @@
-package com.dmy.foodplannerapp.data.model;
+package com.dmy.foodplannerapp.data.model.entity;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;
-
-import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 public class FavoriteMealWithDetails {
 
