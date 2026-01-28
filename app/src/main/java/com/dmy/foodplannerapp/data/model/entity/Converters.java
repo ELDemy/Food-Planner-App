@@ -14,4 +14,14 @@ public class Converters {
     public static Long dateToTimestamp(Date date) {
         return date == null ? null : date.getTime();
     }
+
+    @TypeConverter
+    public static MealPlan.MealType fromMealType(String value) {
+        return value == null ? null : MealPlan.MealType.fromValue(value);
+    }
+
+    @TypeConverter
+    public static String mealTypeToString(MealPlan.MealType mealType) {
+        return mealType == null ? null : mealType.getValue();
+    }
 }

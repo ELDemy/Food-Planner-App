@@ -35,7 +35,14 @@
         android:id="@+id/planFragment"
         android:name="com.dmy.foodplannerapp.presentation.plan.view.PlanFragment"
         android:label="fragment_plan"
-        tools:layout="@layout/fragment_plan" />
+        tools:layout="@layout/fragment_plan">
+        <action
+            android:id="@+id/action_planFragment_to_mealProfileFragment"
+            app:destination="@id/mealProfileFragment" />
+        <action
+            android:id="@+id/action_planFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mealProfileFragment"
         android:name="com.dmy.foodplannerapp.presentation.meal_profile.view.MealProfileFragment"

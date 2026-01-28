@@ -29,4 +29,19 @@
     <string name="add_to_weekly_plan">Add to Weekly Plan</string>
     <string name="tutorial">Tutorial</string>
     <string name="for_more_details">For more details:</string>
+    <string name="weekly_planner">Weekly Planner</string>
+    <string name="plan_your_meals">Plan your meals for the week</string>
+    <string name="current_week">Current Week</string>
+    <string name="today_meals">Today\'s Meals</string>
+    <string name="add_meals_subtitle">Add meals for breakfast, lunch, and dinner</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="no_meals_planned">No meals planned</string>
+    <string name="add_a_meal">Add a meal</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_meal_type">Select Meal Type</string>
+    <string name="cancel">Cancel</string>
+    <string name="add">Add</string>
+    <string name="meal_added_to_plan">Meal added to your plan!</string>
+    <string name="please_select_date">Please select a date</string>
 </resources>

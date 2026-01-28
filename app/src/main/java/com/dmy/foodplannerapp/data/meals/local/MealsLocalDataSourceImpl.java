@@ -29,6 +29,7 @@ public class MealsLocalDataSourceImpl implements MealsLocalDataSource {
     MealsDao mealsDao;
     Handler mainHandler = new Handler(Looper.getMainLooper());
 
+
     public MealsLocalDataSourceImpl(Context context) {
         AppDatabase db = AppDatabase.getInstance(context);
         favouriteMealsDao = db.favMealsDao();
@@ -84,22 +85,21 @@ public class MealsLocalDataSourceImpl implements MealsLocalDataSource {
         th.start();
     }
 
-    private List<MealEntity> mapToMeals(List<FavoriteMealWithDetails> list) {
-        List<MealEntity> meals = new ArrayList<>();
-        for (FavoriteMealWithDetails item : list) {
-            item.meal.setFavourite(true);
-            meals.add(item.meal);
-        }
-        return meals;
-    }
 
     @Override
     public void getFavouriteMeals(MyCallBack<LiveData<List<MealEntity>>> callBack) {
         try {
             LiveData<List<FavoriteMealWithDetails>> favMeals = favouriteMealsDao.getAll();
-            LiveData<List<MealEntity>> meals = Transformations.map(favMeals, this::mapToMeals);
+            LiveData<List<MealEntity>> meals = Transformations.map(favMeals,
+                    (list) -> {
+                        List<MealEntity> mealsList = new ArrayList<>();
+                        for (FavoriteMealWithDetails item : list) {
+                            item.meal.setFavourite(true);
+                            mealsList.add(item.meal);
+                        }
+                        return mealsList;
+                    });
             callBack.onSuccess(meals);
-
         } catch (Exception e) {
             callBack.onFailure(FailureHandler.handle(e, "getFavouriteMeals"));
         }
@@ -144,4 +144,6 @@ public class MealsLocalDataSourceImpl implements MealsLocalDataSource {
         });
         th.start();
     }
+
+
 }
