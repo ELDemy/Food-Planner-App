@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +34,7 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
     ItemsListAdapter adapter;
     ItemsListPresenter presenter;
     SearchModel.SearchType itemType;
+    NavController navController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,9 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        navController = Navigation.findNavController(view);
+
         if (getArguments() != null) {
             ItemsScreenFragmentArgs args = ItemsScreenFragmentArgs.fromBundle(getArguments());
             Log.i(TAG, "onViewCreated: " + args);
@@ -59,10 +63,8 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
         backBtn = binding.btnBackContainer;
         recyclerView = binding.recyclerItems;
 
-        backBtn.setOnClickListener((btnView) -> {
-            NavController navController = NavHostFragment.findNavController(this);
-            navController.navigateUp();
-        });
+        setScreenTitle();
+        backBtn.setOnClickListener((btnView) -> navController.navigateUp());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 2); // 2 columns
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -74,6 +76,23 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
         presenter.loadItems(itemType);
     }
 
+    private void setScreenTitle() {
+        String titleText;
+        switch (itemType) {
+            case INGREDIENT:
+                titleText = "Select Ingredient";
+                break;
+            case COUNTRY:
+                titleText = "Select Country";
+                break;
+            case CATEGORY:
+            default:
+                titleText = "Select Category";
+                break;
+        }
+        title.setText(titleText);
+    }
+
     @Override
     public void onSuccess(List<? extends FilterItem> data) {
         adapter.setItems(data);
@@ -81,11 +100,35 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
 
     @Override
     public void onFailure(Failure failure) {
-
+        Log.e(TAG, "Failed to load items: " + failure);
     }
 
     @Override
     public void onLoad(boolean isLoading) {
+    }
 
+    public void onItemSelected(FilterItem selectedItem) {
+        SearchModel filter = new SearchModel(itemType, selectedItem.getName());
+
+        if (navController.getPreviousBackStackEntry() != null &&
+                navController.getPreviousBackStackEntry().getDestination().getId()
+                        == com.dmy.foodplannerapp.R.id.mealsListScreenFragment
+        ) {
+            navController.getPreviousBackStackEntry()
+                    .getSavedStateHandle()
+                    .set("selected_filter", filter);
+            navController.navigateUp();
+
+        } else {
+            ItemsScreenFragmentDirections.ActionItemsScreenFragmentToMealsListScreenFragment action
+                    = ItemsScreenFragmentDirections.actionItemsScreenFragmentToMealsListScreenFragment(filter);
+            navController.navigate(action);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

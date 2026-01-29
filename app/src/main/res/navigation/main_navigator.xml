@@ -62,13 +62,17 @@
         tools:layout="@layout/fragment_search_meals_screen">
         <argument
             android:name="data"
-            app:argType="com.dmy.foodplannerapp.data.model.entity.SearchModel" />
+            app:argType="com.dmy.foodplannerapp.data.model.entity.SearchModel"
+            app:nullable="true" />
         <action
             android:id="@+id/action_mealsListScreenFragment_to_mealProfileFragment"
             app:destination="@id/mealProfileFragment" />
         <action
             android:id="@+id/action_mealsListScreenFragment_to_mealProfileFragment2"
             app:destination="@id/mealProfileFragment" />
+        <action
+            android:id="@+id/action_mealsListScreenFragment_to_itemsScreenFragment"
+            app:destination="@id/itemsScreenFragment" />
     </fragment>
 
     <fragment

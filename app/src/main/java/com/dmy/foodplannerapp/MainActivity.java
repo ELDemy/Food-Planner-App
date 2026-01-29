@@ -11,17 +11,39 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    BottomNavigationView bottomNav;
+    NavHostFragment navHostFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpNavHost();
+        navBarVisibility();
     }
 
-    private void setUpNavHost() {
-        BottomNavigationView bottomNav = findViewById(R.id.navBar);
+    private void navBarVisibility() {
+        if (navHostFragment != null) {
+            NavController navController = navHostFragment.getNavController();
+            NavigationUI.setupWithNavController(bottomNav, navController);
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+            navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+                if (destination.getId() == R.id.mealProfileFragment
+                        || destination.getId() == R.id.mealsListScreenFragment
+                        || destination.getId() == R.id.itemsScreenFragment) {
+                    bottomNav.setVisibility(View.GONE);
+                } else {
+                    bottomNav.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+    }
+
+
+    private void setUpNavHost() {
+        bottomNav = findViewById(R.id.navBar);
+
+        navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.frag_navHost);
 
         if (navHostFragment != null) {

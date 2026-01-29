@@ -34,4 +34,8 @@ public interface MealsRepo {
     Single<List<CountryDTO>> getCountries();
 
     Single<List<SearchedMealResponse>> searchMeals(SearchModel searchModel);
+
+    Single<List<SearchedMealResponse>> searchMeals(String query);
+
+    Single<List<SearchedMealResponse>> searchMeals(List<SearchModel> filters);
 }

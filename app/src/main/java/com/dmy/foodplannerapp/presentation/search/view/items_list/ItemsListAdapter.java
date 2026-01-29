@@ -10,16 +10,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.dto.CategoryDTO;
-import com.dmy.foodplannerapp.data.model.dto.CountryDTO;
 import com.dmy.foodplannerapp.data.model.dto.FilterItem;
-import com.dmy.foodplannerapp.data.model.dto.IngredientDTO;
-import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,26 +78,8 @@ public class ItemsListAdapter extends RecyclerView.Adapter<ItemsListAdapter.View
             Glide.with(context).load(item.getThumbnail()).into(image);
 
             card.setOnClickListener((btnView) -> {
-                if (item instanceof CategoryDTO) {
-                    navigate(new SearchModel(SearchModel.SearchType.CATEGORY, item.getName()));
-                }
-
-                if (item instanceof IngredientDTO) {
-                    navigate(new SearchModel(SearchModel.SearchType.INGREDIENT, item.getName()));
-                }
-
-                if (item instanceof CountryDTO) {
-                    navigate(new SearchModel(SearchModel.SearchType.COUNTRY, item.getName()));
-                }
+                fragment.onItemSelected(item);
             });
-        }
-
-        private void navigate(SearchModel searchModel) {
-            ItemsScreenFragmentDirections.ActionItemsScreenFragmentToMealsListScreenFragment action =
-                    ItemsScreenFragmentDirections.actionItemsScreenFragmentToMealsListScreenFragment(
-                            searchModel
-                    );
-            NavHostFragment.findNavController(fragment).navigate(action);
         }
     }
 }

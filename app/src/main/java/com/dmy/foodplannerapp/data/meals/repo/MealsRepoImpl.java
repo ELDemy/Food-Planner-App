@@ -20,12 +20,14 @@ import com.dmy.foodplannerapp.data.model.dto.CountriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.CountryDTO;
 import com.dmy.foodplannerapp.data.model.dto.IngredientDTO;
 import com.dmy.foodplannerapp.data.model.dto.IngredientsResponse;
+import com.dmy.foodplannerapp.data.model.dto.ListOfSearchMealResponse;
 import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 import com.dmy.foodplannerapp.data.model.mapper.MealMapper;
 
 import java.util.List;
+import java.util.Set;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
@@ -172,6 +174,50 @@ public class MealsRepoImpl implements MealsRepo {
             return searchDataSource.getIngredientMeals(arguments.name);
         }
 
-        return null;
+        return Single.just(List.of());
+    }
+
+    @Override
+    public Single<List<SearchedMealResponse>> searchMeals(String query) {
+        return mealsRemoteDataSource.getMealsByName(query)
+                .subscribeOn(Schedulers.io())
+                .map(ListOfSearchMealResponse::getMeals);
+    }
+
+    @Override
+    public Single<List<SearchedMealResponse>> searchMeals(List<SearchModel> filters) {
+        if (filters == null || filters.isEmpty()) {
+            return Single.just(List.of());
+        }
+
+        if (filters.size() == 1) {
+            return searchMeals(filters.get(0));
+        }
+
+        return Observable.fromIterable(filters)
+                .flatMapSingle(this::searchMeals)
+                .toList()
+                .map(this::intersectResults)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    private List<SearchedMealResponse> intersectResults(List<List<SearchedMealResponse>> allResults) {
+        if (allResults.isEmpty()) {
+            return List.of();
+        }
+
+        List<SearchedMealResponse> intersection = new java.util.ArrayList<>(allResults.get(0));
+
+        for (int i = 1; i < allResults.size(); i++) {
+            List<SearchedMealResponse> currentList = allResults.get(i);
+            Set<String> currentIds = new java.util.HashSet<>();
+            for (SearchedMealResponse meal : currentList) {
+                currentIds.add(meal.getId());
+            }
+            intersection.removeIf(meal -> !currentIds.contains(meal.getId()));
+        }
+
+        return intersection;
     }
 }

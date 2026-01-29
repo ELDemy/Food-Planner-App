@@ -3,6 +3,7 @@ package com.dmy.foodplannerapp.data.meals.remote;
 import com.dmy.foodplannerapp.data.model.dto.CategoriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.CountriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.IngredientsResponse;
+import com.dmy.foodplannerapp.data.model.dto.ListOfSearchMealResponse;
 import com.dmy.foodplannerapp.data.model.dto.MealsResponse;
 
 import io.reactivex.rxjava3.core.Single;
@@ -12,6 +13,9 @@ import retrofit2.http.Query;
 public interface MealsService {
     @GET("lookup.php")
     Single<MealsResponse> getMealById(@Query("i") String id);
+
+    @GET("search.php")
+    Single<ListOfSearchMealResponse> getMealByName(@Query("s") String query);
 
     @GET("random.php")
     Single<MealsResponse> getRandomMeal();

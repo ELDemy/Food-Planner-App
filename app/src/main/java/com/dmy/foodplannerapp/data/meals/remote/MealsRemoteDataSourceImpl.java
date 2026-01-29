@@ -3,6 +3,7 @@ package com.dmy.foodplannerapp.data.meals.remote;
 import com.dmy.foodplannerapp.data.model.dto.CategoriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.CountriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.IngredientsResponse;
+import com.dmy.foodplannerapp.data.model.dto.ListOfSearchMealResponse;
 import com.dmy.foodplannerapp.data.model.dto.MealDto;
 import com.dmy.foodplannerapp.data.model.dto.MealsResponse;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
@@ -33,6 +34,11 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
                     }
                     throw new Exception("No meal found with this ID");
                 });
+    }
+
+    @Override
+    public Single<ListOfSearchMealResponse> getMealsByName(String query) {
+        return mealsService.getMealByName(query);
     }
 
     @Override
