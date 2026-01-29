@@ -193,7 +193,7 @@ public class MealEntity implements Parcelable {
         if (youtube != null && youtube.contains("v=")) {
             return youtube.substring(youtube.indexOf("v=") + 2);
         }
-        return youtube;
+        return null;
     }
 
     public String getSource() {

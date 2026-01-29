@@ -100,12 +100,12 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_breakfast"
-            style="@style/Widget.Material3.Chip.Filter"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/breakfast"
-            android:textColor="@color/green"
+            android:textColor="@color/chip_text_color_selector"
             android:textSize="16sp"
             app:checkedIconVisible="false"
             app:chipBackgroundColor="@color/chip_background_selector"
@@ -114,11 +114,11 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_lunch"
-            style="@style/Widget.Material3.Chip.Filter"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/lunch"
-            android:textColor="@color/green"
+            android:textColor="@color/chip_text_color_selector"
             android:textSize="16sp"
             app:checkedIconVisible="false"
             app:chipBackgroundColor="@color/chip_background_selector"
@@ -127,11 +127,11 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_dinner"
-            style="@style/Widget.Material3.Chip.Filter"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dinner"
-            android:textColor="@color/green"
+            android:textColor="@color/chip_text_color_selector"
             android:textSize="16sp"
             app:checkedIconVisible="false"
             app:chipBackgroundColor="@color/chip_background_selector"
@@ -140,7 +140,6 @@
 
     </com.google.android.material.chip.ChipGroup>
 
-    <!-- Action Buttons -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -160,14 +159,19 @@
             android:text="@string/cancel"
             android:textColor="@color/text_secondary" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/btn_add"
+            style="@style/AppButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:backgroundTint="@color/green"
-            android:text="@string/add"
-            android:textColor="@color/white" />
+            android:background="@drawable/button_gradient"
+            android:elevation="2dp"
+            android:text="Add"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

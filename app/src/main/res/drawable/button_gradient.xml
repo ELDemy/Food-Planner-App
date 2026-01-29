@@ -4,14 +4,11 @@
 
     <item>
         <shape android:shape="rectangle">
-            <!-- Gradient from green to darker green -->
             <gradient
                 android:angle="0"
-                android:startColor="#05DF72"
                 android:endColor="#00A63E"
+                android:startColor="#05DF72"
                 android:type="linear" />
-
-            <!-- Rounded corners -->
             <corners android:radius="12dp" />
         </shape>
     </item>
