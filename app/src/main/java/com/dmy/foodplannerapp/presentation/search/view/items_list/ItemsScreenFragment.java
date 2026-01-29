@@ -1,6 +1,8 @@
 package com.dmy.foodplannerapp.presentation.search.view.items_list;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +14,19 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.model.dto.FilterItem;
 import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 import com.dmy.foodplannerapp.databinding.FragmentItemsScreenFragmentBinding;
 import com.dmy.foodplannerapp.presentation.search.presenter.items_list_presenter.ItemsListPresenter;
 import com.dmy.foodplannerapp.presentation.search.presenter.items_list_presenter.ItemsListPresenterImpl;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
@@ -35,6 +40,7 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
     ItemsListPresenter presenter;
     SearchModel.SearchType itemType;
     NavController navController;
+    TextInputLayout searchTxt;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,11 +64,8 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
             Log.i(TAG, "onViewCreated: " + args);
             itemType = args.getItemType();
         }
-
-        title = binding.tvTitle;
-        backBtn = binding.btnBackContainer;
-        recyclerView = binding.recyclerItems;
-
+        initViews();
+        setUpSearchText();
         setScreenTitle();
         backBtn.setOnClickListener((btnView) -> navController.navigateUp());
 
@@ -74,6 +77,32 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
 
         presenter = new ItemsListPresenterImpl(this, requireContext());
         presenter.loadItems(itemType);
+    }
+
+    void initViews() {
+        title = binding.tvTitle;
+        backBtn = binding.btnBackContainer;
+        recyclerView = binding.recyclerItems;
+        searchTxt = binding.txtFieldSearchLayout;
+    }
+
+    void setUpSearchText() {
+        searchTxt.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                presenter.filter(charSequence.toString());
+            }
+        });
     }
 
     private void setScreenTitle() {
@@ -112,7 +141,7 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
 
         if (navController.getPreviousBackStackEntry() != null &&
                 navController.getPreviousBackStackEntry().getDestination().getId()
-                        == com.dmy.foodplannerapp.R.id.mealsListScreenFragment
+                        == R.id.mealsListScreenFragment
         ) {
             navController.getPreviousBackStackEntry()
                     .getSavedStateHandle()
@@ -122,7 +151,11 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
         } else {
             ItemsScreenFragmentDirections.ActionItemsScreenFragmentToMealsListScreenFragment action
                     = ItemsScreenFragmentDirections.actionItemsScreenFragmentToMealsListScreenFragment(filter);
-            navController.navigate(action);
+            NavOptions navOptions = new NavOptions.Builder()
+                    .setPopUpTo(R.id.itemsScreenFragment, true)
+                    .build();
+
+            navController.navigate(action, navOptions);
         }
     }
 

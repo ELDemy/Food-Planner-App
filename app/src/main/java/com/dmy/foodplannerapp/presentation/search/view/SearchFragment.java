@@ -38,7 +38,6 @@ import java.util.List;
 public class SearchFragment extends Fragment implements SearchView {
 
     private static final String TAG = "SearchFragment";
-    private static final int SEARCH_DELAY_MS = 300; // Debounce delay
 
     private final List<SearchModel> activeFilters = new ArrayList<>();
     private final Handler searchHandler = new Handler(Looper.getMainLooper());
@@ -66,17 +65,9 @@ public class SearchFragment extends Fragment implements SearchView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        searchText = binding.txtFieldSearchLayout;
-        backBtn = binding.btnBackContainer;
-        backBtn.setOnClickListener(v -> NavHostFragment
-                .findNavController(SearchFragment.this)
-                .popBackStack(R.id.homeFragment, false));
-
-        recyclerView = binding.recyclerMeals;
-        adapter = new SearchListAdapter(requireContext());
-        recyclerView.setAdapter(adapter);
-
+        initViews();
         setupSearchText();
+
         setupFilterTypeChips();
         restoreFiltersFromNavigation();
 
@@ -95,11 +86,22 @@ public class SearchFragment extends Fragment implements SearchView {
         }
     }
 
+    void initViews() {
+        searchText = binding.txtFieldSearchLayout;
+        backBtn = binding.btnBackContainer;
+        backBtn.setOnClickListener(v -> NavHostFragment
+                .findNavController(SearchFragment.this)
+                .popBackStack(R.id.homeFragment, false));
+
+        recyclerView = binding.recyclerMeals;
+        adapter = new SearchListAdapter(requireContext());
+        recyclerView.setAdapter(adapter);
+    }
+
     private void setupSearchText() {
         searchText.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Not needed
             }
 
             @Override
@@ -114,7 +116,7 @@ public class SearchFragment extends Fragment implements SearchView {
                     filterByName(searchQuery);
                 };
 
-                searchHandler.postDelayed(searchRunnable, SEARCH_DELAY_MS);
+                searchHandler.postDelayed(searchRunnable, 300);
             }
 
             @Override
@@ -188,15 +190,18 @@ public class SearchFragment extends Fragment implements SearchView {
         if (currentEntry != null) {
             currentEntry.getSavedStateHandle()
                     .<SearchModel>getLiveData("selected_filter")
-                    .observe(getViewLifecycleOwner(), filter -> {
-                        if (filter != null) {
-                            addFilter(filter);
-                            navController.getCurrentBackStackEntry()
-                                    .getSavedStateHandle()
-                                    .remove("selected_filter");
-                        }
-                    });
+                    .observe(getViewLifecycleOwner(),
+                            filter -> {
+                                if (filter != null) {
+                                    addFilter(filter);
+                                    navController.getCurrentBackStackEntry()
+                                            .getSavedStateHandle()
+                                            .remove("selected_filter");
+                                }
+                            }
+                    );
         }
+        refreshFilterChips();
     }
 
     private void addFilter(SearchModel filter) {

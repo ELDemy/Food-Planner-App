@@ -1,6 +1,7 @@
 package com.dmy.foodplannerapp.presentation.search.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.dmy.foodplannerapp.data.failure.FailureHandler;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepo;
@@ -27,13 +28,14 @@ public class SearchPresenterImpl implements SearchPresenter {
 
     @Override
     public void searchMeals(List<SearchModel> arguments) {
+        Log.i(TAG, "searchMeals: " + arguments);
         if (arguments == null || arguments.isEmpty()) {
             showRandomMeals();
             return;
         }
 
         view.onLoad();
-        mealsRepo.searchMeals(arguments)
+        var x = mealsRepo.searchMeals(arguments)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         (data) -> view.onSuccess(data),
@@ -66,14 +68,15 @@ public class SearchPresenterImpl implements SearchPresenter {
     }
 
     void getMealsByName(String query) {
-        mealsRepo.searchMeals(query)
+        mealsRepo.searchMealsByName(query)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         (data) -> view.onSuccess(data),
                         (error) -> {
                             view.onSuccess(List.of());
                             view.onFailure(FailureHandler.handle(error, TAG));
-                        });
+                        }
+                );
     }
 
     private void showRandomMeals() {
@@ -83,6 +86,7 @@ public class SearchPresenterImpl implements SearchPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         (data) -> view.onSuccess(data),
-                        (error) -> view.onFailure(FailureHandler.handle(error, TAG)));
+                        (error) -> view.onFailure(FailureHandler.handle(error, TAG))
+                );
     }
 }

@@ -35,7 +35,7 @@ public interface MealsRepo {
 
     Single<List<SearchedMealResponse>> searchMeals(SearchModel searchModel);
 
-    Single<List<SearchedMealResponse>> searchMeals(String query);
+    Single<List<SearchedMealResponse>> searchMealsByName(String query);
 
     Single<List<SearchedMealResponse>> searchMeals(List<SearchModel> filters);
 }

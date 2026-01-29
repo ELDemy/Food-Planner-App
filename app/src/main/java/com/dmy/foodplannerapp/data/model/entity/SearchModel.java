@@ -28,13 +28,19 @@ public class SearchModel implements Serializable {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "SearchModel{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                '}';
+    }
+
     public enum SearchType {
         MEAL,
         INGREDIENT,
         CATEGORY,
         COUNTRY
     }
-
-
 }
 
