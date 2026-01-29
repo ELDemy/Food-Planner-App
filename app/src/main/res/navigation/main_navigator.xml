@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_mealsListScreenFragment"
             app:destination="@id/mealsListScreenFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_itemsScreenFragment2"
+            app:destination="@id/itemsScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -54,14 +57,27 @@
     </fragment>
     <fragment
         android:id="@+id/mealsListScreenFragment"
-        android:name="com.dmy.foodplannerapp.presentation.home.search_screen_fragment.view.SearchFragment"
+        android:name="com.dmy.foodplannerapp.presentation.search.view.SearchFragment"
         android:label="fragment_meals_list_screen"
-        tools:layout="@layout/fragment_meals_list_screen">
+        tools:layout="@layout/fragment_search_meals_screen">
         <argument
             android:name="data"
-            app:argType="com.dmy.foodplannerapp.data.model.entity.ArgumentSearchScreenModel" />
+            app:argType="com.dmy.foodplannerapp.data.model.entity.SearchModel" />
         <action
             android:id="@+id/action_mealsListScreenFragment_to_mealProfileFragment"
             app:destination="@id/mealProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/itemsScreenFragment"
+        android:name="com.dmy.foodplannerapp.presentation.search.view.items_list.ItemsScreenFragment"
+        android:label="fragment_items_screen_fragment"
+        tools:layout="@layout/fragment_items_screen_fragment">
+        <argument
+            android:name="itemType"
+            app:argType="com.dmy.foodplannerapp.data.model.entity.SearchModel$SearchType" />
+        <action
+            android:id="@+id/action_itemsScreenFragment_to_mealsListScreenFragment"
+            app:destination="@id/mealsListScreenFragment" />
     </fragment>
 </navigation>

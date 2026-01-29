@@ -10,8 +10,8 @@ import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSourceImpl;
 import com.dmy.foodplannerapp.data.meals.remote.search_data_source.SearchDataSource;
 import com.dmy.foodplannerapp.data.meals.remote.search_data_source.SearchRemoteDataSourceImpl;
 import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
-import com.dmy.foodplannerapp.data.model.entity.ArgumentSearchScreenModel;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +29,10 @@ public class SearchRepoImpl implements SearchRepo {
     }
 
     @Override
-    public void searchMeals(ArgumentSearchScreenModel arguments, MyCallBack<List<MealEntity>> callBack) {
-        ArgumentSearchScreenModel.SearchType searchType = arguments.getType();
+    public void searchMeals(SearchModel arguments, MyCallBack<List<MealEntity>> callBack) {
+        SearchModel.SearchType searchType = arguments.getType();
 
-        if (searchType == ArgumentSearchScreenModel.SearchType.CATEGORY) {
+        if (searchType == SearchModel.SearchType.CATEGORY) {
             searchDataSource.getCategoryMeals(arguments.name, new MyCallBack<List<SearchedMealResponse>>() {
                 @Override
                 public void onSuccess(List<SearchedMealResponse> data) {

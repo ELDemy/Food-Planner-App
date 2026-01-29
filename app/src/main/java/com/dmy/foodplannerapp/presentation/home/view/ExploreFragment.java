@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.entity.ArgumentSearchScreenModel;
+import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 
 public class ExploreFragment extends Fragment {
     CardView countryCardView;
@@ -38,20 +38,15 @@ public class ExploreFragment extends Fragment {
         ingrediantCardView = view.findViewById(R.id.card_exploreIngredients);
 
         countryCardView.setOnClickListener(view1 -> {
-            ArgumentSearchScreenModel argument = new ArgumentSearchScreenModel(ArgumentSearchScreenModel.SearchType.COUNTRY, null);
-
-            HomeFragmentDirections.ActionHomeFragmentToMealsListScreenFragment action
-                    = HomeFragmentDirections.actionHomeFragmentToMealsListScreenFragment(argument);
-
+            HomeFragmentDirections.ActionHomeFragmentToItemsScreenFragment2 action
+                    = HomeFragmentDirections.actionHomeFragmentToItemsScreenFragment2(SearchModel.SearchType.COUNTRY);
             Navigation.findNavController(view).navigate(action);
         });
 
 
         ingrediantCardView.setOnClickListener(view1 -> {
-            ArgumentSearchScreenModel argument = new ArgumentSearchScreenModel(ArgumentSearchScreenModel.SearchType.COUNTRY, null);
-            HomeFragmentDirections.ActionHomeFragmentToMealsListScreenFragment action
-                    = HomeFragmentDirections.actionHomeFragmentToMealsListScreenFragment(argument);
-
+            HomeFragmentDirections.ActionHomeFragmentToItemsScreenFragment2 action
+                    = HomeFragmentDirections.actionHomeFragmentToItemsScreenFragment2(SearchModel.SearchType.INGREDIENT);
             Navigation.findNavController(view).navigate(action);
         });
     }

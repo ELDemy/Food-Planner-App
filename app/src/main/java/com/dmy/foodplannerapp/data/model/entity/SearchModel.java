@@ -3,11 +3,11 @@ package com.dmy.foodplannerapp.data.model.entity;
 
 import java.io.Serializable;
 
-public class ArgumentSearchScreenModel implements Serializable {
+public class SearchModel implements Serializable {
     public String name;
     public SearchType type;
 
-    public ArgumentSearchScreenModel(SearchType type, String name) {
+    public SearchModel(SearchType type, String name) {
         this.name = name;
         this.type = type;
     }

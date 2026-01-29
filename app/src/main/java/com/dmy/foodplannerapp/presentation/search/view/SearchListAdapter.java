@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.presentation.home.search_screen_fragment.view;
+package com.dmy.foodplannerapp.presentation.search.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;

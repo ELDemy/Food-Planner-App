@@ -1,12 +1,12 @@
-package com.dmy.foodplannerapp.presentation.home.search_screen_fragment.presenter;
+package com.dmy.foodplannerapp.presentation.search.presenter;
 
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.meals.repo.search_repo.SearchRepo;
 import com.dmy.foodplannerapp.data.meals.repo.search_repo.SearchRepoImpl;
-import com.dmy.foodplannerapp.data.model.entity.ArgumentSearchScreenModel;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
-import com.dmy.foodplannerapp.presentation.home.search_screen_fragment.view.SearchView;
+import com.dmy.foodplannerapp.data.model.entity.SearchModel;
+import com.dmy.foodplannerapp.presentation.search.view.SearchView;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class SearchPresenterImpl implements SearchPresenter {
     }
 
     @Override
-    public void searchMeals(ArgumentSearchScreenModel arguments) {
+    public void searchMeals(SearchModel arguments) {
         searchRepo.searchMeals(arguments, new MyCallBack<List<MealEntity>>() {
                     @Override
                     public void onSuccess(List<MealEntity> data) {

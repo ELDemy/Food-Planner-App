@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.presentation.home.search_screen_fragment.view;
+package com.dmy.foodplannerapp.presentation.search.view;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -15,20 +15,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.failure.Failure;
-import com.dmy.foodplannerapp.data.model.entity.ArgumentSearchScreenModel;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
-import com.dmy.foodplannerapp.databinding.FragmentMealsListScreenBinding;
-import com.dmy.foodplannerapp.presentation.home.search_screen_fragment.presenter.SearchPresenter;
-import com.dmy.foodplannerapp.presentation.home.search_screen_fragment.presenter.SearchPresenterImpl;
+import com.dmy.foodplannerapp.data.model.entity.SearchModel;
+import com.dmy.foodplannerapp.databinding.FragmentSearchMealsScreenBinding;
+import com.dmy.foodplannerapp.presentation.search.presenter.SearchPresenter;
+import com.dmy.foodplannerapp.presentation.search.presenter.SearchPresenterImpl;
 
 import java.util.List;
 
 public class SearchFragment extends Fragment implements SearchView {
 
     private static final String TAG = "SearchFragment";
-    ArgumentSearchScreenModel arguments;
+    SearchModel arguments;
     SearchPresenter searchPresenter;
-    FragmentMealsListScreenBinding binding;
+    FragmentSearchMealsScreenBinding binding;
     RecyclerView recyclerView;
     SearchListAdapter adapter;
     CardView backBtn;
@@ -36,22 +36,23 @@ public class SearchFragment extends Fragment implements SearchView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = FragmentMealsListScreenBinding.inflate(getLayoutInflater());
+        binding = FragmentSearchMealsScreenBinding.inflate(getLayoutInflater());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meals_list_screen, container, false);
+        return inflater.inflate(R.layout.fragment_search_meals_screen, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         arguments = SearchFragmentArgs.fromBundle(getArguments()).getData();
+        
         Log.i(TAG, "onViewCreated: " + arguments.getType() + arguments.getName());
-        backBtn = view.findViewById(R.id.btn_back_container);
+        backBtn = binding.btnBackContainer;
         backBtn.setOnClickListener(v -> {
             NavHostFragment
                     .findNavController(SearchFragment.this)

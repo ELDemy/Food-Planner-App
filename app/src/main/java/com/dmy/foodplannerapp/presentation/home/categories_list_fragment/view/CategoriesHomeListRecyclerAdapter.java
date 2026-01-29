@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.entity.ArgumentSearchScreenModel;
-import com.dmy.foodplannerapp.data.model.entity.CategoryEntity;
+import com.dmy.foodplannerapp.data.model.dto.CategoryDTO;
+import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 import com.dmy.foodplannerapp.presentation.home.view.HomeFragmentDirections;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import java.util.List;
 
 public class CategoriesHomeListRecyclerAdapter extends RecyclerView.Adapter<CategoriesHomeListRecyclerAdapter.ViewHolder> {
     private static final String TAG = "CategoriesHomeListRecyc";
-    List<CategoryEntity> categoriesList;
+    List<CategoryDTO> categoriesList;
     Context context;
 
     public CategoriesHomeListRecyclerAdapter(Context context) {
@@ -33,7 +33,7 @@ public class CategoriesHomeListRecyclerAdapter extends RecyclerView.Adapter<Cate
         categoriesList = new ArrayList<>();
     }
 
-    public void updateList(List<CategoryEntity> categoriesList) {
+    public void updateList(List<CategoryDTO> categoriesList) {
         this.categoriesList = categoriesList;
         notifyDataSetChanged();
     }
@@ -83,7 +83,7 @@ public class CategoriesHomeListRecyclerAdapter extends RecyclerView.Adapter<Cate
             titleText = itemView.findViewById(R.id.tv_name);
         }
 
-        void bind(CategoryEntity category, int position) {
+        void bind(CategoryDTO category, int position) {
             int color = ContextCompat.getColor(itemView.getContext(),
                     CARD_COLORS[position % CARD_COLORS.length]);
             Log.i(TAG, "bind: " + category);
@@ -94,7 +94,7 @@ public class CategoriesHomeListRecyclerAdapter extends RecyclerView.Adapter<Cate
             titleText.setText(category.getName());
             Glide.with(itemView).load(category.getThumbnail()).into(imageView);
 
-            ArgumentSearchScreenModel argument = new ArgumentSearchScreenModel(ArgumentSearchScreenModel.SearchType.CATEGORY, category.getName());
+            SearchModel argument = new SearchModel(SearchModel.SearchType.CATEGORY, category.getName());
             itemView.setOnClickListener(v -> {
                 HomeFragmentDirections.ActionHomeFragmentToMealsListScreenFragment action
                         = HomeFragmentDirections.actionHomeFragmentToMealsListScreenFragment(argument);

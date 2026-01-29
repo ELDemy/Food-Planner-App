@@ -1,6 +1,6 @@
 package com.dmy.foodplannerapp.presentation.home.categories_list_fragment.view;
 
-import com.dmy.foodplannerapp.data.model.entity.CategoryEntity;
+import com.dmy.foodplannerapp.data.model.dto.CategoryDTO;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ public interface CategoriesListView {
 
     void onFailure(String message);
 
-    void updateCategories(List<CategoryEntity> categories);
+    void updateCategories(List<CategoryDTO> categories);
 }

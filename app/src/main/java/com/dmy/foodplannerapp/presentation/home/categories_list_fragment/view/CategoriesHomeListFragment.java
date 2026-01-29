@@ -9,13 +9,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.entity.CategoryEntity;
+import com.dmy.foodplannerapp.data.model.dto.CategoryDTO;
+import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 import com.dmy.foodplannerapp.presentation.home.categories_list_fragment.presenter.CategoriesListPresenter;
 import com.dmy.foodplannerapp.presentation.home.categories_list_fragment.presenter.CategoriesListPresenterImpl;
+import com.dmy.foodplannerapp.presentation.home.view.HomeFragmentDirections;
 
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class CategoriesHomeListFragment extends Fragment implements CategoriesLi
     CategoriesHomeListRecyclerAdapter adapter;
     TextView errTxt;
     LottieAnimationView loading;
+    TextView seeAllTxt;
 
     CategoriesListPresenter presenter;
 
@@ -45,13 +49,20 @@ public class CategoriesHomeListFragment extends Fragment implements CategoriesLi
         rvCategories = view.findViewById(R.id.rv_categories);
         errTxt = view.findViewById(R.id.tv_error);
         loading = view.findViewById(R.id.loading);
-
-        presenter = new CategoriesListPresenterImpl(this);
+        seeAllTxt = view.findViewById(R.id.tv_seeAll);
+        presenter = new CategoriesListPresenterImpl(this, requireContext());
 
         adapter = new CategoriesHomeListRecyclerAdapter(requireContext());
         rvCategories.setAdapter(adapter);
 
         presenter.getCategories();
+
+        seeAllTxt.setOnClickListener(v -> {
+            HomeFragmentDirections.ActionHomeFragmentToItemsScreenFragment2 action = HomeFragmentDirections
+                    .actionHomeFragmentToItemsScreenFragment2(SearchModel.SearchType.CATEGORY);
+            
+            NavHostFragment.findNavController(CategoriesHomeListFragment.this).navigate(action);
+        });
     }
 
     @Override
@@ -68,7 +79,7 @@ public class CategoriesHomeListFragment extends Fragment implements CategoriesLi
     }
 
     @Override
-    public void updateCategories(List<CategoryEntity> categories) {
+    public void updateCategories(List<CategoryDTO> categories) {
         adapter.updateList(categories);
     }
 }

@@ -1,8 +1,8 @@
-package com.dmy.foodplannerapp.data.model.entity;
+package com.dmy.foodplannerapp.data.model.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CategoryEntity {
+public class CategoryDTO implements FilterItem {
     @SerializedName("idCategory")
     private String id;
     @SerializedName("strCategory")

@@ -2,7 +2,7 @@ package com.dmy.foodplannerapp.data.model.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class IngredientDTO {
+public class IngredientDTO implements FilterItem {
     @SerializedName("idIngredient")
     private String id;
     @SerializedName("strIngredient")
@@ -46,7 +46,7 @@ public class IngredientDTO {
         this.type = type;
     }
 
-    public String getThumb() {
+    public String getThumbnail() {
         return thumb;
     }
 

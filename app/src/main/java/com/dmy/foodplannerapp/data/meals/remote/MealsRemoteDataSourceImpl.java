@@ -8,11 +8,10 @@ import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.failure.FailureHandler;
 import com.dmy.foodplannerapp.data.model.dto.CategoriesResponse;
-import com.dmy.foodplannerapp.data.model.dto.IngredientDTO;
+import com.dmy.foodplannerapp.data.model.dto.CountriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.IngredientsResponse;
 import com.dmy.foodplannerapp.data.model.dto.MealDto;
 import com.dmy.foodplannerapp.data.model.dto.MealsResponse;
-import com.dmy.foodplannerapp.data.model.entity.CategoryEntity;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.data.model.mapper.MealMapper;
 import com.dmy.foodplannerapp.data.network.MealsNetwork;
@@ -20,6 +19,7 @@ import com.dmy.foodplannerapp.data.network.MealsNetwork;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -130,59 +130,17 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
     }
 
     @Override
-    public void getCategories(MyCallBack<List<CategoryEntity>> callBack) {
-
-        Call<CategoriesResponse> call = mealsService.getCategories();
-
-        call.enqueue(new Callback<>() {
-            @Override
-            public void onResponse(@NonNull Call<CategoriesResponse> call,
-                                   @NonNull Response<CategoriesResponse> response) {
-                CategoriesResponse categoriesResponse = response.body();
-                Log.i("TAG", "onResponse: " + categoriesResponse);
-                if (categoriesResponse != null) {
-                    if (categoriesResponse.getCategories() != null) {
-                        callBack.onSuccess(categoriesResponse.getCategories());
-                    } else {
-                        callBack.onFailure(new Failure("No Categories for today"));
-                    }
-                } else {
-                    callBack.onFailure(FailureHandler.handle(response, "MealsRemoteDataSourceImpl getCategories"));
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<CategoriesResponse> call, @NonNull Throwable t) {
-                callBack.onFailure(FailureHandler.handle(t, "MealsRemoteDataSourceImpl getCategories"));
-            }
-        });
+    public Single<CategoriesResponse> getCategories() {
+        return mealsService.getCategories();
     }
 
     @Override
-    public void getIngredients(MyCallBack<List<IngredientDTO>> callBack) {
-        Call<IngredientsResponse> call = mealsService.getIngredients();
+    public Single<IngredientsResponse> getIngredients() {
+        return mealsService.getIngredients();
+    }
 
-        call.enqueue(new Callback<>() {
-            @Override
-            public void onResponse(@NonNull Call<IngredientsResponse> call,
-                                   @NonNull Response<IngredientsResponse> response) {
-                IngredientsResponse ingredientsResponse = response.body();
-                if (ingredientsResponse != null) {
-                    if (ingredientsResponse.getIngredients() != null
-                            && !ingredientsResponse.getIngredients().isEmpty()) {
-                        callBack.onSuccess(ingredientsResponse.getIngredients());
-                    } else {
-                        callBack.onFailure(new Failure("No Categories for today"));
-                    }
-                } else {
-                    callBack.onFailure(FailureHandler.handle(response, "MealsRemoteDataSourceImpl getCategories"));
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<IngredientsResponse> call, @NonNull Throwable t) {
-                callBack.onFailure(FailureHandler.handle(t, "MealsRemoteDataSourceImpl getIngredients"));
-            }
-        });
+    @Override
+    public Single<CountriesResponse> getCountries() {
+        return mealsService.getCountries();
     }
 }

@@ -1,13 +1,11 @@
 package com.dmy.foodplannerapp.data.model.dto;
 
-import com.dmy.foodplannerapp.data.model.entity.CategoryEntity;
-
 import java.util.List;
 
 public class CategoriesResponse {
-    List<CategoryEntity> categories;
+    List<CategoryDTO> categories;
 
-    public List<CategoryEntity> getCategories() {
+    public List<CategoryDTO> getCategories() {
         return categories;
     }
 
