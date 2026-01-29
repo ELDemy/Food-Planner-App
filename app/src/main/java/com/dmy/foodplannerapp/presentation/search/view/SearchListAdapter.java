@@ -14,14 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.dmy.foodplannerapp.R;
-import com.dmy.foodplannerapp.data.model.entity.MealEntity;
+import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.ViewHolder> {
 
-    List<MealEntity> meals;
+    List<SearchedMealResponse> meals;
     Context context;
 
     public SearchListAdapter(Context context) {
@@ -29,7 +29,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
         meals = new ArrayList<>();
     }
 
-    public void setMeals(List<MealEntity> meals) {
+    public void setMeals(List<SearchedMealResponse> meals) {
         this.meals = meals;
         notifyDataSetChanged();
     }
@@ -57,7 +57,6 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
         TextView category;
         CardView favBtn;
 
-        ImageView heartImage;
         ImageView mealImage;
 
         public ViewHolder(@NonNull View itemView) {
@@ -66,20 +65,18 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
             title = itemView.findViewById(R.id.tv_mealTitle);
             category = itemView.findViewById(R.id.tv_category);
             favBtn = itemView.findViewById(R.id.btn_favorite);
-            heartImage = itemView.findViewById(R.id.iv_heart);
             mealImage = itemView.findViewById(R.id.img_meal);
         }
 
-        void bind(MealEntity meal) {
+        void bind(SearchedMealResponse meal) {
             title.setText(meal.getName());
-            category.setText(meal.getCategory());
-            Glide.with(context).load(meal.getThumbnail()).into(mealImage);
+            category.setText("");
+            Glide.with(context).load(meal.getThumbNail()).into(mealImage);
             favBtn.setVisibility(View.GONE);
-            heartImage.setImageResource(meal.isFavourite() ? R.drawable.heart_filled : R.drawable.heart);
 
             view.setOnClickListener((btnView) -> {
                 SearchFragmentDirections.ActionMealsListScreenFragmentToMealProfileFragment action = SearchFragmentDirections
-                        .actionMealsListScreenFragmentToMealProfileFragment(meal);
+                        .actionMealsListScreenFragmentToMealProfileFragment(meal.getId());
 
                 Navigation.findNavController(itemView).navigate(action);
             });

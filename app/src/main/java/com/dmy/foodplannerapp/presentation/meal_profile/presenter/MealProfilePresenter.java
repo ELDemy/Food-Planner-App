@@ -6,5 +6,7 @@ import com.dmy.foodplannerapp.presentation.favourite.presenter.ChangeFavoritePre
 import java.util.Date;
 
 public interface MealProfilePresenter extends ChangeFavoritePresenter {
+    void loadMeal(String mealId);
+
     void addMealToPlan(String mealId, Date date, MealPlan.MealType mealType);
 }

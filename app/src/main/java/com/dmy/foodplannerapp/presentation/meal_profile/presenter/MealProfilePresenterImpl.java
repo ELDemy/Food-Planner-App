@@ -2,6 +2,8 @@ package com.dmy.foodplannerapp.presentation.meal_profile.presenter;
 
 import android.content.Context;
 
+import com.dmy.foodplannerapp.data.meals.repo.MealsRepo;
+import com.dmy.foodplannerapp.data.meals.repo.MealsRepoImpl;
 import com.dmy.foodplannerapp.data.meals.repo.meals_plan_repo.MealsPlanRepo;
 import com.dmy.foodplannerapp.data.meals.repo.meals_plan_repo.MealsPlanRepoImpl;
 import com.dmy.foodplannerapp.data.model.entity.MealPlan;
@@ -12,13 +14,25 @@ import java.util.Date;
 
 public class MealProfilePresenterImpl extends ChangeFavoritePresenterImpl implements MealProfilePresenter {
 
+    private final MealsRepo mealsRepo;
     private final MealsPlanRepo mealsPlanRepo;
     private final MealProfileView mealProfileView;
 
     public MealProfilePresenterImpl(Context context, MealProfileView mealProfileView) {
         super(context, mealProfileView);
         this.mealProfileView = mealProfileView;
+        this.mealsRepo = new MealsRepoImpl(context);
         this.mealsPlanRepo = new MealsPlanRepoImpl(context);
+    }
+
+    @Override
+    public void loadMeal(String mealId) {
+        mealProfileView.onLoadingStarted();
+
+        mealsRepo.getMealById(mealId)
+                .subscribe(
+                        mealProfileView::onMealLoaded,
+                        error -> mealProfileView.onLoadingError(error.getMessage()));
     }
 
     @Override

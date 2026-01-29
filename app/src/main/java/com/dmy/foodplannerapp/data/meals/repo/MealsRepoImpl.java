@@ -23,8 +23,8 @@ import com.dmy.foodplannerapp.data.model.dto.IngredientsResponse;
 import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.data.model.entity.SearchModel;
+import com.dmy.foodplannerapp.data.model.mapper.MealMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -45,17 +45,26 @@ public class MealsRepoImpl implements MealsRepo {
     }
 
     @Override
-    public void getMealById(int id, MyCallBack<MealEntity> callBack) {
-        mealsRemoteDataSource.getMealById(id, new MyCallBack<>() {
-            @Override
-            public void onSuccess(MealEntity meal) {
-                checkIfMealIsInFavorite(meal, () -> callBack.onSuccess(meal));
-            }
+    public Single<MealEntity> getMealById(String id) {
+        return mealsRemoteDataSource.getMealById(id)
+                .flatMap(this::checkIfMealIsInFavoriteRx)
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 
-            @Override
-            public void onFailure(Failure failure) {
-                callBack.onFailure(failure);
-            }
+    private Single<MealEntity> checkIfMealIsInFavoriteRx(MealEntity meal) {
+        return Single.create(emitter -> {
+            mealsLocalDataSource.isFavourite(meal, new MyCallBack<>() {
+                @Override
+                public void onSuccess(Boolean isFavourite) {
+                    meal.setFavourite(isFavourite);
+                    emitter.onSuccess(meal);
+                }
+
+                @Override
+                public void onFailure(Failure failure) {
+                    emitter.onSuccess(meal);
+                }
+            });
         });
     }
 
@@ -69,18 +78,17 @@ public class MealsRepoImpl implements MealsRepo {
 
             @Override
             public void onFailure(Failure failure) {
-                mealsRemoteDataSource.getRandomMeal(new MyCallBack<>() {
-                    @Override
-                    public void onSuccess(MealEntity meal) {
-                        mealsLocalDataSource.addMealOfTheDay(meal);
-                        checkIfMealIsInFavorite(meal, () -> callBack.onSuccess(meal));
-                    }
-
-                    @Override
-                    public void onFailure(Failure failure) {
-                        callBack.onFailure(failure);
-                    }
-                });
+                mealsRemoteDataSource.getRandomMeal()
+                        .observeOn(Schedulers.io())
+                        .map(MealMapper::toEntity)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                (meal) -> {
+                                    mealsLocalDataSource.addMealOfTheDay(meal);
+                                    checkIfMealIsInFavorite(meal, () -> callBack.onSuccess(meal));
+                                }, (error) -> {
+                                    callBack.onFailure(FailureHandler.handle(error, TAG));
+                                });
             }
         });
     }
@@ -103,26 +111,11 @@ public class MealsRepoImpl implements MealsRepo {
     }
 
     @Override
-    public void getRandomMeals(int quantity, MyCallBack<List<MealEntity>> callBack) {
-        mealsRemoteDataSource.getRandomMeals(quantity, new MyCallBack<>() {
-            @Override
-            public void onSuccess(List<MealEntity> meals) {
-                for (int i = 0; i < meals.size(); i++) {
-                    final int finalI = i;
-                    checkIfMealIsInFavorite(meals.get(i),
-                            () -> {
-                                if (finalI == quantity - 1) {
-                                    callBack.onSuccess(meals);
-                                }
-                            });
-                }
-            }
-
-            @Override
-            public void onFailure(Failure failure) {
-                callBack.onFailure(failure);
-            }
-        });
+    public Single<List<MealEntity>> getRandomMeals(int quantity) {
+        return mealsRemoteDataSource.getRandomMeals(quantity)
+                .flatMapObservable(Observable::fromIterable)
+                .map(MealMapper::toEntity)
+                .toList();
     }
 
     @Override
@@ -166,44 +159,19 @@ public class MealsRepoImpl implements MealsRepo {
     }
 
     @Override
-    public void searchMeals(SearchModel arguments, MyCallBack<List<MealEntity>> callBack) {
+    public Single<List<SearchedMealResponse>> searchMeals(SearchModel arguments) {
         SearchModel.SearchType searchType = arguments.getType();
 
         if (searchType == SearchModel.SearchType.CATEGORY) {
-            searchDataSource.getCategoryMeals(arguments.name, new MyCallBack<List<SearchedMealResponse>>() {
-                @Override
-                public void onSuccess(List<SearchedMealResponse> data) {
-                    Log.i(TAG, "onSuccess: " + data);
-                    ArrayList<MealEntity> mealsList = new ArrayList<>();
-                    Observable.fromIterable(data).subscribe((item) -> {
-                        mealsRemoteDataSource.getMealById(Integer.parseInt(item.getId())
-                                , new MyCallBack<MealEntity>() {
-                                    @Override
-                                    public void onSuccess(MealEntity data) {
-                                        Log.i(TAG, "Adding to list: " + data);
-                                        mealsList.add(data);
-                                        callBack.onSuccess(mealsList);
-                                    }
-
-                                    @Override
-                                    public void onFailure(Failure failure) {
-                                        Log.i(TAG + "getMealById", "onFailure:");
-                                    }
-                                });
-                    }, (error) -> {
-                        Log.i(TAG, "onError: " + error);
-                        callBack.onFailure(FailureHandler.handle(error, "searchMeals"));
-                    }, () -> {
-                        Log.i(TAG, "onComplete: " + mealsList);
-                        callBack.onSuccess(mealsList);
-                    });
-                }
-
-                @Override
-                public void onFailure(Failure failure) {
-                    callBack.onFailure(failure);
-                }
-            });
+            return searchDataSource.getCategoryMeals(arguments.name);
         }
+        if (searchType == SearchModel.SearchType.COUNTRY) {
+            return searchDataSource.getCountryMeals(arguments.name);
+        }
+        if (searchType == SearchModel.SearchType.INGREDIENT) {
+            return searchDataSource.getIngredientMeals(arguments.name);
+        }
+
+        return null;
     }
 }

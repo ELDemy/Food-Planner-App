@@ -91,7 +91,7 @@ public class FavouriteMealsAdapter extends RecyclerView.Adapter<FavouriteMealsAd
 
             itemView.setOnClickListener((cardView) -> {
                 FavouriteFragmentDirections.ActionFavouriteFragmentToMealProfileFragment action = FavouriteFragmentDirections
-                        .actionFavouriteFragmentToMealProfileFragment(meal);
+                        .actionFavouriteFragmentToMealProfileFragment(meal.getId());
 
                 Navigation.findNavController(itemView).navigate(action);
             });

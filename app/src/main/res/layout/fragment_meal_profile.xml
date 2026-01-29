@@ -8,10 +8,12 @@
     tools:context=".presentation.meal_profile.view.MealProfileFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/content_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        tools:visibility="gone">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -266,4 +268,48 @@
         android:src="@drawable/calendar"
         app:tint="@color/white" />
 
+    <LinearLayout
+        android:id="@+id/loading_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:lottie_autoPlay="true"
+            app:lottie_colorFilter="@color/green"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/splash" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/error_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/error_loading_meal"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/green"
+            android:text="@string/retry"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

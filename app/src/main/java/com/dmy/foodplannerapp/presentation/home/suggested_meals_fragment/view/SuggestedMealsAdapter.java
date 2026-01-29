@@ -80,7 +80,7 @@ public class SuggestedMealsAdapter extends RecyclerView.Adapter<SuggestedMealsAd
 
         private void navigate(MealEntity meal) {
             HomeFragmentDirections.ActionHomeFragmentToMealProfileFragment action = HomeFragmentDirections
-                    .actionHomeFragmentToMealProfileFragment(meal);
+                    .actionHomeFragmentToMealProfileFragment(meal.getId());
 
             Navigation.findNavController(itemView).navigate(action);
         }

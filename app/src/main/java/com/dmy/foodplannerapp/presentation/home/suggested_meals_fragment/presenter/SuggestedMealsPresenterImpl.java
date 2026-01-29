@@ -2,16 +2,15 @@ package com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.presen
 
 import android.content.Context;
 
-import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
-import com.dmy.foodplannerapp.data.failure.Failure;
+import com.dmy.foodplannerapp.data.failure.FailureHandler;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepo;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepoImpl;
-import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.view.SuggestedMealsView;
 
-import java.util.List;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 public class SuggestedMealsPresenterImpl implements SuggestedMealsPresenter {
+    private static final String TAG = "SuggestedMealsPresenter";
     SuggestedMealsView suggestedMealsView;
     MealsRepo mealsRepo;
 
@@ -23,18 +22,18 @@ public class SuggestedMealsPresenterImpl implements SuggestedMealsPresenter {
     @Override
     public void getSuggestedMeals() {
         suggestedMealsView.onLoad(true);
-        mealsRepo.getRandomMeals(10, new MyCallBack<>() {
-            @Override
-            public void onSuccess(List<MealEntity> data) {
-                suggestedMealsView.onLoad(false);
-                suggestedMealsView.updateSuggestedMeals(data);
-            }
+        mealsRepo.getRandomMeals(10)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        data -> {
+                            suggestedMealsView.onLoad(false);
+                            suggestedMealsView.updateSuggestedMeals(data);
+                        },
+                        error -> {
+                            suggestedMealsView.onLoad(false);
+                            suggestedMealsView.onFailure(FailureHandler.handle(error, TAG).getMessage());
+                        }
+                );
 
-            @Override
-            public void onFailure(Failure failure) {
-                suggestedMealsView.onLoad(false);
-                suggestedMealsView.onFailure(failure.getMessage());
-            }
-        });
     }
 }

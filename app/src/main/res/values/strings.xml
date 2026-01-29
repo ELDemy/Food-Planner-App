@@ -44,4 +44,6 @@
     <string name="add">Add</string>
     <string name="meal_added_to_plan">Meal added to your plan!</string>
     <string name="please_select_date">Please select a date</string>
+    <string name="error_loading_meal">Error loading meal details</string>
+    <string name="retry">Retry</string>
 </resources>

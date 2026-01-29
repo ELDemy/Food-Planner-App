@@ -66,7 +66,7 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
 
         featuredMealCard.setOnClickListener(btnView -> {
             HomeFragmentDirections.ActionHomeFragmentToMealProfileFragment action = HomeFragmentDirections
-                    .actionHomeFragmentToMealProfileFragment(meal);
+                    .actionHomeFragmentToMealProfileFragment(meal.getId());
 
             Navigation.findNavController(view).navigate(action);
         });

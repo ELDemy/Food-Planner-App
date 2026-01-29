@@ -1,6 +1,7 @@
 package com.dmy.foodplannerapp.data.model.mapper;
 
 import com.dmy.foodplannerapp.data.model.dto.MealDto;
+import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.util.ArrayList;
@@ -83,4 +84,39 @@ public final class MealMapper {
         }
         return entities;
     }
+
+    public static MealEntity fromSearchDto(SearchedMealResponse dto) {
+        if (dto == null) return null;
+
+        MealEntity entity = new MealEntity();
+
+        entity.setId(dto.getId());
+        entity.setName(dto.getName());
+        entity.setThumbnail(dto.getThumbNail());
+
+        // Defaults / safe values
+        entity.setFavourite(false);
+        entity.setCategory(null);
+        entity.setArea(null);
+        entity.setInstructions(null);
+        entity.setTags(null);
+        entity.setYoutube(null);
+        entity.setSource(null);
+        entity.setDateModified(null);
+
+        return entity;
+    }
+
+    public static SearchedMealResponse toSearchDto(MealEntity entity) {
+        if (entity == null) return null;
+
+        SearchedMealResponse dto = new SearchedMealResponse();
+
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setThumbNail(entity.getThumbnail());
+
+        return dto;
+    }
+
 }

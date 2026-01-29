@@ -88,7 +88,7 @@ public class PlannedMealsAdapter extends RecyclerView.Adapter<PlannedMealsAdapte
 
                 cardView.setOnClickListener(v -> {
                     PlanFragmentDirections.ActionPlanFragmentToMealProfileFragment action = PlanFragmentDirections
-                            .actionPlanFragmentToMealProfileFragment(mealPlan.meal);
+                            .actionPlanFragmentToMealProfileFragment(mealPlan.meal.getId());
 
                     Navigation.findNavController(itemView).navigate(action);
                 });

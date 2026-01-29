@@ -6,6 +6,7 @@ import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.model.dto.CategoryDTO;
 import com.dmy.foodplannerapp.data.model.dto.CountryDTO;
 import com.dmy.foodplannerapp.data.model.dto.IngredientDTO;
+import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 
@@ -14,11 +15,11 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 public interface MealsRepo {
-    void getMealById(int id, MyCallBack<MealEntity> callBack);
+    Single<MealEntity> getMealById(String id);
 
     void getMealOfTheDay(MyCallBack<MealEntity> callBack);
 
-    void getRandomMeals(int quantity, MyCallBack<List<MealEntity>> callBack);
+    Single<List<MealEntity>> getRandomMeals(int quantity);
 
     void addToFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
 
@@ -32,5 +33,5 @@ public interface MealsRepo {
 
     Single<List<CountryDTO>> getCountries();
 
-    void searchMeals(SearchModel searchModel, MyCallBack<List<MealEntity>> callBack);
+    Single<List<SearchedMealResponse>> searchMeals(SearchModel searchModel);
 }

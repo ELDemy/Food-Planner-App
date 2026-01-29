@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.failure.Failure;
-import com.dmy.foodplannerapp.data.model.entity.MealEntity;
+import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 import com.dmy.foodplannerapp.databinding.FragmentSearchMealsScreenBinding;
 import com.dmy.foodplannerapp.presentation.search.presenter.SearchPresenter;
@@ -36,22 +36,24 @@ public class SearchFragment extends Fragment implements SearchView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = FragmentSearchMealsScreenBinding.inflate(getLayoutInflater());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = FragmentSearchMealsScreenBinding.inflate(inflater, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_meals_screen, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        arguments = SearchFragmentArgs.fromBundle(getArguments()).getData();
-        
-        Log.i(TAG, "onViewCreated: " + arguments.getType() + arguments.getName());
+        if (getArguments() != null) {
+            SearchFragmentArgs args = SearchFragmentArgs.fromBundle(getArguments());
+            arguments = args.getData();
+        }
+
         backBtn = binding.btnBackContainer;
         backBtn.setOnClickListener(v -> {
             NavHostFragment
@@ -62,7 +64,7 @@ public class SearchFragment extends Fragment implements SearchView {
         adapter = new SearchListAdapter(requireContext());
         recyclerView.setAdapter(adapter);
 
-        searchPresenter = new SearchPresenterImpl(this);
+        searchPresenter = new SearchPresenterImpl(this, requireContext());
         searchPresenter.searchMeals(arguments);
     }
 
@@ -72,7 +74,7 @@ public class SearchFragment extends Fragment implements SearchView {
     }
 
     @Override
-    public void onSuccess(List<MealEntity> data) {
+    public void onSuccess(List<SearchedMealResponse> data) {
         Log.i(TAG, "Loaded Meals: " + data.size());
         adapter.setMeals(data);
     }

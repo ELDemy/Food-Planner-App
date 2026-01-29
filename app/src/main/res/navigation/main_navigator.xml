@@ -52,8 +52,8 @@
         android:label="fragment_meal_profile"
         tools:layout="@layout/fragment_meal_profile">
         <argument
-            android:name="meal"
-            app:argType="com.dmy.foodplannerapp.data.model.entity.MealEntity" />
+            android:name="mealId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/mealsListScreenFragment"
@@ -65,6 +65,9 @@
             app:argType="com.dmy.foodplannerapp.data.model.entity.SearchModel" />
         <action
             android:id="@+id/action_mealsListScreenFragment_to_mealProfileFragment"
+            app:destination="@id/mealProfileFragment" />
+        <action
+            android:id="@+id/action_mealsListScreenFragment_to_mealProfileFragment2"
             app:destination="@id/mealProfileFragment" />
     </fragment>
 

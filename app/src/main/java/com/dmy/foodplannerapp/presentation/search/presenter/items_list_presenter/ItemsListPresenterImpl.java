@@ -13,8 +13,8 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 public class ItemsListPresenterImpl implements ItemsListPresenter {
     private static final String TAG = "ItemsListPresenterImpl";
-    MealsRepo mealsRepo;
-    ItemsListView view;
+    private final MealsRepo mealsRepo;
+    private final ItemsListView view;
 
     public ItemsListPresenterImpl(ItemsListView view, Context context) {
         mealsRepo = new MealsRepoImpl(context);

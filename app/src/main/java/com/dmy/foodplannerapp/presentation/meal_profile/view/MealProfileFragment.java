@@ -7,15 +7,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
@@ -40,21 +43,31 @@ import java.util.Locale;
 
 public class MealProfileFragment extends Fragment implements MealProfileView {
     private static final String TAG = "MealProfileFragment";
-    MealEntity meal;
-    CardView backButton;
-    CardView favoriteButton;
-    ImageView heartImage;
-    FloatingActionButton addToWeeklyBtn;
-    TextView titleText;
-    TextView categoryText;
-    TextView countryText;
-    RecyclerView ingredientsRecyclerView;
-    TextView descriptionText;
-    ImageView mealImage;
-    TextView sourceText;
-    TextView tutorialText;
-    YouTubePlayerView youtubePlayer;
-    MealProfilePresenter presenter;
+
+    private String mealId;
+    private MealEntity meal;
+    private MealProfilePresenter presenter;
+
+    private LinearLayout loadingContainer;
+    private LottieAnimationView loadingView;
+    private LinearLayout errorContainer;
+    private TextView errorText;
+    private Button retryButton;
+    private NestedScrollView contentScrollView;
+
+    private CardView backButton;
+    private CardView favoriteButton;
+    private ImageView heartImage;
+    private FloatingActionButton addToWeeklyBtn;
+    private TextView titleText;
+    private TextView categoryText;
+    private TextView countryText;
+    private RecyclerView ingredientsRecyclerView;
+    private TextView descriptionText;
+    private ImageView mealImage;
+    private TextView sourceText;
+    private TextView tutorialText;
+    private YouTubePlayerView youtubePlayer;
 
     private Date selectedDate = null;
     private MealPlan.MealType selectedMealType = MealPlan.MealType.BREAKFAST;
@@ -65,8 +78,7 @@ public class MealProfileFragment extends Fragment implements MealProfileView {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_meal_profile, container, false);
     }
 
@@ -74,7 +86,21 @@ public class MealProfileFragment extends Fragment implements MealProfileView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter = new MealProfilePresenterImpl(requireContext(), this);
-        meal = MealProfileFragmentArgs.fromBundle(getArguments()).getMeal();
+        mealId = MealProfileFragmentArgs.fromBundle(getArguments()).getMealId();
+
+        initViews(view);
+        setupClickListeners();
+
+        presenter.loadMeal(mealId);
+    }
+
+    private void initViews(View view) {
+        loadingContainer = view.findViewById(R.id.loading_container);
+        loadingView = view.findViewById(R.id.loading);
+        errorContainer = view.findViewById(R.id.error_container);
+        errorText = view.findViewById(R.id.tv_error);
+        retryButton = view.findViewById(R.id.btn_retry);
+        contentScrollView = view.findViewById(R.id.content_scroll_view);
 
         titleText = view.findViewById(R.id.tv_name);
         descriptionText = view.findViewById(R.id.tv_instructions);
@@ -88,31 +114,42 @@ public class MealProfileFragment extends Fragment implements MealProfileView {
         tutorialText = view.findViewById(R.id.tv_Tutorials);
         youtubePlayer = view.findViewById(R.id.pv_youtubePlayer);
         sourceText = view.findViewById(R.id.tv_source);
-
-        updateData(view);
         ingredientsRecyclerView = view.findViewById(R.id.recycler_ingredients);
-        ingredientsRecyclerView.setAdapter(new MealIngredientListAdapter(getActivity(), meal.getIngredients()));
     }
 
-    void updateData(View view) {
+    private void setupClickListeners() {
+        backButton.setOnClickListener(v -> getParentFragmentManager().popBackStack());
+
+        retryButton.setOnClickListener(v -> presenter.loadMeal(mealId));
+
+        favoriteButton.setOnClickListener(v -> {
+            if (meal != null) {
+                changeFavoriteState(!meal.isFavourite());
+                presenter.changeFavourite(meal);
+            }
+        });
+
+        addToWeeklyBtn.setOnClickListener(v -> {
+            if (meal != null) {
+                showAddToPlanDialog();
+            }
+        });
+    }
+
+    private void updateUI() {
+        if (meal == null) return;
+
         titleText.setText(meal.getName());
         descriptionText.setText(meal.getInstructions());
         categoryText.setText(meal.getCategory());
         countryText.setText(meal.getArea());
         sourceText.setText(meal.getSource());
-        Glide.with(view).load(meal.getThumbnail()).into(mealImage);
+        Glide.with(this).load(meal.getThumbnail()).into(mealImage);
         changeFavoriteState(meal.isFavourite());
 
+        ingredientsRecyclerView.setAdapter(new MealIngredientListAdapter(getActivity(), meal.getIngredients()));
+
         setUpYoutube();
-
-        favoriteButton.setOnClickListener((cardView) -> {
-            changeFavoriteState(!meal.isFavourite());
-            presenter.changeFavourite(meal);
-        });
-
-        backButton.setOnClickListener(view1 -> getParentFragmentManager().popBackStack());
-
-        addToWeeklyBtn.setOnClickListener(view2 -> showAddToPlanDialog());
     }
 
     private void showAddToPlanDialog() {
@@ -186,7 +223,7 @@ public class MealProfileFragment extends Fragment implements MealProfileView {
         datePicker.show(getParentFragmentManager(), "DATE_PICKER");
     }
 
-    void setUpYoutube() {
+    private void setUpYoutube() {
         getLifecycle().addObserver(youtubePlayer);
 
         if (meal.getYoutubeVideoId() == null || meal.getYoutubeVideoId().isEmpty()) {
@@ -194,7 +231,7 @@ public class MealProfileFragment extends Fragment implements MealProfileView {
             tutorialText.setVisibility(View.GONE);
             return;
         }
-        
+
         youtubePlayer.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
@@ -209,6 +246,33 @@ public class MealProfileFragment extends Fragment implements MealProfileView {
                 Toast.makeText(requireContext(), "Error loading video", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    @Override
+    public void onMealLoaded(MealEntity meal) {
+        this.meal = meal;
+        loadingContainer.setVisibility(View.GONE);
+        errorContainer.setVisibility(View.GONE);
+        contentScrollView.setVisibility(View.VISIBLE);
+        updateUI();
+    }
+
+    @Override
+    public void onLoadingStarted() {
+        loadingContainer.setVisibility(View.VISIBLE);
+        errorContainer.setVisibility(View.GONE);
+        contentScrollView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onLoadingError(String message) {
+        loadingContainer.setVisibility(View.GONE);
+        errorContainer.setVisibility(View.VISIBLE);
+        contentScrollView.setVisibility(View.GONE);
+        if (message != null && !message.isEmpty()) {
+            errorText.setText(message);
+        }
     }
 
     @Override

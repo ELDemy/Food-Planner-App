@@ -1,9 +1,9 @@
 package com.dmy.foodplannerapp.data.meals.remote;
 
-import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.model.dto.CategoriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.CountriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.IngredientsResponse;
+import com.dmy.foodplannerapp.data.model.dto.MealDto;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.util.List;
@@ -11,11 +11,11 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 public interface MealsRemoteDataSource {
-    void getMealById(int id, MyCallBack<MealEntity> callBack);
+    Single<MealEntity> getMealById(String id);
 
-    void getRandomMeal(MyCallBack<MealEntity> callBack);
+    Single<MealDto> getRandomMeal();
 
-    void getRandomMeals(int quantity, MyCallBack<List<MealEntity>> callBack);
+    Single<List<MealDto>> getRandomMeals(int quantity);
 
     Single<CategoriesResponse> getCategories();
 

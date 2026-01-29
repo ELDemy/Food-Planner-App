@@ -1,12 +1,5 @@
 package com.dmy.foodplannerapp.data.meals.remote;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
-import com.dmy.foodplannerapp.data.failure.Failure;
-import com.dmy.foodplannerapp.data.failure.FailureHandler;
 import com.dmy.foodplannerapp.data.model.dto.CategoriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.CountriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.IngredientsResponse;
@@ -16,13 +9,11 @@ import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.data.model.mapper.MealMapper;
 import com.dmy.foodplannerapp.data.network.MealsNetwork;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
     MealsService mealsService;
@@ -32,101 +23,34 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
     }
 
     @Override
-    public void getMealById(int id, MyCallBack<MealEntity> callBack) {
-        Call<MealsResponse> call = mealsService.getMealById(id);
-
-        call.enqueue(new Callback<>() {
-            @Override
-            public void onResponse(@NonNull Call<MealsResponse> call, @NonNull Response<MealsResponse> response) {
-                MealsResponse mealsResponse = response.body();
-                if (mealsResponse != null) {
-                    MealDto mealDto = mealsResponse.getMeal();
+    public Single<MealEntity> getMealById(String id) {
+        return mealsService.getMealById(id)
+                .subscribeOn(Schedulers.io())
+                .map(response -> {
+                    MealDto mealDto = response.getMeal();
                     if (mealDto != null) {
-                        callBack.onSuccess(MealMapper.toEntity(mealDto));
-                    } else {
-                        callBack.onFailure(new Failure("No Meal found With this Id"));
+                        return MealMapper.toEntity(mealDto);
                     }
-                } else {
-                    callBack.onFailure(FailureHandler.handle(response, "MealsRemoteDataSourceImpl getMealById"));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MealsResponse> call, Throwable t) {
-                callBack.onFailure(FailureHandler.handle(t, "MealsRemoteDataSourceImpl getMealById"));
-            }
-        });
-
+                    throw new Exception("No meal found with this ID");
+                });
     }
 
     @Override
-    public void getRandomMeal(MyCallBack<MealEntity> callBack) {
-        Call<MealsResponse> call = mealsService.getRandomMeal();
-
-        call.enqueue(new Callback<>() {
-            @Override
-            public void onResponse(@NonNull Call<MealsResponse> call, @NonNull Response<MealsResponse> response) {
-                MealsResponse mealsResponse = response.body();
-                if (mealsResponse != null) {
-                    MealDto mealDto = mealsResponse.getMeal();
-                    if (mealDto != null) {
-                        callBack.onSuccess(MealMapper.toEntity(mealDto));
-                    } else {
-                        callBack.onFailure(new Failure("No Random Meals for today"));
-                    }
-                } else {
-                    callBack.onFailure(FailureHandler.handle(response, "MealsRemoteDataSourceImpl getMealById"));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MealsResponse> call, Throwable t) {
-                callBack.onFailure(FailureHandler.handle(t, "MealsRemoteDataSourceImpl getRandomMeal"));
-            }
-        });
+    public Single<MealDto> getRandomMeal() {
+        return mealsService.getRandomMeal()
+                .subscribeOn(Schedulers.io())
+                .map(MealsResponse::getMeal);
     }
 
     @Override
-    public void getRandomMeals(int quantity, MyCallBack<List<MealEntity>> callBack) {
-        ArrayList<MealEntity> mealsList = new ArrayList<>();
-        ArrayList<Failure> failures = new ArrayList<>();
-
-        for (int i = 0; i < quantity; i++) {
-            Log.i("TAG", "getRandomMeals: " + i);
-            final int finalI = i;
-            getRandomMeal(new MyCallBack<>() {
-                @Override
-                public void onSuccess(MealEntity data) {
-                    Log.i("TAG", "getMeal" + finalI + ": " + data);
-                    mealsList.add(data);
-
-                    if (finalI == quantity - 1) {
-                        callBack.onSuccess(mealsList);
-                    }
-                }
-
-                @Override
-                public void onFailure(Failure failure) {
-                    failures.add(failure);
-                    if (finalI == quantity - 1) {
-                        if (!mealsList.isEmpty()) {
-                            callBack.onSuccess(mealsList);
-                        } else {
-                            if (failures.isEmpty()) {
-                                callBack.onFailure(new Failure("No Meals for today"));
-                                return;
-                            }
-                            if (failures.get(0) != null) {
-                                callBack.onFailure(failures.get(0));
-                            }
-                        }
-                    }
-
-                }
-            });
-        }
-
-
+    public Single<List<MealDto>> getRandomMeals(int quantity) {
+        return Observable
+                .range(0, quantity * 3)
+                .subscribeOn(Schedulers.io())
+                .flatMapSingle(i -> getRandomMeal())
+                .distinct(MealDto::getId)
+                .take(quantity)
+                .toList();
     }
 
     @Override

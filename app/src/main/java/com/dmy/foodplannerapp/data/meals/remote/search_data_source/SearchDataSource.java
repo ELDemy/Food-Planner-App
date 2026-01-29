@@ -1,14 +1,15 @@
 package com.dmy.foodplannerapp.data.meals.remote.search_data_source;
 
-import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
+
 public interface SearchDataSource {
-    void getCategoryMeals(String query, MyCallBack<List<SearchedMealResponse>> callBack);
+    Single<List<SearchedMealResponse>> getCategoryMeals(String query);
 
-    void getCountryMeals(String query, MyCallBack<List<SearchedMealResponse>> callBack);
+    Single<List<SearchedMealResponse>> getCountryMeals(String query);
 
-    void getIngredientMeals(String query, MyCallBack<List<SearchedMealResponse>> callBack);
+    Single<List<SearchedMealResponse>> getIngredientMeals(String query);
 }
