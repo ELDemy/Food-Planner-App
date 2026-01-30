@@ -1,6 +1,7 @@
 package com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.dmy.foodplannerapp.presentation.home.view.HomeRefreshViewModel;
 import com.dmy.foodplannerapp.presentation.reusable_components.CustomSnackBar;
 
 public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
+    private static final String TAG = "MealOfTheDayFragment";
     CardView featuredMealCard;
     MealOfTheDayPresenter mealOfTheDayPresenter;
     ImageView featuredImage;
@@ -32,9 +34,7 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
     TextView title;
     TextView category;
     TextView country;
-
     CardView favBtn;
-
     MealEntity meal;
     private HomeRefreshViewModel sharedViewModel;
 
@@ -66,7 +66,7 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
 
         featuredMealCard.setOnClickListener(btnView -> {
             HomeFragmentDirections.ActionHomeFragmentToMealProfileFragment action = HomeFragmentDirections
-                    .actionHomeFragmentToMealProfileFragment(meal.getId());
+                    .actionHomeFragmentToMealProfileFragment(null, meal);
 
             Navigation.findNavController(view).navigate(action);
         });
@@ -93,6 +93,7 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
 
     @Override
     public void showMealOfTheDay(MealEntity meal) {
+        Log.i(TAG, "showMealOfTheDay: " + meal);
         this.meal = meal;
         title.setText(meal.getName());
         category.setText(meal.getCategory());

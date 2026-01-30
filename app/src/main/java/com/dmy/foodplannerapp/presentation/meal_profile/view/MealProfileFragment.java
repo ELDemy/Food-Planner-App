@@ -86,12 +86,18 @@ public class MealProfileFragment extends Fragment implements MealProfileView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter = new MealProfilePresenterImpl(requireContext(), this);
+
+        MealEntity mealEntity = MealProfileFragmentArgs.fromBundle(getArguments()).getMealEntity();
         mealId = MealProfileFragmentArgs.fromBundle(getArguments()).getMealId();
 
         initViews(view);
         setupClickListeners();
+        if (mealEntity != null) {
+            onMealLoaded(mealEntity);
+        } else {
+            presenter.loadMeal(mealId);
+        }
 
-        presenter.loadMeal(mealId);
     }
 
     private void initViews(View view) {

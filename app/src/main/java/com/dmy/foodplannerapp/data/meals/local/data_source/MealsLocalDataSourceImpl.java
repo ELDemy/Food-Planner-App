@@ -44,7 +44,6 @@ public class MealsLocalDataSourceImpl implements MealsLocalDataSource {
     public Single<MealEntity> getMealOfTheDay() {
         return mealOfTheDayDao.get()
                 .flatMap(mealOfTheDay -> {
-                    Log.i(TAG, "getMealOfTheDay: " + mealOfTheDay);
                     if (mealOfTheDay.day == LocalDate.now().getDayOfMonth()) {
                         return Maybe.just(mealOfTheDay.meal);
                     } else {

@@ -76,7 +76,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
 
             view.setOnClickListener((btnView) -> {
                 SearchFragmentDirections.ActionMealsListScreenFragmentToMealProfileFragment action = SearchFragmentDirections
-                        .actionMealsListScreenFragmentToMealProfileFragment(meal.getId());
+                        .actionMealsListScreenFragmentToMealProfileFragment(meal.getId(), null);
 
                 Navigation.findNavController(itemView).navigate(action);
             });
