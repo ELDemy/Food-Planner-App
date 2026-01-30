@@ -27,6 +27,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
+
 public class MealsLocalDataSourceImpl implements MealsLocalDataSource {
     private static final String TAG = "MealsLocalDataSourceImp";
 
@@ -91,8 +94,13 @@ public class MealsLocalDataSourceImpl implements MealsLocalDataSource {
                 meal.setFavourite(true);
                 mealsDao.insert(meal);
                 favouriteMealsDao.addToFavourite(mealFavorite);
+
+                if (callBack == null) return;
+
                 mainHandler.post(() -> callBack.onSuccess(true));
             } catch (Exception e) {
+                if (callBack == null) return;
+
                 mainHandler.post(() -> callBack.onFailure(FailureHandler.handle(e, "addToFavourite")));
             }
         }).start();
@@ -150,6 +158,31 @@ public class MealsLocalDataSourceImpl implements MealsLocalDataSource {
     }
 
     @Override
+    public Completable clearAllFavorites() {
+        return favouriteMealsDao.clearAll();
+    }
+
+    @Override
+    public Completable clearAllPlans() {
+        return mealsPlanDao.clearAll();
+    }
+
+    @Override
+    public Single<List<MealPlan>> getMealsPlans() {
+        return mealsPlanDao.getMealsPlans()
+                .map(plansWithDetails -> {
+                            List<MealPlan> mealPlans = new ArrayList<>();
+                            for (MealPlanWithDetails item : plansWithDetails) {
+                                MealPlan mealPlan = item.plan;
+                                mealPlan.setMeal(item.meal);
+                                mealPlans.add(item.plan);
+                            }
+                            return mealPlans;
+                        }
+                );
+    }
+
+    @Override
     public void getMealsPlansByDate(Date date, MyCallBack<LiveData<List<MealPlanWithDetails>>> callBack) {
         Thread th = new Thread(() -> {
             try {
@@ -179,6 +212,7 @@ public class MealsLocalDataSourceImpl implements MealsLocalDataSource {
         });
         th.start();
     }
+
 
     @Override
     public void addMealPlan(MealPlan mealPlan) {

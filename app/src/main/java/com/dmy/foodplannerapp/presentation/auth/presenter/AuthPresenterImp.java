@@ -1,12 +1,15 @@
 package com.dmy.foodplannerapp.presentation.auth.presenter;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.dmy.foodplannerapp.data.auth.remote.model.CustomAuthCredentials;
 import com.dmy.foodplannerapp.data.auth.repo.AuthRepo;
 import com.dmy.foodplannerapp.data.auth.repo.AuthRepoImp;
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
+import com.dmy.foodplannerapp.data.meals.repo.MealsRepo;
+import com.dmy.foodplannerapp.data.meals.repo.MealsRepoImpl;
 import com.dmy.foodplannerapp.data.model.entity.User;
 import com.dmy.foodplannerapp.presentation.auth.view.AuthView;
 import com.google.firebase.auth.FirebaseUser;
@@ -14,9 +17,11 @@ import com.google.firebase.auth.FirebaseUser;
 public class AuthPresenterImp implements AuthPresenter {
     AuthView authView;
     AuthRepo authRepo;
+    MealsRepo mealsRepo;
 
-    public AuthPresenterImp(AuthView authView) {
+    public AuthPresenterImp(AuthView authView, Context context) {
         this.authView = authView;
+        mealsRepo = new MealsRepoImpl(context);
         initRemote();
     }
 
@@ -25,8 +30,8 @@ public class AuthPresenterImp implements AuthPresenter {
                 new MyCallBack<FirebaseUser>() {
                     @Override
                     public void onSuccess(FirebaseUser user) {
+                        mealsRepo.downloadAll();
                         authView.onAuthLoading(false);
-
                         User newUser = new User(user.getDisplayName(), user.getEmail());
                         authView.onAuthSuccess(newUser);
                     }

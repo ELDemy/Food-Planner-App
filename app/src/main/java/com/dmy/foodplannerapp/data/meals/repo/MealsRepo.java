@@ -36,6 +36,8 @@ public interface MealsRepo {
 
     void addMealPlan(MealPlan mealPlan);
 
+    Single<List<MealPlan>> getMealsPlans();
+
     void removeMealPlan(MealPlan mealPlan);
 
     void removeMealPlanById(int id);
@@ -51,4 +53,8 @@ public interface MealsRepo {
     Single<List<SearchedMealResponse>> searchMealsByName(String query);
 
     Single<List<SearchedMealResponse>> searchMeals(List<SearchModel> filters);
+
+    void syncAll(MyCallBack<Boolean> callBack);
+
+    void downloadAll();
 }

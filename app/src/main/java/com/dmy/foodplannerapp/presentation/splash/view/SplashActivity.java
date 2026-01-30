@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +16,7 @@ import com.dmy.foodplannerapp.presentation.auth.view.AuthActivity;
 import com.dmy.foodplannerapp.presentation.splash.presenter.SplashPresenter;
 
 public class SplashActivity extends AppCompatActivity implements SplashView {
+    private static final String TAG = "SplashActivity";
     TextView appName;
     SplashPresenter splashPresenter;
     ObjectAnimator bounceAnimator;
@@ -26,7 +28,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
         setContentView(R.layout.activity_splash);
 
         appName = findViewById(R.id.tvAppName);
-        splashPresenter = new SplashPresenter(this);
+        splashPresenter = new SplashPresenter(this, this);
         checkIfUserIsLoggedIn();
     }
 
@@ -61,6 +63,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
 
     @Override
     public void navigateToHomeScreen() {
+        Log.i(TAG, "navigateToHomeScreen: ");
         appName.postDelayed(() -> {
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);

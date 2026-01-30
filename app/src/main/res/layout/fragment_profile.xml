@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:paddingBottom="24dp">
 
-            <!-- Header Section -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/header_section"
                 android:layout_width="match_parent"
@@ -54,7 +53,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Profile Card -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profile_card"
                 android:layout_width="match_parent"
@@ -71,7 +69,6 @@
                     android:layout_height="wrap_content"
                     android:padding="24dp">
 
-                    <!-- Profile Avatar -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/avatar_container"
                         android:layout_width="80dp"
@@ -117,7 +114,6 @@
                             app:tint="@color/white" />
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- User Info -->
                     <LinearLayout
                         android:id="@+id/user_info_container"
                         android:layout_width="0dp"
@@ -253,7 +249,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/stats_section" />
 
-            <!-- Sync Data Button -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_sync"
                 android:layout_width="match_parent"

@@ -10,6 +10,9 @@ import com.dmy.foodplannerapp.data.model.entity.MealPlanWithDetails;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
+
 public interface MealsLocalDataSource {
     void getMealOfTheDay(MyCallBack<MealEntity> callBack);
 
@@ -23,10 +26,16 @@ public interface MealsLocalDataSource {
 
     void getFavouriteMeals(MyCallBack<LiveData<List<MealEntity>>> callBack);
 
+    Completable clearAllFavorites();
+
+    Completable clearAllPlans();
+
 
     void getMealsPlansByDate(Date date, MyCallBack<LiveData<List<MealPlanWithDetails>>> callBack);
 
     void getPlansDatesWithMeals(Date startDate, Date endDate, MyCallBack<LiveData<List<Date>>> callBack);
+
+    Single<List<MealPlan>> getMealsPlans();
 
     void addMealPlan(MealPlan mealPlan);
 

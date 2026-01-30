@@ -26,6 +26,10 @@ public class SuggestedMealsPresenterImpl implements SuggestedMealsPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         data -> {
+                            if (data.isEmpty() || data == null) {
+                                suggestedMealsView.onFailure("No meals found");
+                                return;
+                            }
                             suggestedMealsView.onLoad(false);
                             suggestedMealsView.updateSuggestedMeals(data);
                         },

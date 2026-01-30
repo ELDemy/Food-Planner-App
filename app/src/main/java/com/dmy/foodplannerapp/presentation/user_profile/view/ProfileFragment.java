@@ -13,10 +13,13 @@ import androidx.fragment.app.Fragment;
 
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.presentation.auth.view.AuthActivity;
-import com.google.firebase.auth.FirebaseAuth;
+import com.dmy.foodplannerapp.presentation.reusable_components.CustomSnackBar;
+import com.dmy.foodplannerapp.presentation.user_profile.prsenter.ProfilePresenter;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements ProfileView {
     CardView signOutBtn;
+    CardView syncButton;
+    ProfilePresenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,14 +37,39 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         signOutBtn = view.findViewById(R.id.card_logout);
+        syncButton = view.findViewById(R.id.card_sync);
+
+        presenter = new ProfilePresenter(requireContext(), this);
+
         signOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View btnView) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), AuthActivity.class);
-                startActivity(intent);
-                getActivity().finish();
+                presenter.signOut();
             }
         });
+
+        syncButton.setOnClickListener(cardView -> {
+            presenter.sync();
+        });
+    }
+
+    @Override
+    public void onSync() {
+        CustomSnackBar.showSuccess(requireView(), "Synced Successfully");
+    }
+
+    @Override
+    public void onSignOut() {
+        if (getActivity() == null) return;
+        CustomSnackBar.showInfo(requireView(), "Signed Out Successfully");
+
+        Intent intent = new Intent(getActivity(), AuthActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
+    @Override
+    public void onFailure(String message) {
+        CustomSnackBar.showFailure(requireView(), message);
     }
 }

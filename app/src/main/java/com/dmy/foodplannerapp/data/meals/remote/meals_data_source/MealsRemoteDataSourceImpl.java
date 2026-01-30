@@ -11,7 +11,9 @@ import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.data.model.mapper.MealMapper;
 import com.dmy.foodplannerapp.data.network.MealsNetwork;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
@@ -54,10 +56,14 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
         return Observable
                 .range(0, quantity * 3)
                 .subscribeOn(Schedulers.io())
-                .flatMapSingle(i -> getRandomMeal())
+                .flatMapSingle(
+                        i -> getRandomMeal().onErrorResumeNext(error -> Single.never())
+                )
                 .distinct(MealDto::getId)
                 .take(quantity)
-                .toList();
+                .toList()
+                .timeout(5, TimeUnit.SECONDS)
+                .onErrorReturn(error -> new ArrayList<>());
     }
 
     @Override

@@ -12,6 +12,8 @@ import com.dmy.foodplannerapp.data.model.entity.FavoriteMealWithDetails;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+
 
 @Dao
 public interface FavouriteMealsDao {
@@ -28,5 +30,8 @@ public interface FavouriteMealsDao {
 
     @Query("DELETE FROM favorite_meals WHERE mealId = :id")
     void removeFromFavourite(String id);
+
+    @Query("DELETE FROM favorite_meals")
+    Completable clearAll();
 
 }

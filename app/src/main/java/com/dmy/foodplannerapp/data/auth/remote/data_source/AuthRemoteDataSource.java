@@ -14,4 +14,6 @@ public interface AuthRemoteDataSource {
     void continueAsGuest();
 
     void checkIfUserIsLoggedIn();
+
+    void signOut();
 }

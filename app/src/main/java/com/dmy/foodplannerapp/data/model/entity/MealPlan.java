@@ -31,6 +31,10 @@ public class MealPlan {
         return meal;
     }
 
+    public void setMeal(MealEntity meal) {
+        this.meal = meal;
+    }
+
     public int getId() {
         return id;
     }
@@ -63,10 +67,6 @@ public class MealPlan {
         this.mealType = mealType;
     }
 
-    public void setMealType(String mealType) {
-        this.mealType = MealType.fromValue(mealType);
-    }
-
     public enum MealType {
         BREAKFAST("breakfast"),
         LUNCH("lunch"),
@@ -84,7 +84,7 @@ public class MealPlan {
                     return type;
                 }
             }
-            return null; // or throw
+            return null;
         }
 
         public String getValue() {

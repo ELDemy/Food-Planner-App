@@ -37,4 +37,9 @@ public class AuthRepoImp implements AuthRepo {
     public void checkIfUserIsLoggedIn() {
         remoteDataSource.checkIfUserIsLoggedIn();
     }
+
+    @Override
+    public void signOut() {
+        remoteDataSource.signOut();
+    }
 }

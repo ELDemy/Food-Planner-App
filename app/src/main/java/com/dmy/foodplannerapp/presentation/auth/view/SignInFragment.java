@@ -49,7 +49,7 @@ public class SignInFragment extends Fragment implements AuthView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         authCommunicator = (AuthCommunicator) getActivity();
-        authPresenter = new AuthPresenterImp(this);
+        authPresenter = new AuthPresenterImp(this, requireContext());
 
         signUpText = view.findViewById(R.id.text_signUp);
         emailField = view.findViewById(R.id.email_field);

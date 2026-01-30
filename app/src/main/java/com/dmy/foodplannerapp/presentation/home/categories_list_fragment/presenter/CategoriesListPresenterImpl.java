@@ -10,18 +10,18 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 public class CategoriesListPresenterImpl implements CategoriesListPresenter {
     private static final String TAG = "CategoriesListPresenter";
-    private final MealsRepo categoriesRepo;
+    private final MealsRepo mealsRepo;
     private final CategoriesListView view;
 
     public CategoriesListPresenterImpl(CategoriesListView view, Context context) {
-        this.categoriesRepo = new MealsRepoImpl(context);
+        this.mealsRepo = new MealsRepoImpl(context);
         this.view = view;
     }
 
     @Override
     public void getCategories() {
         view.onLoading(true);
-        categoriesRepo.getCategories()
+        mealsRepo.getCategories()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         data -> {
@@ -32,7 +32,6 @@ public class CategoriesListPresenterImpl implements CategoriesListPresenter {
                             view.onLoading(false);
                             view.onFailure(error.getMessage());
                         }
-
                 );
     }
 }

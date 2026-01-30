@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Set;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -50,29 +52,133 @@ public class MealsRepoImpl implements MealsRepo {
         firestoreRemoteDataSource = new FirestoreRemoteDataSource();
     }
 
-    private void syncFavorites() {
-        firestoreRemoteDataSource.getFavorites(null);
+    @Override
+    public void syncAll(MyCallBack<Boolean> myCallBack) {
+        syncFavorites(myCallBack);
+        syncPlans(myCallBack);
+    }
 
-//        getFavouriteMeals(new MyCallBack<LiveData<List<MealEntity>>>() {
-//            @Override
-//            public void onSuccess(LiveData<List<MealEntity>> data) {
-//                data.observeForever(new Observer<List<MealEntity>>() {
-//                    @Override
-//                    public void onChanged(List<MealEntity> meals) {
-//                        if (meals == null) return;
-//
-//                        firestoreRemoteDataSource.syncFavorites(meals);
-//
-//                        data.removeObserver(this);
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onFailure(Failure failure) {
-//
-//            }
-//        });
+    @Override
+    public void downloadAll() {
+        downloadFavorites();
+        downloadMealsPlans();
+    }
+
+    private void downloadFavorites() {
+        clearAllFavorites().subscribe(
+                () -> firestoreRemoteDataSource.getFavorites(
+                        new MyCallBack<>() {
+                            @Override
+                            public void onSuccess(List<MealEntity> data) {
+                                data.stream()
+                                        .forEach(
+                                                meal -> mealsLocalDataSource.addToFavourite(meal, null)
+                                        );
+                            }
+
+                            @Override
+                            public void onFailure(Failure failure) {
+                                Log.i(TAG, "onFailure: " + failure.getMessage());
+                            }
+                        }
+                ),
+                (error) -> {
+                    Log.i(TAG, "onFailure: " + error.getMessage());
+                }
+        );
+
+    }
+
+    public void downloadMealsPlans() {
+        clearAllPlans().subscribe(
+                () -> firestoreRemoteDataSource.getPlans(
+                        new MyCallBack<>() {
+                            @Override
+                            public void onSuccess(List<MealPlan> data) {
+                                data.stream().forEach(meal -> mealsLocalDataSource.addMealPlan(meal));
+                            }
+
+                            @Override
+                            public void onFailure(Failure failure) {
+                                Log.i(TAG, "onFailure: " + failure.getMessage());
+                            }
+                        }
+                ),
+                (error) -> Log.i(TAG, "onFailure: " + error.getMessage())
+        );
+
+    }
+
+    public Completable clearAllFavorites() {
+        return mealsLocalDataSource.clearAllFavorites();
+    }
+
+    public Completable clearAllPlans() {
+        return mealsLocalDataSource.clearAllPlans();
+    }
+
+    private void syncFavorites(MyCallBack<Boolean> myCallBack) {
+        firestoreRemoteDataSource.clearFavorites(
+                new MyCallBack<>() {
+                    @Override
+                    public void onSuccess(Boolean data) {
+                        uploadFavorites(myCallBack);
+                    }
+
+                    @Override
+                    public void onFailure(Failure failure) {
+                        myCallBack.onFailure(failure);
+                    }
+                }
+        );
+    }
+
+    private void syncPlans(MyCallBack<Boolean> myCallBack) {
+        firestoreRemoteDataSource.clearPlans(
+                new MyCallBack<>() {
+                    @Override
+                    public void onSuccess(Boolean data) {
+                        uploadPlans(myCallBack);
+                    }
+
+                    @Override
+                    public void onFailure(Failure failure) {
+                        myCallBack.onFailure(failure);
+                    }
+                }
+        );
+    }
+
+    private void uploadPlans(MyCallBack<Boolean> callBack) {
+        getMealsPlans().subscribe(
+                data -> firestoreRemoteDataSource.uploadPlans(data, callBack),
+                error -> callBack.onFailure(FailureHandler.handle(error, TAG)
+                )
+        );
+    }
+
+    private void uploadFavorites(MyCallBack<Boolean> callBack) {
+        getFavouriteMeals(new MyCallBack<>() {
+            @Override
+            public void onSuccess(LiveData<List<MealEntity>> data) {
+                data.observeForever(new Observer<>() {
+                    @Override
+                    public void onChanged(List<MealEntity> meals) {
+                        data.removeObserver(this);
+                        if (meals == null || meals.isEmpty()) {
+                            callBack.onFailure(new Failure("No favorite meals found"));
+                            return;
+                        }
+                        firestoreRemoteDataSource.uploadFavorites(meals, callBack);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Failure failure) {
+                callBack.onFailure(failure);
+            }
+        });
     }
 
     @Override
@@ -101,7 +207,6 @@ public class MealsRepoImpl implements MealsRepo {
 
     @Override
     public void getMealOfTheDay(MyCallBack<MealEntity> callBack) {
-        syncFavorites();
         mealsLocalDataSource.getMealOfTheDay(new MyCallBack<>() {
             @Override
             public void onSuccess(MealEntity meal) {
@@ -110,7 +215,7 @@ public class MealsRepoImpl implements MealsRepo {
 
             @Override
             public void onFailure(Failure failure) {
-                var x = mealsRemoteDataSource.getRandomMeal()
+                mealsRemoteDataSource.getRandomMeal()
                         .observeOn(Schedulers.io())
                         .map(MealMapper::toEntity)
                         .observeOn(AndroidSchedulers.mainThread())
@@ -161,9 +266,15 @@ public class MealsRepoImpl implements MealsRepo {
     }
 
     @Override
+    public Single<List<MealPlan>> getMealsPlans() {
+        return mealsLocalDataSource.getMealsPlans();
+    }
+
+    @Override
     public void removeFromFavourite(MealEntity meal, MyCallBack<Boolean> callBack) {
         mealsLocalDataSource.removeFromFavourite(meal, callBack);
     }
+
 
     @Override
     public void getMealsPlansByDate(Date date, MyCallBack<LiveData<List<MealPlanWithDetails>>> callBack) {
