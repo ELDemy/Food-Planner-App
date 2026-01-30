@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepo;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepoImpl;
-import com.dmy.foodplannerapp.data.meals.repo.meals_plan_repo.MealsPlanRepo;
-import com.dmy.foodplannerapp.data.meals.repo.meals_plan_repo.MealsPlanRepoImpl;
 import com.dmy.foodplannerapp.data.model.entity.MealPlan;
 import com.dmy.foodplannerapp.presentation.favourite.presenter.ChangeFavoritePresenterImpl;
 import com.dmy.foodplannerapp.presentation.meal_profile.view.MealProfileView;
@@ -13,14 +11,12 @@ import com.dmy.foodplannerapp.presentation.meal_profile.view.MealProfileView;
 public class MealProfilePresenterImpl extends ChangeFavoritePresenterImpl implements MealProfilePresenter {
 
     private final MealsRepo mealsRepo;
-    private final MealsPlanRepo mealsPlanRepo;
     private final MealProfileView mealProfileView;
 
     public MealProfilePresenterImpl(Context context, MealProfileView mealProfileView) {
         super(context, mealProfileView);
         this.mealProfileView = mealProfileView;
         this.mealsRepo = new MealsRepoImpl(context);
-        this.mealsPlanRepo = new MealsPlanRepoImpl(context);
     }
 
     @Override
@@ -36,7 +32,7 @@ public class MealProfilePresenterImpl extends ChangeFavoritePresenterImpl implem
     @Override
     public void addMealToPlan(MealPlan mealPlan) {
         try {
-            mealsPlanRepo.addMealPlan(mealPlan);
+            mealsRepo.addMealPlan(mealPlan);
             mealProfileView.onMealAddedToPlan();
         } catch (Exception e) {
             mealProfileView.onAddToPlanError(e.getMessage());

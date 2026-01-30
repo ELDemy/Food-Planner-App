@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.data.meals.remote;
+package com.dmy.foodplannerapp.data.meals.remote.meals_data_source;
 
 import com.dmy.foodplannerapp.data.model.dto.CategoriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.CountriesResponse;
@@ -6,6 +6,7 @@ import com.dmy.foodplannerapp.data.model.dto.IngredientsResponse;
 import com.dmy.foodplannerapp.data.model.dto.ListOfSearchMealResponse;
 import com.dmy.foodplannerapp.data.model.dto.MealDto;
 import com.dmy.foodplannerapp.data.model.dto.MealsResponse;
+import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.data.model.mapper.MealMapper;
 import com.dmy.foodplannerapp.data.network.MealsNetwork;
@@ -72,5 +73,27 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
     @Override
     public Single<CountriesResponse> getCountries() {
         return mealsService.getCountries();
+    }
+
+    @Override
+    public Single<List<SearchedMealResponse>> getCategoryMeals(String query) {
+        return mealsService.getCategoryMeals(query)
+                .subscribeOn(Schedulers.io())
+                .map(ListOfSearchMealResponse::getMeals);
+    }
+
+    @Override
+    public Single<List<SearchedMealResponse>> getCountryMeals(String query) {
+        return mealsService.getCountryMeals(query)
+                .subscribeOn(Schedulers.io())
+                .map(ListOfSearchMealResponse::getMeals);
+
+    }
+
+    @Override
+    public Single<List<SearchedMealResponse>> getIngredientMeals(String query) {
+        return mealsService.getIngredientMeals(query)
+                .subscribeOn(Schedulers.io())
+                .map(ListOfSearchMealResponse::getMeals);
     }
 }

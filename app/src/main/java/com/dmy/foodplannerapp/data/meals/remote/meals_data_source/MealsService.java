@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.data.meals.remote;
+package com.dmy.foodplannerapp.data.meals.remote.meals_data_source;
 
 import com.dmy.foodplannerapp.data.model.dto.CategoriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.CountriesResponse;
@@ -30,12 +30,11 @@ public interface MealsService {
     Single<CountriesResponse> getCountries();
 
     @GET("filter.php")
-    Single<MealsResponse> getCategoryMeals(@Query("c") String category);
+    Single<ListOfSearchMealResponse> getCategoryMeals(@Query("c") String name);
 
     @GET("filter.php")
-    Single<MealsResponse> getCountryMeals(@Query("a") String country);
+    Single<ListOfSearchMealResponse> getIngredientMeals(@Query("i") String name);
 
     @GET("filter.php")
-    Single<MealsResponse> getIngredientMeals(@Query("i") String ingredient);
-
+    Single<ListOfSearchMealResponse> getCountryMeals(@Query("a") String name);
 }

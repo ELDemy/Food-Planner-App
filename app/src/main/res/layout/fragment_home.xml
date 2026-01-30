@@ -20,6 +20,7 @@
                 android:id="@+id/topCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-10dp"
                 app:cardBackgroundColor="@color/green"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="8dp"

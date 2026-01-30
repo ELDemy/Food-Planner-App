@@ -8,12 +8,10 @@ import androidx.lifecycle.LiveData;
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.failure.FailureHandler;
-import com.dmy.foodplannerapp.data.meals.local.MealsLocalDataSource;
-import com.dmy.foodplannerapp.data.meals.local.MealsLocalDataSourceImpl;
-import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSource;
-import com.dmy.foodplannerapp.data.meals.remote.MealsRemoteDataSourceImpl;
-import com.dmy.foodplannerapp.data.meals.remote.search_data_source.SearchDataSource;
-import com.dmy.foodplannerapp.data.meals.remote.search_data_source.SearchRemoteDataSourceImpl;
+import com.dmy.foodplannerapp.data.meals.local.data_source.MealsLocalDataSource;
+import com.dmy.foodplannerapp.data.meals.local.data_source.MealsLocalDataSourceImpl;
+import com.dmy.foodplannerapp.data.meals.remote.meals_data_source.MealsRemoteDataSource;
+import com.dmy.foodplannerapp.data.meals.remote.meals_data_source.MealsRemoteDataSourceImpl;
 import com.dmy.foodplannerapp.data.model.dto.CategoriesResponse;
 import com.dmy.foodplannerapp.data.model.dto.CategoryDTO;
 import com.dmy.foodplannerapp.data.model.dto.CountriesResponse;
@@ -23,10 +21,13 @@ import com.dmy.foodplannerapp.data.model.dto.IngredientsResponse;
 import com.dmy.foodplannerapp.data.model.dto.ListOfSearchMealResponse;
 import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealPlan;
+import com.dmy.foodplannerapp.data.model.entity.MealPlanWithDetails;
 import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 import com.dmy.foodplannerapp.data.model.mapper.MealMapper;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,12 +41,10 @@ public class MealsRepoImpl implements MealsRepo {
     private static final String TAG = "MealsRepoImpl";
     MealsRemoteDataSource mealsRemoteDataSource;
     MealsLocalDataSource mealsLocalDataSource;
-    SearchDataSource searchDataSource;
 
     public MealsRepoImpl(Context context) {
         mealsRemoteDataSource = new MealsRemoteDataSourceImpl();
         mealsLocalDataSource = new MealsLocalDataSourceImpl(context);
-        searchDataSource = new SearchRemoteDataSourceImpl();
     }
 
     @Override
@@ -138,6 +137,31 @@ public class MealsRepoImpl implements MealsRepo {
     }
 
     @Override
+    public void getMealsPlansByDate(Date date, MyCallBack<LiveData<List<MealPlanWithDetails>>> callBack) {
+        mealsLocalDataSource.getMealsPlansByDate(date, callBack);
+    }
+
+    @Override
+    public void getPlanDatesWithMeals(Date startDate, Date endDate, MyCallBack<LiveData<List<Date>>> callBack) {
+        mealsLocalDataSource.getPlansDatesWithMeals(startDate, endDate, callBack);
+    }
+
+    @Override
+    public void addMealPlan(MealPlan mealPlan) {
+        mealsLocalDataSource.addMealPlan(mealPlan);
+    }
+
+    @Override
+    public void removeMealPlan(MealPlan mealPlan) {
+        mealsLocalDataSource.removeMealPlan(mealPlan);
+    }
+
+    @Override
+    public void removeMealPlanById(int id) {
+        mealsLocalDataSource.removeMealPlanById(id);
+    }
+
+    @Override
     public Single<List<CategoryDTO>> getCategories() {
         return mealsRemoteDataSource.getCategories()
                 .subscribeOn(Schedulers.io())
@@ -167,13 +191,13 @@ public class MealsRepoImpl implements MealsRepo {
         SearchModel.SearchType searchType = arguments.getType();
 
         if (searchType == SearchModel.SearchType.CATEGORY) {
-            return searchDataSource.getCategoryMeals(arguments.name);
+            return mealsRemoteDataSource.getCategoryMeals(arguments.name);
         }
         if (searchType == SearchModel.SearchType.COUNTRY) {
-            return searchDataSource.getCountryMeals(arguments.name);
+            return mealsRemoteDataSource.getCountryMeals(arguments.name);
         }
         if (searchType == SearchModel.SearchType.INGREDIENT) {
-            return searchDataSource.getIngredientMeals(arguments.name);
+            return mealsRemoteDataSource.getIngredientMeals(arguments.name);
         }
 
         return Single.just(List.of());

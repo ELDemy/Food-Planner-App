@@ -8,8 +8,11 @@ import com.dmy.foodplannerapp.data.model.dto.CountryDTO;
 import com.dmy.foodplannerapp.data.model.dto.IngredientDTO;
 import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
+import com.dmy.foodplannerapp.data.model.entity.MealPlan;
+import com.dmy.foodplannerapp.data.model.entity.MealPlanWithDetails;
 import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
@@ -26,6 +29,16 @@ public interface MealsRepo {
     void getFavouriteMeals(MyCallBack<LiveData<List<MealEntity>>> callBack);
 
     void removeFromFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
+
+    void getMealsPlansByDate(Date date, MyCallBack<LiveData<List<MealPlanWithDetails>>> callBack);
+
+    void getPlanDatesWithMeals(Date startDate, Date endDate, MyCallBack<LiveData<List<Date>>> callBack);
+
+    void addMealPlan(MealPlan mealPlan);
+
+    void removeMealPlan(MealPlan mealPlan);
+
+    void removeMealPlanById(int id);
 
     Single<List<CategoryDTO>> getCategories();
 
