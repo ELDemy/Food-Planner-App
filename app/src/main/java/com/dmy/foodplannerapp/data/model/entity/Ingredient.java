@@ -18,12 +18,16 @@ public class Ingredient implements Parcelable {
             return new Ingredient[size];
         }
     };
-    private final String name;
-    private final String quantity;
+    private String name;
+    private String quantity;
 
     public Ingredient(String name, String quantity) {
         this.name = name;
         this.quantity = quantity;
+    }
+
+    //For firestore deserialization
+    public Ingredient() {
     }
 
     protected Ingredient(Parcel in) {

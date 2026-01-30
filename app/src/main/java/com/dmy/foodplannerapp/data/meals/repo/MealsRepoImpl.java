@@ -10,6 +10,7 @@ import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.failure.FailureHandler;
 import com.dmy.foodplannerapp.data.meals.local.data_source.MealsLocalDataSource;
 import com.dmy.foodplannerapp.data.meals.local.data_source.MealsLocalDataSourceImpl;
+import com.dmy.foodplannerapp.data.meals.remote.firestore.FirestoreRemoteDataSource;
 import com.dmy.foodplannerapp.data.meals.remote.meals_data_source.MealsRemoteDataSource;
 import com.dmy.foodplannerapp.data.meals.remote.meals_data_source.MealsRemoteDataSourceImpl;
 import com.dmy.foodplannerapp.data.model.dto.CategoriesResponse;
@@ -41,10 +42,37 @@ public class MealsRepoImpl implements MealsRepo {
     private static final String TAG = "MealsRepoImpl";
     MealsRemoteDataSource mealsRemoteDataSource;
     MealsLocalDataSource mealsLocalDataSource;
+    FirestoreRemoteDataSource firestoreRemoteDataSource;
 
     public MealsRepoImpl(Context context) {
         mealsRemoteDataSource = new MealsRemoteDataSourceImpl();
         mealsLocalDataSource = new MealsLocalDataSourceImpl(context);
+        firestoreRemoteDataSource = new FirestoreRemoteDataSource();
+    }
+
+    private void syncFavorites() {
+        firestoreRemoteDataSource.getFavorites(null);
+
+//        getFavouriteMeals(new MyCallBack<LiveData<List<MealEntity>>>() {
+//            @Override
+//            public void onSuccess(LiveData<List<MealEntity>> data) {
+//                data.observeForever(new Observer<List<MealEntity>>() {
+//                    @Override
+//                    public void onChanged(List<MealEntity> meals) {
+//                        if (meals == null) return;
+//
+//                        firestoreRemoteDataSource.syncFavorites(meals);
+//
+//                        data.removeObserver(this);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onFailure(Failure failure) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -73,6 +101,7 @@ public class MealsRepoImpl implements MealsRepo {
 
     @Override
     public void getMealOfTheDay(MyCallBack<MealEntity> callBack) {
+        syncFavorites();
         mealsLocalDataSource.getMealOfTheDay(new MyCallBack<>() {
             @Override
             public void onSuccess(MealEntity meal) {

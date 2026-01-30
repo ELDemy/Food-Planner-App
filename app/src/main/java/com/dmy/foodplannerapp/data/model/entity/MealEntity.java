@@ -9,6 +9,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.firestore.Exclude;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +45,7 @@ public class MealEntity implements Parcelable {
     private String dateModified;
     private boolean isFavourite;
     @Ignore
+    @Exclude
     private List<Ingredient> ingredients;
     private String strIngredient1;
     private String strIngredient2;
