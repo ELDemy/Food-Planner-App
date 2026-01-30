@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.presentation.reusable_components;
+package com.dmy.foodplannerapp.utils;
 
 import android.graphics.Color;
 import android.view.View;

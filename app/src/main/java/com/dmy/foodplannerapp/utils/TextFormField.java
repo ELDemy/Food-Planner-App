@@ -1,4 +1,4 @@
-package com.dmy.foodplannerapp.presentation.reusable_components;
+package com.dmy.foodplannerapp.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -19,8 +19,8 @@ import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.model.entity.User;
 import com.dmy.foodplannerapp.presentation.auth.presenter.AuthPresenter;
 import com.dmy.foodplannerapp.presentation.auth.presenter.AuthPresenterImp;
-import com.dmy.foodplannerapp.presentation.reusable_components.CustomSnackBar;
-import com.dmy.foodplannerapp.presentation.reusable_components.TextFormField;
+import com.dmy.foodplannerapp.utils.CustomSnackBar;
+import com.dmy.foodplannerapp.utils.TextFormField;
 
 public class SignUpFragment extends Fragment implements AuthView {
     TextView signInText;

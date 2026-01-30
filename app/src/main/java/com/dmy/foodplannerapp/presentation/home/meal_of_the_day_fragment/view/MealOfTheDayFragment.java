@@ -23,7 +23,7 @@ import com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.present
 import com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.presenter.MealOfTheDayPresenterImpl;
 import com.dmy.foodplannerapp.presentation.home.view.HomeFragmentDirections;
 import com.dmy.foodplannerapp.presentation.home.view.HomeRefreshViewModel;
-import com.dmy.foodplannerapp.presentation.reusable_components.CustomSnackBar;
+import com.dmy.foodplannerapp.utils.CustomSnackBar;
 
 public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
     private static final String TAG = "MealOfTheDayFragment";

@@ -18,7 +18,7 @@ import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.model.entity.MealPlanWithDetails;
 import com.dmy.foodplannerapp.presentation.plan.presenter.MealsPlanPresenter;
 import com.dmy.foodplannerapp.presentation.plan.presenter.MealsPlanPresenterImpl;
-import com.dmy.foodplannerapp.presentation.reusable_components.CustomSnackBar;
+import com.dmy.foodplannerapp.utils.CustomSnackBar;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@id/txt_Hello" />
 
 
-    <com.dmy.foodplannerapp.presentation.reusable_components.TextFormField
+    <com.dmy.foodplannerapp.utils.TextFormField
         android:id="@+id/name_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@id/sign_in_to_"
         app:startIcon="@drawable/user" />
 
-    <com.dmy.foodplannerapp.presentation.reusable_components.TextFormField
+    <com.dmy.foodplannerapp.utils.TextFormField
         android:id="@+id/email_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/name_field"
         app:startIcon="@drawable/email" />
 
-    <com.dmy.foodplannerapp.presentation.reusable_components.TextFormField
+    <com.dmy.foodplannerapp.utils.TextFormField
         android:id="@+id/password_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

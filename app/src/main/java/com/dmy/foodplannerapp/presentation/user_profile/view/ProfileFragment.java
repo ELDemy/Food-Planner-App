@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment;
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.model.entity.User;
 import com.dmy.foodplannerapp.presentation.auth.view.AuthActivity;
-import com.dmy.foodplannerapp.presentation.reusable_components.CustomSnackBar;
 import com.dmy.foodplannerapp.presentation.user_profile.prsenter.ProfilePresenter;
+import com.dmy.foodplannerapp.utils.CustomSnackBar;
 
 public class ProfileFragment extends Fragment implements ProfileView {
     CardView signOutBtn;
