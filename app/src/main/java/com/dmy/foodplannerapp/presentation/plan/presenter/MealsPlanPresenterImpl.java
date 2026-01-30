@@ -55,10 +55,6 @@ public class MealsPlanPresenterImpl implements MealsPlanPresenter {
         });
     }
 
-    @Override
-    public void addMealPlan(MealPlan mealPlan) {
-        mealsPlanRepo.addMealPlan(mealPlan);
-    }
 
     @Override
     public void removeMealPlan(MealPlan mealPlan) {

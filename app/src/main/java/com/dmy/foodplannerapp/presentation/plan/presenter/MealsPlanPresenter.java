@@ -9,8 +9,6 @@ public interface MealsPlanPresenter {
 
     void getDatesWithMeals(Date startDate, Date endDate);
 
-    void addMealPlan(MealPlan mealPlan);
-
     void removeMealPlan(MealPlan mealPlan);
 
     void removeMealPlanById(int id);

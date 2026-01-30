@@ -10,8 +10,6 @@ import com.dmy.foodplannerapp.data.model.entity.MealPlan;
 import com.dmy.foodplannerapp.presentation.favourite.presenter.ChangeFavoritePresenterImpl;
 import com.dmy.foodplannerapp.presentation.meal_profile.view.MealProfileView;
 
-import java.util.Date;
-
 public class MealProfilePresenterImpl extends ChangeFavoritePresenterImpl implements MealProfilePresenter {
 
     private final MealsRepo mealsRepo;
@@ -36,9 +34,8 @@ public class MealProfilePresenterImpl extends ChangeFavoritePresenterImpl implem
     }
 
     @Override
-    public void addMealToPlan(String mealId, Date date, MealPlan.MealType mealType) {
+    public void addMealToPlan(MealPlan mealPlan) {
         try {
-            MealPlan mealPlan = new MealPlan(date, mealId, mealType);
             mealsPlanRepo.addMealPlan(mealPlan);
             mealProfileView.onMealAddedToPlan();
         } catch (Exception e) {

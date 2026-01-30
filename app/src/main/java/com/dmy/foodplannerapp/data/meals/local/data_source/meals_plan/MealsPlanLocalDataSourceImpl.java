@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.db.AppDatabase;
 import com.dmy.foodplannerapp.data.failure.FailureHandler;
+import com.dmy.foodplannerapp.data.meals.local.daos.MealsDao;
 import com.dmy.foodplannerapp.data.meals.local.daos.MealsPlanDao;
 import com.dmy.foodplannerapp.data.model.entity.MealPlan;
 import com.dmy.foodplannerapp.data.model.entity.MealPlanWithDetails;
@@ -20,11 +21,13 @@ import java.util.List;
 public class MealsPlanLocalDataSourceImpl implements MealsPlanLocalDataSource {
     private static final String TAG = "MealsPlanLocalDataSource";
     MealsPlanDao mealsPlanDao;
+    MealsDao mealsDao;
     Handler mainHandler = new Handler(Looper.getMainLooper());
 
     public MealsPlanLocalDataSourceImpl(Context context) {
         AppDatabase db = AppDatabase.getInstance(context);
         mealsPlanDao = db.mealPlanDao();
+        mealsDao = db.mealsDao();
     }
 
     @Override
@@ -62,6 +65,7 @@ public class MealsPlanLocalDataSourceImpl implements MealsPlanLocalDataSource {
     public void addMealPlan(MealPlan mealPlan) {
         Thread th = new Thread(() -> {
             try {
+                mealsDao.insert(mealPlan.getMeal());
                 mealsPlanDao.insert(mealPlan);
             } catch (Exception e) {
                 FailureHandler.handle(e, "addMealPlan");

@@ -187,7 +187,8 @@ public class MealProfileFragment extends Fragment implements MealProfileView {
             }
 
             Log.i(TAG, "showAddToPlanDialog: " + selectedDate);
-            presenter.addMealToPlan(meal.getId(), selectedDate, selectedMealType);
+            MealPlan mealPlan = new MealPlan(selectedDate, meal.getId(), selectedMealType, meal);
+            presenter.addMealToPlan(mealPlan);
             bottomSheetDialog.dismiss();
         });
 

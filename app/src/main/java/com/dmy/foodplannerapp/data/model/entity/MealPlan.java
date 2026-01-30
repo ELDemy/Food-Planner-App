@@ -1,13 +1,16 @@
 package com.dmy.foodplannerapp.data.model.entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
 @Entity(tableName = "mealsPlan")
 public class MealPlan {
-    
+
+    @Ignore
+    private MealEntity meal;
     @PrimaryKey(autoGenerate = true)
     private int id;
     private Date date;
@@ -17,10 +20,15 @@ public class MealPlan {
     public MealPlan() {
     }
 
-    public MealPlan(Date date, String mealId, MealType mealType) {
+    public MealPlan(Date date, String mealId, MealType mealType, MealEntity meal) {
         this.date = date;
         this.mealId = mealId;
         this.mealType = mealType;
+        this.meal = meal;
+    }
+
+    public MealEntity getMeal() {
+        return meal;
     }
 
     public int getId() {
