@@ -5,12 +5,16 @@ import android.app.Activity;
 import com.dmy.foodplannerapp.data.auth.remote.data_source.AuthRemoteDataSource;
 import com.dmy.foodplannerapp.data.auth.remote.data_source.FirebaseAuthDataSource;
 import com.dmy.foodplannerapp.data.auth.remote.model.CustomAuthCredentials;
+import com.dmy.foodplannerapp.data.meals.remote.firestore.FirestoreRemoteDataSource;
+import com.dmy.foodplannerapp.data.model.entity.User;
 
 public class AuthRepoImp implements AuthRepo {
     AuthRemoteDataSource remoteDataSource;
+    FirestoreRemoteDataSource firestoreRemoteDataSource;
 
     public AuthRepoImp(MyCallBack myCallBack) {
         remoteDataSource = new FirebaseAuthDataSource(myCallBack);
+        firestoreRemoteDataSource = new FirestoreRemoteDataSource();
     }
 
     @Override
@@ -41,5 +45,15 @@ public class AuthRepoImp implements AuthRepo {
     @Override
     public void signOut() {
         remoteDataSource.signOut();
+    }
+
+    @Override
+    public void getUserData(MyCallBack<User> callBack) {
+        firestoreRemoteDataSource.getUserData(callBack);
+    }
+
+    @Override
+    public void setUserData(User user, MyCallBack<Boolean> callBack) {
+        firestoreRemoteDataSource.setUserData(user, callBack);
     }
 }

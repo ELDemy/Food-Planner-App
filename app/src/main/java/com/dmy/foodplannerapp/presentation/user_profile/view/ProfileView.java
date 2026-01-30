@@ -1,5 +1,7 @@
 package com.dmy.foodplannerapp.presentation.user_profile.view;
 
+import com.dmy.foodplannerapp.data.model.entity.User;
+
 public interface ProfileView {
 
     void onSync();
@@ -7,4 +9,6 @@ public interface ProfileView {
     void onSignOut();
 
     void onFailure(String message);
+
+    void updateUserData(User user);
 }

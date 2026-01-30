@@ -5,15 +5,20 @@ import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.failure.FailureHandler;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.data.model.entity.MealPlan;
+import com.dmy.foodplannerapp.data.model.entity.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
 
 public class FirestoreRemoteDataSource {
 
@@ -33,6 +38,11 @@ public class FirestoreRemoteDataSource {
         return user != null && !user.isAnonymous();
     }
 
+    private DocumentReference getUserRef() {
+        return db.collection(USERS_COLLECTION)
+                .document(getUser().getUid());
+    }
+
     private CollectionReference getFavRef() {
         return db.collection(USERS_COLLECTION)
                 .document(getUser().getUid())
@@ -45,129 +55,153 @@ public class FirestoreRemoteDataSource {
                 .collection(PLANS_COLLECTION);
     }
 
-    public void clearFavorites(MyCallBack<Boolean> callback) {
-        if (!isLoggedIn()) {
-            callback.onFailure(new Failure("User not logged in"));
-            return;
-        }
-
-        getFavRef().get()
-                .addOnSuccessListener(querySnapshot -> {
-                    WriteBatch batch = db.batch();
-
-                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
-                        batch.delete(doc.getReference());
-                    }
-
-                    batch.commit()
-                            .addOnSuccessListener(unused -> callback.onSuccess(true))
-                            .addOnFailureListener(e -> callback.onFailure(new Failure(e.getMessage())));
-                })
-                .addOnFailureListener(e -> callback.onFailure(new Failure(e.getMessage())));
+    public void setUserData(User user, MyCallBack<Boolean> callBack) {
+        getUserRef().set(user)
+                .addOnSuccessListener(doc -> callBack.onSuccess(true))
+                .addOnFailureListener(
+                        e -> callBack.onFailure(FailureHandler.handle(e, TAG)));
     }
 
-    public void uploadFavorites(List<MealEntity> favMeals, MyCallBack<Boolean> callback) {
-
+    public void getUserData(MyCallBack<User> callBack) {
         if (!isLoggedIn()) {
-            callback.onFailure(new Failure("User not logged in"));
+            callBack.onFailure(new Failure("User not logged in"));
             return;
         }
-
-        if (favMeals == null || favMeals.isEmpty()) {
-            callback.onFailure(new Failure("No favorites found"));
-            return;
-        }
-
-        WriteBatch batch = db.batch();
-
-        for (MealEntity meal : favMeals) {
-            batch.set(getFavRef().document(meal.getId()), meal);
-        }
-
-        batch.commit()
-                .addOnSuccessListener(x -> callback.onSuccess(true))
-                .addOnFailureListener(e -> callback.onFailure(FailureHandler.handle(e, TAG)));
-    }
-
-    public void getFavorites(MyCallBack<List<MealEntity>> callback) {
-        if (!isLoggedIn()) {
-            callback.onFailure(new Failure("User not logged in"));
-            return;
-        }
-
-        getFavRef().get()
-                .addOnSuccessListener(querySnapshot -> {
-                    List<MealEntity> meals = new ArrayList<>();
-
-                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
-                        MealEntity meal = doc.toObject(MealEntity.class);
-                        if (meal != null) meals.add(meal);
+        getUserRef().get().addOnSuccessListener(doc -> {
+                    if (doc == null) {
+                        User anonymous = new User("Guest", "");
+                        callBack.onSuccess(anonymous);
+                        return;
                     }
-
-                    callback.onSuccess(meals);
+                    User user = doc.toObject(User.class);
+                    if (user == null) {
+                        User anonymous = new User("Guest", "");
+                        callBack.onSuccess(anonymous);
+                        return;
+                    }
+                    callBack.onSuccess(user);
                 })
                 .addOnFailureListener(
-                        e -> callback.onFailure(FailureHandler.handle(e, TAG))
-                );
+                        e -> callBack.onFailure(FailureHandler.handle(e, TAG)));
     }
 
-    public void clearPlans(MyCallBack<Boolean> callback) {
-        if (!isLoggedIn()) {
-            callback.onFailure(new Failure("User not logged in"));
-            return;
-        }
-
-        getPlansRef().get()
-                .addOnSuccessListener(querySnapshot -> {
-                    WriteBatch batch = db.batch();
-                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
-                        batch.delete(doc.getReference());
-                    }
-                    batch.commit()
-                            .addOnSuccessListener(unused -> callback.onSuccess(true))
-                            .addOnFailureListener(e -> callback.onFailure(FailureHandler.handle(e, TAG)));
-                })
-                .addOnFailureListener(e -> callback.onFailure(FailureHandler.handle(e, TAG)));
+    public Completable clearFavorites() {
+        return Completable.create(emitter -> {
+            if (!isLoggedIn()) {
+                emitter.onError(new Exception("User not logged in"));
+                return;
+            }
+            getFavRef().get()
+                    .addOnSuccessListener(querySnapshot -> {
+                        WriteBatch batch = db.batch();
+                        for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                            batch.delete(doc.getReference());
+                        }
+                        batch.commit()
+                                .addOnSuccessListener(unused -> emitter.onComplete())
+                                .addOnFailureListener(emitter::onError);
+                    })
+                    .addOnFailureListener(emitter::onError);
+        });
     }
 
-    public void uploadPlans(List<MealPlan> plans, MyCallBack<Boolean> callback) {
-        if (!isLoggedIn()) {
-            callback.onFailure(new Failure("User not logged in"));
-            return;
-        }
-
-        if (plans == null || plans.isEmpty()) {
-            callback.onFailure(new Failure("No plans found"));
-            return;
-        }
-
-        WriteBatch batch = db.batch();
-        for (MealPlan plan : plans) {
-            batch.set(getPlansRef().document(Integer.toString(plan.getId())), plan);
-        }
-
-        batch.commit()
-                .addOnSuccessListener(x -> callback.onSuccess(true))
-                .addOnFailureListener(e -> callback.onFailure(FailureHandler.handle(e, TAG)));
+    public Completable uploadFavorites(List<MealEntity> favMeals) {
+        return Completable.create(emitter -> {
+            if (!isLoggedIn()) {
+                emitter.onError(new Exception("User not logged in"));
+                return;
+            }
+            if (favMeals == null || favMeals.isEmpty()) {
+                emitter.onComplete();
+                return;
+            }
+            WriteBatch batch = db.batch();
+            for (MealEntity meal : favMeals) {
+                batch.set(getFavRef().document(meal.getId()), meal);
+            }
+            batch.commit()
+                    .addOnSuccessListener(x -> emitter.onComplete())
+                    .addOnFailureListener(emitter::onError);
+        });
     }
 
-    public void getPlans(MyCallBack<List<MealPlan>> callback) {
-        if (!isLoggedIn()) {
-            callback.onFailure(new Failure("User not logged in"));
-            return;
-        }
+    public Single<List<MealEntity>> getFavorites() {
+        return Single.create(emitter -> {
+            if (!isLoggedIn()) {
+                emitter.onError(new Exception("User not logged in"));
+                return;
+            }
+            getFavRef().get()
+                    .addOnSuccessListener(querySnapshot -> {
+                        List<MealEntity> meals = new ArrayList<>();
+                        for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                            MealEntity meal = doc.toObject(MealEntity.class);
+                            if (meal != null)
+                                meals.add(meal);
+                        }
+                        emitter.onSuccess(meals);
+                    })
+                    .addOnFailureListener(emitter::onError);
+        });
+    }
 
-        getPlansRef().get()
-                .addOnSuccessListener(querySnapshot -> {
-                    List<MealPlan> plans = new ArrayList<>();
-                    for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
-                        MealPlan plan = doc.toObject(MealPlan.class);
-                        if (plan != null) plans.add(plan);
-                    }
-                    callback.onSuccess(plans);
-                })
-                .addOnFailureListener(
-                        e -> callback.onFailure(FailureHandler.handle(e, TAG))
-                );
+    public Completable clearPlans() {
+        return Completable.create(emitter -> {
+            if (!isLoggedIn()) {
+                emitter.onError(new Exception("User not logged in"));
+                return;
+            }
+            getPlansRef().get()
+                    .addOnSuccessListener(querySnapshot -> {
+                        WriteBatch batch = db.batch();
+                        for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                            batch.delete(doc.getReference());
+                        }
+                        batch.commit()
+                                .addOnSuccessListener(unused -> emitter.onComplete())
+                                .addOnFailureListener(emitter::onError);
+                    })
+                    .addOnFailureListener(emitter::onError);
+        });
+    }
+
+    public Completable uploadPlans(List<MealPlan> plans) {
+        return Completable.create(emitter -> {
+            if (!isLoggedIn()) {
+                emitter.onError(new Exception("User not logged in"));
+                return;
+            }
+            if (plans == null || plans.isEmpty()) {
+                emitter.onComplete();
+                return;
+            }
+            WriteBatch batch = db.batch();
+            for (MealPlan plan : plans) {
+                batch.set(getPlansRef().document(Integer.toString(plan.getId())), plan);
+            }
+            batch.commit()
+                    .addOnSuccessListener(x -> emitter.onComplete())
+                    .addOnFailureListener(emitter::onError);
+        });
+    }
+
+    public Single<List<MealPlan>> getPlans() {
+        return Single.create(emitter -> {
+            if (!isLoggedIn()) {
+                emitter.onError(new Exception("User not logged in"));
+                return;
+            }
+            getPlansRef().get()
+                    .addOnSuccessListener(querySnapshot -> {
+                        List<MealPlan> plans = new ArrayList<>();
+                        for (DocumentSnapshot doc : querySnapshot.getDocuments()) {
+                            MealPlan plan = doc.toObject(MealPlan.class);
+                            if (plan != null)
+                                plans.add(plan);
+                        }
+                        emitter.onSuccess(plans);
+                    })
+                    .addOnFailureListener(emitter::onError);
+        });
     }
 }

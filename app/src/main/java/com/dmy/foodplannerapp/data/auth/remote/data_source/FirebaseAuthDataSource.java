@@ -29,6 +29,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class FirebaseAuthDataSource implements AuthRemoteDataSource {
     private final String TAG = "FirebaseAuth";
@@ -49,6 +50,7 @@ public class FirebaseAuthDataSource implements AuthRemoteDataSource {
                         Log.d(TAG, "createUserWithEmail:success");
                         FirebaseUser user = authInstance.getCurrentUser();
                         if (user != null) {
+                            setUsername(user, customAuthCredentials.getName());
                             myCallBack.onSuccess(user);
                         } else {
                             handleFailure(task, "signUpWithEmailAndPassword");
@@ -60,6 +62,18 @@ public class FirebaseAuthDataSource implements AuthRemoteDataSource {
                 .addOnFailureListener(e -> handleFailure(e, "signUpWithEmailAndPassword"));
     }
 
+    private void setUsername(FirebaseUser user, String username) {
+        if (user == null) return;
+
+        UserProfileChangeRequest profileUpdates =
+                new UserProfileChangeRequest.Builder().setDisplayName(username).build();
+
+        user.updateProfile(profileUpdates)
+                .addOnSuccessListener(unused ->
+                        Log.i("AUTH", "Username set successfully"))
+                .addOnFailureListener(e ->
+                        Log.e("AUTH", "Failed to set username", e));
+    }
 
     public void signInWithEmailAndPassword(CustomAuthCredentials customAuthCredentials) {
         authInstance.signInWithEmailAndPassword(customAuthCredentials.getEmail(), customAuthCredentials.getPassword())

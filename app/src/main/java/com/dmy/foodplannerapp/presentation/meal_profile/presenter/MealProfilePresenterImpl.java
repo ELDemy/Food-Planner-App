@@ -22,20 +22,18 @@ public class MealProfilePresenterImpl extends ChangeFavoritePresenterImpl implem
     @Override
     public void loadMeal(String mealId) {
         mealProfileView.onLoadingStarted();
-
-        mealsRepo.getMealById(mealId)
+        disposables.add(mealsRepo.getMealById(mealId)
                 .subscribe(
                         mealProfileView::onMealLoaded,
-                        error -> mealProfileView.onLoadingError(error.getMessage()));
+                        error -> mealProfileView.onLoadingError(error.getMessage())));
     }
 
     @Override
     public void addMealToPlan(MealPlan mealPlan) {
-        try {
-            mealsRepo.addMealPlan(mealPlan);
-            mealProfileView.onMealAddedToPlan();
-        } catch (Exception e) {
-            mealProfileView.onAddToPlanError(e.getMessage());
-        }
+        disposables.add(
+                mealsRepo.addMealPlan(mealPlan)
+                        .subscribe(
+                                () -> mealProfileView.onMealAddedToPlan(),
+                                error -> mealProfileView.onAddToPlanError(error.getMessage())));
     }
 }

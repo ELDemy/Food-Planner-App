@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,34 +54,30 @@ public class FavouriteFragment extends Fragment implements FavoritesScreenView, 
         presenter.loadFavourites();
     }
 
-
     @Override
-    public void onLoadSuccess(LiveData<List<MealEntity>> meals) {
-        meals.observe(
-                this,
-                mealsList -> {
-                    if (mealsList != null) {
-                        countText.setText(mealsList.size() + "");
-                        emptyText.setVisibility(View.GONE);
-                        adapter.UpdateMealsList(mealsList);
-
-                        if (mealsList.isEmpty()) {
-                            countText.setText(0 + "");
-                            emptyText.setVisibility(View.VISIBLE);
-                        }
-                    } else {
-                        countText.setText(0 + "");
-                        emptyText.setVisibility(View.VISIBLE);
-                    }
-
-                }
-        );
-
+    public void onLoadSuccess(List<MealEntity> meals) {
+        if (meals != null && !meals.isEmpty()) {
+            countText.setText(String.valueOf(meals.size()));
+            emptyText.setVisibility(View.GONE);
+            adapter.UpdateMealsList(meals);
+        } else {
+            countText.setText("0");
+            emptyText.setVisibility(View.VISIBLE);
+            adapter.UpdateMealsList(List.of());
+        }
     }
 
     @Override
     public void changeFavoriteState(boolean isFavourite) {
         //don't need to update Icon
         // will automatically remove the Card form the screen
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (presenter != null) {
+            presenter.dispose();
+        }
     }
 }

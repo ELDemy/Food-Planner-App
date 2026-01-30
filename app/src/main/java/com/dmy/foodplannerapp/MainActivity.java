@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpNavHost();
@@ -29,14 +29,15 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupWithNavController(bottomNav, navController);
 
             navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-                if (destination.getId() == R.id.mealProfileFragment
-                        || destination.getId() == R.id.mealsListScreenFragment
-                        || destination.getId() == R.id.itemsScreenFragment) {
-                    bottomNav.setVisibility(View.GONE);
-                } else {
-                    bottomNav.setVisibility(View.VISIBLE);
-                }
-            });
+                        if (destination.getId() == R.id.mealProfileFragment
+                                || destination.getId() == R.id.mealsListScreenFragment
+                                || destination.getId() == R.id.itemsScreenFragment) {
+                            bottomNav.setVisibility(View.GONE);
+                        } else {
+                            bottomNav.setVisibility(View.VISIBLE);
+                        }
+                    }
+            );
         }
     }
 
@@ -52,22 +53,19 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupWithNavController(bottomNav, navController);
 
             bottomNav.setOnItemSelectedListener(item -> {
-                // 1. Perform the standard navigation
                 boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
 
-                // 2. Add the "Pop" Animation
                 View itemView = bottomNav.findViewById(item.getItemId());
                 if (itemView != null) {
                     itemView.animate()
                             .scaleX(1.15f)
                             .scaleY(1.15f)
                             .setDuration(100)
-                            .withEndAction(() ->
-                                    itemView.animate()
-                                            .scaleX(1.0f)
-                                            .scaleY(1.0f)
-                                            .setDuration(100)
-                                            .start()
+                            .withEndAction(() -> itemView.animate()
+                                    .scaleX(1.0f)
+                                    .scaleY(1.0f)
+                                    .setDuration(100)
+                                    .start()
                             ).start();
                 }
 

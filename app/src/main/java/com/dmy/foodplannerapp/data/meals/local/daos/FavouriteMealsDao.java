@@ -1,6 +1,5 @@
 package com.dmy.foodplannerapp.data.meals.local.daos;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -13,25 +12,25 @@ import com.dmy.foodplannerapp.data.model.entity.FavoriteMealWithDetails;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
-
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Maybe;
 
 @Dao
 public interface FavouriteMealsDao {
     @Transaction
     @Query("SELECT * FROM favorite_meals")
-    LiveData<List<FavoriteMealWithDetails>> getAll();
+    Flowable<List<FavoriteMealWithDetails>> getAll();
 
     @Transaction
     @Query("SELECT * FROM favorite_meals WHERE mealId = :id")
-    FavoriteMealWithDetails getById(String id);
+    Maybe<FavoriteMealWithDetails> getById(String id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addToFavourite(FavoriteMeal meal);
+    Completable addToFavourite(FavoriteMeal meal);
 
     @Query("DELETE FROM favorite_meals WHERE mealId = :id")
-    void removeFromFavourite(String id);
+    Completable removeFromFavourite(String id);
 
     @Query("DELETE FROM favorite_meals")
     Completable clearAll();
-
 }

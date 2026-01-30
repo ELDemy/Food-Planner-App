@@ -12,4 +12,6 @@ public interface MealsPlanPresenter {
     void removeMealPlan(MealPlan mealPlan);
 
     void removeMealPlanById(int id);
+
+    void dispose();
 }

@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dmy.foodplannerapp.R;
@@ -46,7 +45,6 @@ public class PlanFragment extends Fragment implements PlanView, PlannedMealsAdap
     private PlannedMealsAdapter dinnerAdapter;
 
     private Date selectedDate;
-    private LiveData<List<MealPlanWithDetails>> currentMealsLiveData;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -147,46 +145,37 @@ public class PlanFragment extends Fragment implements PlanView, PlannedMealsAdap
     }
 
     @Override
-    public void onMealsLoaded(LiveData<List<MealPlanWithDetails>> mealsLiveData) {
+    public void onMealsLoaded(List<MealPlanWithDetails> meals) {
+        List<MealPlanWithDetails> breakfastMeals = new ArrayList<>();
+        List<MealPlanWithDetails> lunchMeals = new ArrayList<>();
+        List<MealPlanWithDetails> dinnerMeals = new ArrayList<>();
 
-        if (currentMealsLiveData != null) {
-            currentMealsLiveData.removeObservers(getViewLifecycleOwner());
-        }
-
-        currentMealsLiveData = mealsLiveData;
-
-        mealsLiveData.observe(getViewLifecycleOwner(), meals -> {
-            List<MealPlanWithDetails> breakfastMeals = new ArrayList<>();
-            List<MealPlanWithDetails> lunchMeals = new ArrayList<>();
-            List<MealPlanWithDetails> dinnerMeals = new ArrayList<>();
-
-            if (meals != null) {
-                for (MealPlanWithDetails meal : meals) {
-                    if (meal.plan == null || meal.meal == null) {
-                        continue;
-                    }
-                    switch (meal.plan.getMealType()) {
-                        case BREAKFAST:
-                            breakfastMeals.add(meal);
-                            break;
-                        case LUNCH:
-                            lunchMeals.add(meal);
-                            break;
-                        case DINNER:
-                            dinnerMeals.add(meal);
-                            break;
-                    }
+        if (meals != null) {
+            for (MealPlanWithDetails meal : meals) {
+                if (meal.plan == null || meal.meal == null) {
+                    continue;
+                }
+                switch (meal.plan.getMealType()) {
+                    case BREAKFAST:
+                        breakfastMeals.add(meal);
+                        break;
+                    case LUNCH:
+                        lunchMeals.add(meal);
+                        break;
+                    case DINNER:
+                        dinnerMeals.add(meal);
+                        break;
                 }
             }
+        }
 
-            breakfastAdapter.setMeals(breakfastMeals);
-            lunchAdapter.setMeals(lunchMeals);
-            dinnerAdapter.setMeals(dinnerMeals);
+        breakfastAdapter.setMeals(breakfastMeals);
+        lunchAdapter.setMeals(lunchMeals);
+        dinnerAdapter.setMeals(dinnerMeals);
 
-            updateMealSlotVisibility(slotBreakfast, breakfastMeals);
-            updateMealSlotVisibility(slotLunch, lunchMeals);
-            updateMealSlotVisibility(slotDinner, dinnerMeals);
-        });
+        updateMealSlotVisibility(slotBreakfast, breakfastMeals);
+        updateMealSlotVisibility(slotLunch, lunchMeals);
+        updateMealSlotVisibility(slotDinner, dinnerMeals);
     }
 
     private void updateMealSlotVisibility(View slot, List<MealPlanWithDetails> meals) {
@@ -203,7 +192,7 @@ public class PlanFragment extends Fragment implements PlanView, PlannedMealsAdap
     }
 
     @Override
-    public void onDatesWithMealsLoaded(LiveData<List<Date>> datesLiveData) {
+    public void onDatesWithMealsLoaded(List<Date> dates) {
         // da ana mesh chat -_-
         // to show dot in days with meals in it later
         // hope to have time :)
@@ -223,6 +212,14 @@ public class PlanFragment extends Fragment implements PlanView, PlannedMealsAdap
     public void onMealRemove(MealPlanWithDetails mealPlan) {
         if (mealPlan.plan != null) {
             presenter.removeMealPlanById(mealPlan.plan.getId());
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (presenter != null) {
+            presenter.dispose();
         }
     }
 }

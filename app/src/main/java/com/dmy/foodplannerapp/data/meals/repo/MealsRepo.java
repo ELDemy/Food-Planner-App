@@ -1,8 +1,5 @@
 package com.dmy.foodplannerapp.data.meals.repo;
 
-import androidx.lifecycle.LiveData;
-
-import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
 import com.dmy.foodplannerapp.data.model.dto.CategoryDTO;
 import com.dmy.foodplannerapp.data.model.dto.CountryDTO;
 import com.dmy.foodplannerapp.data.model.dto.IngredientDTO;
@@ -15,32 +12,34 @@ import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
 public interface MealsRepo {
     Single<MealEntity> getMealById(String id);
 
-    void getMealOfTheDay(MyCallBack<MealEntity> callBack);
+    Single<MealEntity> getMealOfTheDay();
 
     Single<List<MealEntity>> getRandomMeals(int quantity);
 
-    void addToFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
+    Completable addToFavourite(MealEntity meal);
 
-    void getFavouriteMeals(MyCallBack<LiveData<List<MealEntity>>> callBack);
+    Completable removeFromFavourite(MealEntity meal);
 
-    void removeFromFavourite(MealEntity meal, MyCallBack<Boolean> callBack);
+    Flowable<List<MealEntity>> getFavouriteMeals();
 
-    void getMealsPlansByDate(Date date, MyCallBack<LiveData<List<MealPlanWithDetails>>> callBack);
+    Flowable<List<MealPlanWithDetails>> getMealsPlansByDate(Date date);
 
-    void getPlanDatesWithMeals(Date startDate, Date endDate, MyCallBack<LiveData<List<Date>>> callBack);
-
-    void addMealPlan(MealPlan mealPlan);
+    Flowable<List<Date>> getPlanDatesWithMeals(Date startDate, Date endDate);
 
     Single<List<MealPlan>> getMealsPlans();
 
-    void removeMealPlan(MealPlan mealPlan);
+    Completable addMealPlan(MealPlan mealPlan);
 
-    void removeMealPlanById(int id);
+    Completable removeMealPlan(MealPlan mealPlan);
+
+    Completable removeMealPlanById(int id);
 
     Single<List<CategoryDTO>> getCategories();
 
@@ -54,7 +53,7 @@ public interface MealsRepo {
 
     Single<List<SearchedMealResponse>> searchMeals(List<SearchModel> filters);
 
-    void syncAll(MyCallBack<Boolean> callBack);
+    Completable syncAll();
 
-    void downloadAll();
+    Completable downloadAll();
 }

@@ -2,18 +2,22 @@ package com.dmy.foodplannerapp.data.meals.local.daos;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.dmy.foodplannerapp.data.model.entity.MealOfTheDay;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
+
 @Dao
 public interface MealOfTheDayDao {
     @Query("SELECT * FROM mealoftheday")
-    MealOfTheDay get();
+    Maybe<MealOfTheDay> get();
 
-    @Insert
-    void insert(MealOfTheDay meal);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insert(MealOfTheDay meal);
 
-    @Query("Delete FROM mealoftheday")
-    void delete();
+    @Query("DELETE FROM mealoftheday")
+    Completable delete();
 }

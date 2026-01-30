@@ -2,16 +2,17 @@ package com.dmy.foodplannerapp.presentation.favourite.presenter;
 
 import android.content.Context;
 
-import com.dmy.foodplannerapp.data.auth.repo.MyCallBack;
-import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepo;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepoImpl;
 import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 import com.dmy.foodplannerapp.presentation.favourite.view.ChangeFavoriteView;
 
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+
 public class ChangeFavoritePresenterImpl implements ChangeFavoritePresenter {
     public ChangeFavoriteView view;
     public MealsRepo mealsRepo;
+    protected final CompositeDisposable disposables = new CompositeDisposable();
 
     public ChangeFavoritePresenterImpl(Context context, ChangeFavoriteView changeFavoriteView) {
         this.mealsRepo = new MealsRepoImpl(context);
@@ -19,22 +20,22 @@ public class ChangeFavoritePresenterImpl implements ChangeFavoritePresenter {
     }
 
     public void changeFavourite(MealEntity meal) {
-        MyCallBack<Boolean> callBack = new MyCallBack<>() {
-            @Override
-            public void onSuccess(Boolean isFavourite) {
-                view.changeFavoriteState(isFavourite);
-            }
-
-            @Override
-            public void onFailure(Failure failure) {
-                view.changeFavoriteState(meal.isFavourite());
-            }
-        };
-
         if (meal.isFavourite()) {
-            mealsRepo.removeFromFavourite(meal, callBack);
+            disposables.add(
+                    mealsRepo.removeFromFavourite(meal)
+                            .subscribe(
+                                    () -> view.changeFavoriteState(false),
+                                    error -> view.changeFavoriteState(meal.isFavourite())));
         } else {
-            mealsRepo.addToFavourite(meal, callBack);
+            disposables.add(
+                    mealsRepo.addToFavourite(meal)
+                            .subscribe(
+                                    () -> view.changeFavoriteState(true),
+                                    error -> view.changeFavoriteState(meal.isFavourite())));
         }
+    }
+
+    public void dispose() {
+        disposables.clear();
     }
 }

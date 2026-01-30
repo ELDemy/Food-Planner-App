@@ -47,7 +47,6 @@ public class CategoriesHomeListRecyclerAdapter extends RecyclerView.Adapter<Cate
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.i("TAG", "onBindViewHolder: " + position + categoriesList.get(position));
         holder.bind(categoriesList.get(position), position);
     }
 

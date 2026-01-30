@@ -1,6 +1,5 @@
 package com.dmy.foodplannerapp.data.meals.local.daos;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -11,17 +10,21 @@ import com.dmy.foodplannerapp.data.model.entity.MealEntity;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Maybe;
+
 @Dao
 public interface MealsDao {
     @Query("SELECT * FROM meals")
-    LiveData<List<MealEntity>> getAll();
+    Flowable<List<MealEntity>> getAll();
 
     @Query("SELECT * FROM meals WHERE idMeal = :id")
-    MealEntity getById(String id);
+    Maybe<MealEntity> getById(String id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(MealEntity meal);
+    Completable insert(MealEntity meal);
 
     @Delete
-    void delete(MealEntity meal);
+    Completable delete(MealEntity meal);
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Shadow layer -->
     <item android:top="2dp">
         <shape android:shape="rectangle">
             <gradient
@@ -11,7 +10,6 @@
         </shape>
     </item>
 
-    <!-- Main background with gradient -->
     <item>
         <shape android:shape="rectangle">
             <gradient
@@ -23,7 +21,6 @@
         </shape>
     </item>
 
-    <!-- Shine overlay -->
     <item>
         <shape android:shape="rectangle">
             <gradient
