@@ -14,7 +14,6 @@ import com.dmy.foodplannerapp.presentation.user_profile.view.ProfileView;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class ProfilePresenter {
-
     private static final String TAG = "ProfilePresenter";
     private final MealsRepo mealsRepo;
     private final ProfileView view;
@@ -67,6 +66,20 @@ public class ProfilePresenter {
                 view.onFailure(failure.getMessage());
             }
         });
+    }
+
+    public void checkIfUserIsLoggedIn() {
+        new AuthRepoImp(new MyCallBack<Boolean>() {
+            @Override
+            public void onSuccess(Boolean isLoggedIn) {
+                view.updateUserStatue(isLoggedIn);
+            }
+
+            @Override
+            public void onFailure(Failure failure) {
+                view.updateUserStatue(false);
+            }
+        }).checkIfUserIsLoggedIn();
     }
 
     public void dispose() {

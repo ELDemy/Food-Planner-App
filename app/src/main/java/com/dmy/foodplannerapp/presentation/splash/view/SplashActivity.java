@@ -10,9 +10,9 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.dmy.foodplannerapp.MainActivity;
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.presentation.auth.view.AuthActivity;
+import com.dmy.foodplannerapp.presentation.main_activity.view.MainActivity;
 import com.dmy.foodplannerapp.presentation.splash.presenter.SplashPresenter;
 
 public class SplashActivity extends AppCompatActivity implements SplashView {

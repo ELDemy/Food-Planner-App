@@ -11,8 +11,8 @@ import android.widget.ProgressBar;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.dmy.foodplannerapp.MainActivity;
 import com.dmy.foodplannerapp.R;
+import com.dmy.foodplannerapp.presentation.main_activity.view.MainActivity;
 
 public class AuthActivity extends AppCompatActivity implements AuthCommunicator {
     ProgressBar progressBar;

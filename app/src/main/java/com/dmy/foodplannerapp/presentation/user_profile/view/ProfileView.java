@@ -11,4 +11,6 @@ public interface ProfileView {
     void onFailure(String message);
 
     void updateUserData(User user);
+
+    void updateUserStatue(Boolean isLoggedIn);
 }

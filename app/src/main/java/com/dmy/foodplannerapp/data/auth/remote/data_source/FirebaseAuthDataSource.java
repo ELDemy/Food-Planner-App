@@ -189,10 +189,11 @@ public class FirebaseAuthDataSource implements AuthRemoteDataSource {
     @Override
     public void checkIfUserIsLoggedIn() {
         FirebaseUser user = authInstance.getCurrentUser();
-        if (user != null) {
-            myCallBack.onSuccess(true);
-        } else {
+
+        if (user == null || user.isAnonymous()) {
             myCallBack.onFailure(null);
+        } else {
+            myCallBack.onSuccess(true);
         }
     }
 

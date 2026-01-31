@@ -28,7 +28,7 @@
 
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.main_activity.view.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
 

@@ -50,6 +50,7 @@ public class ProfileFragment extends Fragment implements ProfileView {
 
         syncButton.setOnClickListener(cardView -> presenter.sync());
         presenter.getUserData();
+        presenter.checkIfUserIsLoggedIn();
     }
 
     @Override
@@ -76,6 +77,11 @@ public class ProfileFragment extends Fragment implements ProfileView {
     public void updateUserData(User user) {
         UserNameTxt.setText(user.getName());
         EmailTxt.setText(user.getEmail());
+    }
+
+    @Override
+    public void updateUserStatue(Boolean isLoggedIn) {
+        syncButton.setVisibility(isLoggedIn ? View.VISIBLE : View.GONE);
     }
 
     @Override
