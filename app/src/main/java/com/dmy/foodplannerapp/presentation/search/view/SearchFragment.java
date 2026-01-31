@@ -1,5 +1,8 @@
 package com.dmy.foodplannerapp.presentation.search.view;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +26,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.model.dto.SearchedMealResponse;
@@ -47,6 +52,8 @@ public class SearchFragment extends Fragment implements SearchView {
     SearchListAdapter adapter;
     CardView backBtn;
     TextInputLayout searchText;
+    LottieAnimationView loading;
+    TextView errorText;
     private Runnable searchRunnable;
     private NavController navController;
 
@@ -92,7 +99,8 @@ public class SearchFragment extends Fragment implements SearchView {
         backBtn.setOnClickListener(v -> NavHostFragment
                 .findNavController(SearchFragment.this)
                 .popBackStack(R.id.homeFragment, false));
-
+        errorText = binding.tvListError;
+        loading = binding.loading;
         recyclerView = binding.recyclerMeals;
         adapter = new SearchListAdapter(requireContext());
         recyclerView.setAdapter(adapter);
@@ -171,17 +179,29 @@ public class SearchFragment extends Fragment implements SearchView {
 
     @Override
     public void onLoad() {
+        loading.setVisibility(VISIBLE);
+        errorText.setVisibility(GONE);
     }
 
     @Override
     public void onSuccess(List<SearchedMealResponse> data) {
+        loading.setVisibility(GONE);
+        errorText.setVisibility(GONE);
+
+        if (data.isEmpty()) {
+            errorText.setVisibility(VISIBLE);
+            errorText.setText("No Meals Found");
+            return;
+        }
         Log.i(TAG, "Loaded Meals: " + data.size());
         adapter.setMeals(data);
     }
 
     @Override
     public void onFailure(Failure failure) {
-        Log.e(TAG, "Search failed: " + failure);
+        loading.setVisibility(GONE);
+        errorText.setVisibility(VISIBLE);
+        errorText.setText(failure.getMessage());
     }
 
     private void restoreFiltersFromNavigation() {

@@ -28,13 +28,14 @@ public class SearchPresenterImpl implements SearchPresenter {
 
     @Override
     public void searchMeals(List<SearchModel> arguments) {
+        view.onLoad();
         Log.i(TAG, "searchMeals: " + arguments);
         if (arguments == null || arguments.isEmpty()) {
             showRandomMeals();
             return;
         }
 
-        view.onLoad();
+
         var x = mealsRepo.searchMeals(arguments)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -44,7 +45,7 @@ public class SearchPresenterImpl implements SearchPresenter {
 
     @Override
     public void searchMeals(String query, List<SearchModel> arguments) {
-
+        view.onLoad();
         if ((arguments == null || arguments.isEmpty()) && (query != null || !query.isEmpty())) {
             getMealsByName(query);
             return;
@@ -54,7 +55,7 @@ public class SearchPresenterImpl implements SearchPresenter {
             searchMeals(arguments);
             return;
         }
-        view.onLoad();
+
         mealsRepo.searchMeals(arguments)
                 .map(data -> {
                     return data.stream()
@@ -68,6 +69,7 @@ public class SearchPresenterImpl implements SearchPresenter {
     }
 
     void getMealsByName(String query) {
+        view.onLoad();
         mealsRepo.searchMealsByName(query)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -80,6 +82,7 @@ public class SearchPresenterImpl implements SearchPresenter {
     }
 
     private void showRandomMeals() {
+        view.onLoad();
         mealsRepo.getRandomMeals(10)
                 .observeOn(Schedulers.io())
                 .map(data -> data.stream().map(meal -> MealMapper.toSearchDto(meal)).toList())

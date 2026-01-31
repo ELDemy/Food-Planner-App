@@ -111,6 +111,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/tools_tv_mealOfTheDay"
                 tools:layout="@layout/fragment_meal_of_the_day" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_offline"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_mealOfTheDay"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/offline_lottie"
+                tools:visibility="visible" />
+
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/fragment_suggestedMeals"
                 android:name="com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.view.SuggestedMealsFragment"

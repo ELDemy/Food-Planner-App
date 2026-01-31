@@ -44,16 +44,18 @@
 
     <TextView
         android:id="@+id/tv_error"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Check your internet Connection!!"
-        android:textColor="@color/text_primary"
-        android:textSize="16dp"
+        android:layout_marginHorizontal="24dp"
+        android:text="Check your internet Connection!! asflinsfnklsnflksn flksfosofjsomi;jf;omefljmflsemflejfm"
+        android:textColor="@color/error"
+        android:textSize="16sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:visibility="visible" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loading"

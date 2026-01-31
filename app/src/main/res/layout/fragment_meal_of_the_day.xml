@@ -6,19 +6,6 @@
     android:layout_height="wrap_content"
     tools:context=".presentation.home.meal_of_the_day_fragment.view.MealOfTheDayFragment">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/load_mealOfTheDay"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_colorFilter="@color/green"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/splash" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_featuredContainer"
@@ -33,7 +20,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:strokeWidth="0dp">
+        app:strokeWidth="0dp"
+        tools:visibility="invisible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_card"
@@ -181,5 +169,33 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/load_mealOfTheDay"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_colorFilter="@color/green"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/splash"
+        tools:visibility="visible" />
 
+    <TextView
+        android:id="@+id/tv_Error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/error"
+        android:textSize="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

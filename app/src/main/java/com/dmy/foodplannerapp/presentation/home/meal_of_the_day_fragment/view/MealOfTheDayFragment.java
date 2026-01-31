@@ -1,7 +1,6 @@
 package com.dmy.foodplannerapp.presentation.home.meal_of_the_day_fragment.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +35,7 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
     TextView country;
     CardView favBtn;
     MealEntity meal;
+    TextView errorTxt;
     private HomeRefreshViewModel sharedViewModel;
 
     @Override
@@ -61,6 +61,7 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
         country = featuredMealCard.findViewById(R.id.tv_dayMealCountry);
         category = featuredMealCard.findViewById(R.id.tv_dayMealCategory);
         favBtn = featuredMealCard.findViewById(R.id.btn_favorite);
+        errorTxt = view.findViewById(R.id.tv_Error);
 
         mealOfTheDayPresenter.getMealOfTheDay();
 
@@ -93,7 +94,6 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
 
     @Override
     public void showMealOfTheDay(MealEntity meal) {
-        Log.i(TAG, "showMealOfTheDay: " + meal);
         this.meal = meal;
         title.setText(meal.getName());
         category.setText(meal.getCategory());
@@ -107,7 +107,9 @@ public class MealOfTheDayFragment extends Fragment implements MealOfTheDayView {
 
     @Override
     public void errorMealOfTheDay(String message) {
-        featuredImage.setVisibility(View.GONE);
+        featuredMealCard.setVisibility(View.GONE);
+        errorTxt.setVisibility(View.VISIBLE);
+        errorTxt.setText(message);
     }
 
     private void changeFavouriteIcon(boolean isFavourite) {

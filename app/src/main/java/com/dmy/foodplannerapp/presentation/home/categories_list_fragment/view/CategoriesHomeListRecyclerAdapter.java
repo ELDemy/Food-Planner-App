@@ -1,7 +1,6 @@
 package com.dmy.foodplannerapp.presentation.home.categories_list_fragment.view;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +84,6 @@ public class CategoriesHomeListRecyclerAdapter extends RecyclerView.Adapter<Cate
         void bind(CategoryDTO category, int position) {
             int color = ContextCompat.getColor(itemView.getContext(),
                     CARD_COLORS[position % CARD_COLORS.length]);
-            Log.i(TAG, "bind: " + category);
 
             View innerLayout = itemView.findViewById(R.id.view_categoryCardView);
             innerLayout.setBackgroundColor(color);

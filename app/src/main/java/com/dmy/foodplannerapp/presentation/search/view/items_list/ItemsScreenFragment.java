@@ -19,6 +19,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.dmy.foodplannerapp.R;
 import com.dmy.foodplannerapp.data.failure.Failure;
 import com.dmy.foodplannerapp.data.model.dto.FilterItem;
@@ -41,6 +42,9 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
     SearchModel.SearchType itemType;
     NavController navController;
     TextInputLayout searchTxt;
+    TextView errorTxt;
+
+    LottieAnimationView loading;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,8 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
         backBtn = binding.btnBackContainer;
         recyclerView = binding.recyclerItems;
         searchTxt = binding.txtFieldSearchLayout;
+        loading = binding.loading;
+        errorTxt = binding.tvListError;
     }
 
     void setUpSearchText() {
@@ -124,16 +130,26 @@ public class ItemsScreenFragment extends Fragment implements ItemsListView {
 
     @Override
     public void onSuccess(List<? extends FilterItem> data) {
+        if (data.isEmpty()) {
+            errorTxt.setVisibility(View.VISIBLE);
+            errorTxt.setText("No items found");
+            return;
+        }
         adapter.setItems(data);
     }
 
     @Override
     public void onFailure(Failure failure) {
+        errorTxt.setVisibility(View.VISIBLE);
+        errorTxt.setText(failure.getMessage());
         Log.e(TAG, "Failed to load items: " + failure);
     }
 
     @Override
     public void onLoad(boolean isLoading) {
+        errorTxt.setVisibility(View.GONE);
+        loading.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        recyclerView.setVisibility(isLoading ? View.GONE : View.VISIBLE);
     }
 
     public void onItemSelected(FilterItem selectedItem) {

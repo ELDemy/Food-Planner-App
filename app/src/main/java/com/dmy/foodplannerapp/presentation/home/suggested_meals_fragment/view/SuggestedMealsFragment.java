@@ -1,7 +1,6 @@
 package com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +22,8 @@ import com.dmy.foodplannerapp.presentation.home.view.HomeRefreshViewModel;
 import java.util.List;
 
 public class SuggestedMealsFragment extends Fragment implements SuggestedMealsView {
+    private static final String TAG = "SuggestedMealsFragment";
+    private static List<MealEntity> dataLoaded;
     SuggestedMealsPresenter suggestedMealsPresenter;
     LottieAnimationView loadingAnimation;
     RecyclerView rvSuggestedMeals;
@@ -52,7 +53,10 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
 
         suggestedMealsAdapter = new SuggestedMealsAdapter(requireContext());
         rvSuggestedMeals.setAdapter(suggestedMealsAdapter);
-        suggestedMealsPresenter.getSuggestedMeals();
+
+        if (dataLoaded == null || dataLoaded.isEmpty()) {
+            suggestedMealsPresenter.getSuggestedMeals();
+        }
 
         sharedViewModel = new ViewModelProvider(requireActivity()).get(HomeRefreshViewModel.class);
 
@@ -65,6 +69,13 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
 
     @Override
     public void updateSuggestedMeals(List<MealEntity> meals) {
+        if (meals.isEmpty()) {
+            errorText.setVisibility(View.VISIBLE);
+            errorText.setText("No meals found");
+            return;
+        } else {
+            dataLoaded = meals;
+        }
         suggestedMealsAdapter.updateList(meals);
     }
 
@@ -76,7 +87,7 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
 
     @Override
     public void onLoad(boolean isLoading) {
-        Log.i("ONLOAD", "onLoad: " + isLoading);
+        errorText.setVisibility(View.GONE);
         loadingAnimation.setVisibility(isLoading ? View.VISIBLE : View.GONE);
         rvSuggestedMeals.setVisibility(isLoading ? View.GONE : View.VISIBLE);
     }

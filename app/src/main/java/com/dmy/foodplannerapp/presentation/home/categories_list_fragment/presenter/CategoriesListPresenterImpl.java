@@ -2,6 +2,7 @@ package com.dmy.foodplannerapp.presentation.home.categories_list_fragment.presen
 
 import android.content.Context;
 
+import com.dmy.foodplannerapp.data.failure.FailureHandler;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepo;
 import com.dmy.foodplannerapp.data.meals.repo.MealsRepoImpl;
 import com.dmy.foodplannerapp.presentation.home.categories_list_fragment.view.CategoriesListView;
@@ -30,7 +31,7 @@ public class CategoriesListPresenterImpl implements CategoriesListPresenter {
                         }
                         , error -> {
                             view.onLoading(false);
-                            view.onFailure(error.getMessage());
+                            view.onFailure(FailureHandler.handle(error, TAG).getMessage());
                         }
                 );
     }

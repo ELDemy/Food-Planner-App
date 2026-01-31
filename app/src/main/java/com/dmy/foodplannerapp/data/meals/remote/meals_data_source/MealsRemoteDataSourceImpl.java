@@ -48,6 +48,7 @@ public class MealsRemoteDataSourceImpl implements MealsRemoteDataSource {
     public Single<MealDto> getRandomMeal() {
         return mealsService.getRandomMeal()
                 .subscribeOn(Schedulers.io())
+                .timeout(2, TimeUnit.SECONDS)
                 .map(MealsResponse::getMeal);
     }
 

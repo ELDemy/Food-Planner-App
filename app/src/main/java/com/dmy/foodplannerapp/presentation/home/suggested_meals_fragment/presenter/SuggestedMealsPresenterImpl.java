@@ -22,15 +22,15 @@ public class SuggestedMealsPresenterImpl implements SuggestedMealsPresenter {
     @Override
     public void getSuggestedMeals() {
         suggestedMealsView.onLoad(true);
-        mealsRepo.getRandomMeals(10)
+        var x = mealsRepo.getRandomMeals(10)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         data -> {
+                            suggestedMealsView.onLoad(false);
                             if (data.isEmpty() || data == null) {
-                                suggestedMealsView.onFailure("No meals found");
+                                suggestedMealsView.onFailure("Can't get Meals");
                                 return;
                             }
-                            suggestedMealsView.onLoad(false);
                             suggestedMealsView.updateSuggestedMeals(data);
                         },
                         error -> {

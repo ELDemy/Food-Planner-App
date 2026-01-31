@@ -38,7 +38,7 @@ public final class FailureHandler {
 
         String message = t.getMessage();
         if (message != null && !message.isEmpty()) {
-            return new Failure(tag + ": " + message);
+            return new Failure("Can't Load Data");
         }
 
         return new Failure("Unexpected Error!!");
@@ -57,10 +57,7 @@ public final class FailureHandler {
         log(e, tag);
 
         if (e instanceof GetCredentialException) {
-            return new Failure(
-                    "Google sign-in failed: "
-                            + ((GetCredentialException) e).getErrorMessage()
-            );
+            return new Failure("Google sign-in failed: ");
         }
 
         if (e instanceof FirebaseAuthInvalidCredentialsException) {
@@ -76,7 +73,7 @@ public final class FailureHandler {
         }
 
         if (e.getMessage() != null && !e.getMessage().isEmpty()) {
-            return new Failure(tag + ": " + e.getMessage());
+            return new Failure("Can't Load Data!!");
         }
 
         return new Failure("Unexpected authentication error");
