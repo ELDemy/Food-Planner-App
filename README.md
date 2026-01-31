@@ -1,7 +1,11 @@
 # 🍽️ Food Planner App
 
 <p align="center">
-  <img src="screenshots/app_logo.png" alt="Food Planner Logo" width="200"/>
+  <img
+    width="200"
+    alt="Food Planner App Icon"
+    src="https://github.com/user-attachments/assets/a412d74d-099a-4a7b-9ad4-c5d41f20cc03"
+  />
 </p>
 
 <p align="center">
