@@ -1,5 +1,7 @@
 package com.dmy.foodplannerapp.presentation.home.suggested_meals_fragment.view;
 
+import static android.view.View.GONE;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,6 +76,7 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
             errorText.setText("No meals found");
             return;
         } else {
+            errorText.setVisibility(GONE);
             dataLoaded = meals;
         }
         suggestedMealsAdapter.updateList(meals);
@@ -87,8 +90,8 @@ public class SuggestedMealsFragment extends Fragment implements SuggestedMealsVi
 
     @Override
     public void onLoad(boolean isLoading) {
-        errorText.setVisibility(View.GONE);
-        loadingAnimation.setVisibility(isLoading ? View.VISIBLE : View.GONE);
-        rvSuggestedMeals.setVisibility(isLoading ? View.GONE : View.VISIBLE);
+        errorText.setVisibility(GONE);
+        loadingAnimation.setVisibility(isLoading ? View.VISIBLE : GONE);
+        rvSuggestedMeals.setVisibility(isLoading ? GONE : View.VISIBLE);
     }
 }

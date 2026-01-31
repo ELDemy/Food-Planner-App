@@ -1,5 +1,6 @@
 package com.dmy.foodplannerapp.presentation.home.categories_list_fragment.view;
 
+import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 import android.os.Bundle;
@@ -84,16 +85,16 @@ public class CategoriesHomeListFragment extends Fragment implements CategoriesLi
 
     @Override
     public void onLoading(boolean isLoading) {
-        errTxt.setVisibility(View.GONE);
-        loading.setVisibility(isLoading ? VISIBLE : View.GONE);
-        rvCategories.setVisibility(isLoading ? View.GONE : VISIBLE);
+        errTxt.setVisibility(GONE);
+        loading.setVisibility(isLoading ? VISIBLE : GONE);
+        rvCategories.setVisibility(isLoading ? GONE : VISIBLE);
     }
 
     @Override
     public void onFailure(String message) {
         errTxt.setVisibility(VISIBLE);
         errTxt.setText(message);
-        rvCategories.setVisibility(View.GONE);
+        rvCategories.setVisibility(GONE);
     }
 
     @Override
@@ -102,6 +103,8 @@ public class CategoriesHomeListFragment extends Fragment implements CategoriesLi
         if (categories.isEmpty()) {
             errTxt.setVisibility(VISIBLE);
             errTxt.setText("No Categories Found");
+        } else {
+            errTxt.setVisibility(GONE);
         }
         adapter.updateList(categories);
     }

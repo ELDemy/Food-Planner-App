@@ -65,35 +65,34 @@ The app allows users to:
 
 ### Authentication
 
-|              Splash               |             Auth          |
-|:---------------------------------:|:-------------------------:|
-|  ![Splash](https://github.com/user-attachments/assets/3a112ad1-4bd2-4c20-8f85-67576c2495b4)|  ![WhatsApp Image 2026-01-31 at 11 59 40 PM (1)](https://github.com/user-attachments/assets/c5fe9706-e096-4d67-bd18-23bb21b3dbe9)|
+|                                           Splash                                           |                                                               Auth                                                               |
+|:------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------:|
+| ![Splash](https://github.com/user-attachments/assets/3a112ad1-4bd2-4c20-8f85-67576c2495b4) | ![WhatsApp Image 2026-01-31 at 11 59 40 PM (1)](https://github.com/user-attachments/assets/c5fe9706-e096-4d67-bd18-23bb21b3dbe9) |
 
 ### Home & Discovery
 
-|             Home              | 
-|:-----------------------------:|
-| ![home](https://github.com/user-attachments/assets/08b52dd9-8693-4a6e-86a5-4afdd0459183)|
+|                                           Home                                           | 
+|:----------------------------------------------------------------------------------------:|
+| ![home](https://github.com/user-attachments/assets/08b52dd9-8693-4a6e-86a5-4afdd0459183) |
 
 ### Search & Filters
 
-|              Search               |                By Item             |  
-|:---------------------------------:|:-------------------------------------------:|
-| ![WhatsApp Image 2026-02-01 at 1 20 42 AM](https://github.com/user-attachments/assets/96b0f0d3-836c-48f5-b630-45cdfa1de03c)| ![WhatsApp Image 2026-02-01 at 1 21 00 AM](https://github.com/user-attachments/assets/fbe5665c-1d99-4ac7-ba00-d587d627e760)| 
+|                                                           Search                                                            |                                                           By Item                                                           |  
+|:---------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|
+| ![WhatsApp Image 2026-02-01 at 1 20 42 AM](https://github.com/user-attachments/assets/96b0f0d3-836c-48f5-b630-45cdfa1de03c) | ![WhatsApp Image 2026-02-01 at 1 21 00 AM](https://github.com/user-attachments/assets/fbe5665c-1d99-4ac7-ba00-d587d627e760) | 
 
 ### Meal Details & Planning
 
-|               Meal Details               |                Favorites                |             Meal Plan              |
-|:----------------------------------------:|:---------------------------------------:|:----------------------------------:|
-|![WhatsApp Image 2026-02-01 at 1 19 29 AM](https://github.com/user-attachments/assets/e44b2f68-c8ae-4be7-9753-5dfe44ea7cbd)| ![WhatsApp Image 2026-01-31 at 11 59 39 PM](https://github.com/user-attachments/assets/ea3d26ea-d60b-47c0-aed7-8897290cc48a)| ![WhatsApp Image 2026-01-31 at 11 59 39 PM (1)](https://github.com/user-attachments/assets/000cb18e-1193-4515-bfbc-1d326cca136d)
+|                                                        Meal Details                                                         |                                                          Favorites                                                           |                                                            Meal Plan                                                             |
+|:---------------------------------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------:|
+| ![WhatsApp Image 2026-02-01 at 1 19 29 AM](https://github.com/user-attachments/assets/e44b2f68-c8ae-4be7-9753-5dfe44ea7cbd) | ![WhatsApp Image 2026-01-31 at 11 59 39 PM](https://github.com/user-attachments/assets/ea3d26ea-d60b-47c0-aed7-8897290cc48a) | ![WhatsApp Image 2026-01-31 at 11 59 39 PM (1)](https://github.com/user-attachments/assets/000cb18e-1193-4515-bfbc-1d326cca136d) 
 |
 
 ### User Profile
 
-|               Profile               | 
-|:-----------------------------------:|
+|                                                           Profile                                                           | 
+|:---------------------------------------------------------------------------------------------------------------------------:|
 | ![WhatsApp Image 2026-02-01 at 1 19 55 AM](https://github.com/user-attachments/assets/490e6fbb-6f0a-4280-900c-f7c1789d9cbe) |
-
 
 -
 
@@ -341,8 +340,8 @@ This app uses [**TheMealDB API**](https://www.themealdb.com/api.php) for meal da
 
 **Mahmoud ELDemerdash**
 
-[![GitHub](https://img.shields.io/badge/GitHub-MahmoudELDemerdash-181717?style=flat&logo=github)](https://github.com/MahmoudELDemerdash)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Mahmoud%20ELDemerdash-0A66C2?style=flat&logo=linkedin)](https://linkedin.com/in/mahmoud-eldemerdash)
+[![GitHub](https://img.shields.io/badge/GitHub-ELDemy-181717?style=flat&logo=github)](https://github.com/ELDemy)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-ELDemy-0A66C2?style=flat&logo=linkedin)](https://linkedin.com/in/ELDemy)
 
 ---
 

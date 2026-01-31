@@ -193,6 +193,8 @@ public class SearchFragment extends Fragment implements SearchView {
             errorText.setText("No Meals Found");
             return;
         }
+        errorText.setVisibility(GONE);
+
         Log.i(TAG, "Loaded Meals: " + data.size());
         adapter.setMeals(data);
     }
