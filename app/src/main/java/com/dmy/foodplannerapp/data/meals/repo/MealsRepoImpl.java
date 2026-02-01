@@ -20,7 +20,9 @@ import com.dmy.foodplannerapp.data.model.entity.MealPlan;
 import com.dmy.foodplannerapp.data.model.entity.MealPlanWithDetails;
 import com.dmy.foodplannerapp.data.model.entity.SearchModel;
 import com.dmy.foodplannerapp.data.model.mapper.MealMapper;
+import com.dmy.foodplannerapp.utils.NetworkObserver;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -39,8 +41,10 @@ public class MealsRepoImpl implements MealsRepo {
     private final MealsRemoteDataSource mealsRemoteDataSource;
     private final MealsLocalDataSource mealsLocalDataSource;
     private final FirestoreRemoteDataSource firestoreRemoteDataSource;
+    Context context;
 
     public MealsRepoImpl(Context context) {
+        this.context = context;
         mealsRemoteDataSource = new MealsRemoteDataSourceImpl();
         mealsLocalDataSource = new MealsLocalDataSourceImpl(context);
         firestoreRemoteDataSource = new FirestoreRemoteDataSource();
@@ -246,6 +250,10 @@ public class MealsRepoImpl implements MealsRepo {
 
     @Override
     public Completable syncAll() {
+        boolean isConnected = NetworkObserver.getInstance(context).isConnected();
+        if (!isConnected) {
+            return Completable.error(new IOException("No internet connection"));
+        }
         return Completable.mergeArray(
                         syncFavorites(),
                         syncPlans()).subscribeOn(Schedulers.io())
